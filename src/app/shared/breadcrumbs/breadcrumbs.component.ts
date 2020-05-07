@@ -18,7 +18,6 @@ export class BreadcrumbsComponent implements OnInit {
 	) {
 		this.getDataRouter().subscribe(
 			response => {
-				console.log(response);
 				this.page_title = response.titulo;
 				this._title.setTitle( this.page_title ); // Setea el titulo general del buscador
 				
