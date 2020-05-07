@@ -1,3 +1,5 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -12,9 +14,11 @@ import { PagesComponent } from './pages.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SalaSituacionalComponent } from './sala-situacional/sala-situacional.component';
+import { ColaboradoresComponent } from './sala-situacional/colaboradores/colaboradores.component';
 
 @NgModule({
 	declarations: [
+		ColaboradoresComponent,
 		DashboardComponent,
 		PagesComponent,
 		SalaSituacionalComponent,
@@ -23,9 +27,11 @@ import { SalaSituacionalComponent } from './sala-situacional/sala-situacional.co
 		DashboardComponent,
 	],
 	imports: [
+		CommonModule,
 		SharedModule,
 		PAGES_ROUTES,
-		FormsModule
+		BrowserModule,
+		FormsModule,
 	]
 })
 export class PagesModule {}

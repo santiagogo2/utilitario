@@ -41,6 +41,7 @@ header{
 	margin-bottom: 0;
 	padding: .75rem 1rem;
 	color: #004993;
+	text-transform: uppercase;
 }
 .breadcrumb{
 	background-color: unset !important;
@@ -70,6 +71,10 @@ header{
 .salaSituacionalContainer{
 	text-align: center;
 	margin: auto;
+	padding: 1rem 2rem !important;
+}
+.cardContainer{
+	text-align: center;
 }
 .salaSituacionalContainer:hover .imageContainer{
 	box-shadow: 0 0 0 180px #3FC2CE inset;
@@ -88,18 +93,36 @@ header{
 }
 .salaSituacionalContainer .imageContainer,
 .salaSituacionalContainer .imageContainer img{
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-ms-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
-	transition: all 0.5s ease;
+	-webkit-transition: all 0.8s ease;
+	-moz-transition: all 0.8s ease;
+	-ms-transition: all 0.8s ease;
+	-o-transition: all 0.8s ease;
+	transition: all 0.8s ease;
 }
 .salaSituacionalContainer .titleContainer{
 	padding: 1rem 0.5rem;
 	text-transform: uppercase;
-	font-size: 1.2rem;
-	font-weight: 500;
+	font-size: 1.4rem;
+	font-weight: 600;
 	color: #3C3C3C;
+}
+.salaSituacionalContainer:hover .color-green{
+	box-shadow: 0 0 0 180px #4FB96F inset;
+}
+.salaSituacionalContainer:hover .color-red{
+	box-shadow: 0 0 0 180px #EC8993 inset;
+}
+.labelForm{
+	font-size: 0.8rem;
+	margin-bottom: 0.2rem;
+}
+.inputForm{
+	padding: 0.3rem 0.5rem;
+	font-size: 0.85rem !important;
+}
+.separator{
+	margin-top: 2rem;
+	margin-bottom: 2rem; 
 }
 /*---------------------------------------------*/
 /*---------------------------------------------*/
@@ -118,4 +141,26 @@ footer{
 footer p{
 	margin-bottom: 0.2rem;
 	color: #002142;
+}
+
+
+/*---------------------------------------------*/
+/*-----------------login Styles----------------*/
+/*---------------------------------------------*/
+#wrapper .logoContainer img {
+	width: 100%;
+}
+#wrapper .titleContainer {
+	padding: 3rem 0.5rem 1.5rem;
+	text-align: center;
+}
+#wrapper .titleContainer h1 {
+	color: #004E94;
+}
+.buttonSubmit{
+	margin-top: 2rem;
+}
+.buttonSubmit .btnPrefer{
+	padding: 0.6rem !important;
+	border-radius: 0 !important;
 }

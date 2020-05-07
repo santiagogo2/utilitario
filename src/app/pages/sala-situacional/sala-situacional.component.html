@@ -1,14 +1,14 @@
-<div class="row">
+<div class="row" *ngIf="salaSituacional">
 	<div class="col-sm-12">
 		<div class="card border-0">
-			<div class="card-body">
-				<div class="salaSituacionalContainer col col-sm-12 col-md-3">
-					<a [routerLink]="['/home']" class="imageLink">
-						<div class="imageContainer">
-							<img src="assets/images/salaSituacional.png" alt="">
+			<div class="card-body cardContainer">
+				<div class="salaSituacionalContainer col col-sm-12 col-md-3 d-inline-block" *ngFor="let sala of salaSituacional">
+					<a [routerLink]="[sala.url]" class="imageLink">
+						<div [class]="sala.class">
+							<img src="assets/images/salaSituacional/{{sala.titulo}}.png" alt="">
 						</div>
 						<div class="titleContainer">
-							<p>Sala Situacional</p>
+							<p>{{ sala.titulo }}</p>
 						</div>
 					</a>
 				</div>
