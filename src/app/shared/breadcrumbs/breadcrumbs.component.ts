@@ -10,6 +10,8 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 })
 export class BreadcrumbsComponent implements OnInit {
 	public page_title: string;
+	public url: any;
+	public breadcrumbs: any[];
 
 	constructor(
 		private _router: Router,
@@ -28,10 +30,11 @@ export class BreadcrumbsComponent implements OnInit {
 
 				this._meta.updateTag(metaTag);
 			}
-		);	
+		);
 	}
 
 	ngOnInit(): void {
+		this.setBreadcrumbs();
 	}
 
 	getDataRouter(){
@@ -40,5 +43,38 @@ export class BreadcrumbsComponent implements OnInit {
 			filter( (evento: ActivationEnd) => evento.snapshot.firstChild == null),
 			map( (evento: ActivationEnd) => evento.snapshot.data )
 		);
+	}
+
+	setBreadcrumbs(){
+		let url = document.URL;
+		let splitUrl = url.split("#/");
+		let pageLocation = splitUrl[splitUrl.length-1];
+
+		let breadcrumbsArray = pageLocation.split('/');
+		let breadcrumbs = new Array();
+		let actualUrl = '';
+		breadcrumbsArray.forEach( element => {
+			// Se crean las url dentro de un objeto
+			let obj = {}; // Nuevo objeto
+			actualUrl = actualUrl + '/' + element;
+			obj['url'] = actualUrl;
+
+			// Se crean los textos del breadcrum dentro del objeto
+			let segments = element.split('-');
+			if(segments.length > 1){
+				let text = '';
+				for( let i = 0; i < segments.length; i++ ){
+					text = text + ' ' + segments[i];
+				}
+				obj['span'] = text.trim();
+			} else {
+				obj['span'] = element;
+			}
+			breadcrumbs.push(obj);
+		});
+
+		breadcrumbs.pop();
+
+		this.breadcrumbs = breadcrumbs;
 	}
 }

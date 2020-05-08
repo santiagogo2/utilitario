@@ -10,7 +10,9 @@
 					<li class="breadcrumb-item" style="margin-left: auto;">
 						<a [routerLink]="['/dashboard']">Dashboard</a>
 					</li>
-					<li class="breadcrumb-item">pages</li>
+					<li class="breadcrumb-item" *ngFor="let breadcrum of breadcrumbs" style="text-transform: capitalize;">						
+						<a [routerLink]="[breadcrum.url]">{{ breadcrum.span }}</a>
+					</li>
 					<li class="breadcrumb-item active">{{ page_title }}</li>
 				</ol>
 			</div>

@@ -7,6 +7,7 @@ import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component
 
 const appRoutes: Routes = [
 	{ path: 'login', component: LoginComponent },
+	{ path: 'logout/:sure', component: LoginComponent },
 	{ path: '**', component: NopagefoundComponent}
 ]
 

@@ -11,7 +11,7 @@ export class SalaSituacionalComponent implements OnInit {
 
 	public salaSituacional: any[] = [
 		{ titulo: 'usuarios', url: 'usuarios', class: 'imageContainer salaSituacionalUsuarios' },
-		{ titulo: 'colaboradores', url: 'colaboradores', class: 'imageContainer color-green' },
+		{ titulo: 'colaboradores', url: 'colaboradores/listar', class: 'imageContainer color-green' },
 		{ titulo: 'informes', url: 'informes', class: 'imageContainer color-red' }
 	]
 

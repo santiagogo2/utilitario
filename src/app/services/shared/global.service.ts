@@ -1,6 +1,6 @@
 export var global = {
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
-	url: 'http://localhost:8080/rendicion-de-cuentas/api-rest-rendicion-de-cuentas/public/api/',
+	url: 'http://localhost/utilitario/api-utilitario/public/api/',
 	roles: [
 		{id: 1, value: 'admin', name: 'Administrador'},
 		{id:2, value: 'user', name: 'Usuario'}
@@ -25,6 +25,12 @@ export var global = {
 	manejos: [
 		{id: 1, value: 'AMBULATORIO'},
 		{id: 2, value: 'HOSPITALIZADO'},	
+	],
+	nexos: [
+		{id: 1, value: 'DESCONOCIDO'},
+		{id: 2, value: 'FAMILIAR'},	
+		{id: 3, value: 'LABORAL'},	
+		{id: 4, value: 'LABORAL DE OTRA ENTIDAD'},	
 	],
 	respuestas: [
 		{id: 1, value: 'SI'},

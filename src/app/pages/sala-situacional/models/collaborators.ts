@@ -1,9 +1,9 @@
-export class Colaborators{
+export class Collaborators{
 	constructor(
 		public id: number,
-		public nexo: string,
+		public idRelacionado: number,
 		public nombre: string,
-		public apellido: string,
+		public apellidos: string,
 		public tipoDocumento: number,
 		public documento: number,
 		public sexo: string,
@@ -17,6 +17,7 @@ export class Colaborators{
 		public fechaIngreso: string,
 		public fechaEgreso: string,
 		public fechaSintomas: string,
+		public nexo: string,
 		public fiebre: number,
 		public malestarGeneral: number,
 		public disnea: number,
