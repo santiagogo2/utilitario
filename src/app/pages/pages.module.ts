@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartsModule } from 'ng2-charts';
 
 // Rutas
 import { PAGES_ROUTES } from './pages.routes';
@@ -21,6 +22,12 @@ import { RegistrarColaboradoresComponent } from './sala-situacional/colaboradore
 import { ListarColaboradoresComponent } from './sala-situacional/colaboradores/listar-colaboradores/listar-colaboradores.component';
 import { EditarColaboradoresComponent } from './sala-situacional/colaboradores/editar-colaboradores/editar-colaboradores.component';
 import { RelacionarColaboradoresComponent } from './sala-situacional/colaboradores/relacionar-colaboradores/relacionar-colaboradores.component';
+import { InformesComponent } from './sala-situacional/informes/informes.component';
+
+// Temporal
+import { GraficoDonaComponent } from '../components/graficas/grafico-dona/grafico-dona.component';
+import { GraficoPieComponent } from '../components/graficas/grafico-pie/grafico-pie.component';
+import { GraficoBarrasComponent } from '../components/graficas/grafico-barras/grafico-barras.component';
 
 @NgModule({
 	declarations: [
@@ -31,12 +38,17 @@ import { RelacionarColaboradoresComponent } from './sala-situacional/colaborador
 		ListarColaboradoresComponent,
 		EditarColaboradoresComponent,
 		RelacionarColaboradoresComponent,
+		GraficoDonaComponent,
+    	GraficoPieComponent,
+    	GraficoBarrasComponent,
+		InformesComponent
 	],
 	exports: [
 		DashboardComponent,
 	],
 	imports: [
 		BrowserModule,
+		ChartsModule,
 		CommonModule,
 		FormsModule,
 		HttpClientModule,

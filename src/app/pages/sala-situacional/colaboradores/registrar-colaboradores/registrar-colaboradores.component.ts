@@ -25,15 +25,16 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	public preloaderStatus: boolean;
 	public buttonTitle: string;
 
-	public arls: any[];
-	public aseguradoras: any[];
-	public estados: any[];
-	public manejos: any[];
-	public nexos: any[];
-	public respuestas: any[];
-	public sexo: any[];
-	public tipoDocumento: any;
-
+	public area: Array<any>;
+	public arls: Array<any>;
+	public aseguradoras: Array<any>;
+	public estados: Array<any>;
+	public manejos: Array<any>;
+	public nexos: Array<any>;
+	public perfil: Array<any>
+	public respuestas: Array<any>;
+	public sexo: Array<any>;
+	public tipoDocumento: Array<any>
 	public collaborator: Collaborators;
 	public token: string;
 
@@ -42,18 +43,20 @@ export class RegistrarColaboradoresComponent implements OnInit {
 		private _collaboratorService: CollaboratorsService,
 		private _router: Router
 	) {
+		this.area = global.area;
 		this.arls = global.arls;
 		this.aseguradoras = global.aseguradoras;
 		this.estados = global.estados;
 		this.manejos = global.manejos;
 		this.nexos = global.nexos;
+		this.perfil = global.perfil;
 		this.respuestas = global.respuestas;
 		this.sexo = global.sexo;
 		this.tipoDocumento = global.tipoDocumento;
 
 		this.collaborator = new Collaborators(null,null,null,null,null,null,null,null,null,null,null,null,null,
-											null,null,null,null,null,null,null,null,null,null,null,
-											null,null,null,null,null,null,null,null,null,null,null);
+											  null,null,null,null,null,null,null,null,null,null,null,null,null,
+											  null,null,null,null,null,null,null,null,null,null,null,null);
 		this.token = this._userService.getToken();
 		
 		let documentoCargado = localStorage.getItem('utilitarioCollaboratorDocument');

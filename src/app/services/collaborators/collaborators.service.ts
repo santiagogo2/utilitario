@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { global } from '../service.index';
+import { global } from '../shared/global.service';
 
 @Injectable()
 export class CollaboratorsService {

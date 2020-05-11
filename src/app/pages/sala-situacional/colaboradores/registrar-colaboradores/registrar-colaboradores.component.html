@@ -63,6 +63,20 @@
 								<label for="address" class="labelForm">Dirección de residencia*</label>
 								<input type="text" name="address" class="form-control inputForm" [ngClass]="{'is-invalid': address.touched && address.invalid}" #address="ngModel" [(ngModel)]="collaborator.direccion" required placeholder="Ingrese la dirección del colaborador">
 							</div>
+						</div>						
+						<div class="form-group">
+							<div class="col col-sm-12 col-md-4 d-inline-block">
+								<label for="profile" class="labelForm">profile ocupacional*</label>
+								<select style="background-position-x: 93%" name="profile" id="profile" class="form-control inputForm" [ngClass]="{'is-invalid': profile.invalid && profile.touched}" #profile="ngModel" [(ngModel)]="collaborator.perfil" required>
+									<option *ngFor="let prof of perfil" value="{{ prof.id }}">{{ prof.value }}</option>
+								</select>
+							</div>
+							<div class="col col-sm-12 col-md-4 d-inline-block">
+								<label for="wArea" class="labelForm">Area*</label>
+								<select style="background-position-x: 93%" name="wArea" id="wArea" class="form-control inputForm" [ngClass]="{'is-invalid': wArea.invalid && wArea.touched}" #wArea="ngModel" [(ngModel)]="collaborator.area" required>
+									<option *ngFor="let work of area" value="{{ work.id }}">{{ work.value }}</option>
+								</select>
+							</div>
 						</div>
 						<div class="separator"><hr></div>
 						<div class="form-group">
@@ -80,7 +94,13 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col col-sm-12 d-inline-block">
+							<div class="col col-sm-12 col-md-6 d-inline-block">
+								<label for="infected" class="labelForm">Contagiado*</label>
+								<select style="background-position-x: 93%" name="infected" id="infected" class="form-control inputForm" [ngClass]="{'is-invalid': infected.invalid && infected.touched}" #infected="ngModel" [(ngModel)]="collaborator.contagiado" required>
+									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+								</select>
+							</div>
+							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="nexus" class="labelForm">Nexos*</label>
 								<select style="background-position-x: 93%" name="nexus" id="nexus" class="form-control inputForm" [ngClass]="{'is-invalid': nexus.invalid && nexus.touched}" #nexus="ngModel" [(ngModel)]="collaborator.nexo" required>
 									<option *ngFor="let nexo of nexos" value="{{ nexo.id }}">{{ nexo.value }}</option>

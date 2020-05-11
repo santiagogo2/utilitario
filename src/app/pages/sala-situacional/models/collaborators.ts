@@ -13,10 +13,13 @@ export class Collaborators{
 		public arl: string,
 		public aseguradora: string,
 		public direccion: string,
+		public perfil: number,
+		public area: number,
 
 		public fechaIngreso: string,
 		public fechaEgreso: string,
 		public fechaSintomas: string,
+		public contagiado: number,
 		public nexo: string,
 		public fiebre: number,
 		public malestarGeneral: number,

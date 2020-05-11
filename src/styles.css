@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 body{
 	background-color: #F1F1F1 !important;
+	font-family: 'lato', 'arial', sans-serif !important;
 }
 body::-webkit-scrollbar{
 	width: 6px;
@@ -7,13 +9,47 @@ body::-webkit-scrollbar{
 body::-webkit-scrollbar-thumb{
 	background: #343A40;
 }
+h1, h2, h3, h4{
+	font-weight: bold !important;
+}
 /*---------------------------------------------*/
 /*----------------Header Styles----------------*/
 /*---------------------------------------------*/
 header{
 	background-color: #FFF;
-	margin-bottom: 2rem;
-}
+	margin-bottom: 2rem;}
+	header nav{
+		padding: 0 !important;
+	}
+	header .active{
+		background-color: #25292D;
+	}
+	header .dropdown-menu{
+		border-radius: 0 !important;
+	}
+	header .dropdown-item{
+		padding: 0.7rem 1rem !important;
+		-webkit-transition: all 0.3s ease;
+		-moz-transition: all 0.3s ease;
+		-ms-transition: all 0.3s ease;
+		-o-transition: all 0.3s ease;
+		transition: all 0.3s ease;
+	}
+	header .dropdown-item:hover{
+		background-color: #25292D;
+		color: #FFFFDD;
+	}
+	header .nav-item{
+		padding: 0.6rem 1rem;
+		-webkit-transition: all 0.3s ease;
+		-moz-transition: all 0.3s ease;
+		-ms-transition: all 0.3s ease;
+		-o-transition: all 0.3s ease;
+		transition: all 0.3s ease;
+	}
+	header .nav-item:hover{
+		background-color: #25292D;
+	}
 .headerContainer{
 	background-color: #CCC;
 	padding: 1rem 1.5rem !important;
@@ -22,6 +58,7 @@ header{
 }
 .titleContainer{
 	vertical-align: bottom;
+	padding: 0.6rem 1rem;
 }
 .titleContainer h1{
 	font-size: 1.6rem;
@@ -159,6 +196,41 @@ header{
 /*---------------------------------------------*/
 
 /*---------------------------------------------*/
+/*----------------Reports Styles--------------*/
+/*---------------------------------------------*/
+.reports{
+	margin: auto !important;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	display: flex;
+	flex-wrap: wrap;}
+	.reports .reportGraph{
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		display: grid;
+	}
+	.reports .card-header{
+		text-align: center;
+		padding: 1.3rem 1rem !important;
+		color: #FFF; 
+	}
+	.reports .card-title{
+		text-align: center;
+	}
+.infoReportTable{
+	margin: auto;
+	margin-bottom: 2rem;}
+	.infoReportTable .thead_styles{
+		background-color: #0C437B;
+		font-weight: 500;
+	}
+	.infoReportTable .thead_styles td{
+		font-size: 0.75rem;
+	}
+/*---------------------------------------------*/
+/*---------------------------------------------*/
+
+/*---------------------------------------------*/
 /*---------------Accordion Styles--------------*/
 /*---------------------------------------------*/
 #accordion{
@@ -177,11 +249,23 @@ header{
 	color: #FFF !important;
 	font-size: 0.9rem;
 }
+/*---------------------------------------------*/
+/*---------------------------------------------*/
 
 /*---------------------------------------------*/
 /*-----------------Table Styles----------------*/
 /*---------------------------------------------*/
 
+.tableContainer{
+	overflow-x: auto;
+	margin-bottom: 1rem;
+}
+.tableContainer::-webkit-scrollbar{
+	height: 6px;
+}
+.tableContainer::-webkit-scrollbar-thumb{
+	background: #343A40;
+}
 .tableContainerAll{
 	overflow-x: auto;
 	padding: 0 !important;
