@@ -34,7 +34,10 @@ export class EditarColaboradoresComponent implements OnInit {
 	public perfil: Array<any>;
 	public respuestas: Array<any>;
 	public sexo: Array<any>;
-	public tipoDocumento: Array<any>
+	public tipoDocumento: Array<any>;
+	public tipoVinculacion: Array<any>;
+	public unidades: Array<any>;
+
 	public collaborator: Collaborators;
 	public token: string;
 
@@ -54,7 +57,10 @@ export class EditarColaboradoresComponent implements OnInit {
 		this.respuestas = global.respuestas;
 		this.sexo = global.sexo;
 		this.tipoDocumento = global.tipoDocumento;
-		this.token = this._userService.getToken();		
+		this.tipoVinculacion = global.tipoVinculacion;
+		this.unidades = global.unidades;
+		
+		this.token = this._userService.getToken();
 	}
 
 	ngOnInit(): void {

@@ -34,7 +34,10 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	public perfil: Array<any>
 	public respuestas: Array<any>;
 	public sexo: Array<any>;
-	public tipoDocumento: Array<any>
+	public tipoDocumento: Array<any>;
+	public tipoVinculacion: Array<any>;
+	public unidades: Array<any>;
+
 	public collaborator: Collaborators;
 	public token: string;
 
@@ -53,10 +56,13 @@ export class RegistrarColaboradoresComponent implements OnInit {
 		this.respuestas = global.respuestas;
 		this.sexo = global.sexo;
 		this.tipoDocumento = global.tipoDocumento;
+		this.tipoVinculacion = global.tipoVinculacion;
+		this.unidades = global.unidades;
 
 		this.collaborator = new Collaborators(null,null,null,null,null,null,null,null,null,null,null,null,null,
 											  null,null,null,null,null,null,null,null,null,null,null,null,null,
-											  null,null,null,null,null,null,null,null,null,null,null,null);
+											  null,null,null,null,null,null,null,null,null,null,null,null,null,
+											  null,null,null,null,null);
 		this.token = this._userService.getToken();
 		
 		let documentoCargado = localStorage.getItem('utilitarioCollaboratorDocument');
