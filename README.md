@@ -25,3 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Sweet Alert Problems
+
+Maybe you will find with an error with Sweet Alert. This problem can be solved by replacing the `const swal` in `node_modules/sweetalert/typings/sweetalert.d.ts` to `const swal: typeof import("C:/wamp64/www/utilitario/utilitario/node_modules/sweetalert/typings/sweetalert");`
