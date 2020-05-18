@@ -1,9 +1,10 @@
 export var global = {
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
-	url: 'http://172.19.22.160:8080/utilitario/api-utilitario/public/api/',
+	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
 	roles: [
-		{id:0, value: 'admin', name: 'Administrador'},
-		{id:1, value: 'user', name: 'Usuario'}
+		{id:0, value: 'ADMIN_ROLE', name: 'Administrador'},
+		{id:1, value: 'USER_ROLE', name: 'Usuario'},
+		{id:2, value: 'REPORTS_ROLE', name: 'Informes'}
 	],
 	area: [
 		{id:0, value: 'ADMINISTRATIVA'},
@@ -20,6 +21,9 @@ export var global = {
 		{id:11, value: 'UNIDAD NEONATOS'},
 		{id:12, value: 'URGENCIAS'},
 		{id:13, value: 'VIGILANCIA SANITÁRIA'},
+		{id:14, value: 'ORTOPEDIA'},
+		{id:15, value: 'LABORATORIO'},
+		{id:16, value: 'ODONTOLOGÍA'},
 	],
 	arls: [
 		{id: 0, value: 'SURA'}
@@ -28,15 +32,17 @@ export var global = {
 		{id: 0, value: 'ALIANSALUD'},
 		{id: 1, value: 'COMPENSAR'},
 		{id: 2, value: 'FAMISANAR'},
-		{id: 3, value: 'NUEVA EPS'},
-		{id: 4, value: 'SALUD TOTAL'},
-		{id: 5, value: 'SANITAS'},
-		{id: 6, value: 'SURA'},
+		{id: 3, value: 'MEDIMAS'},
+		{id: 4, value: 'NUEVA EPS'},
+		{id: 5, value: 'SALUD TOTAL'},
+		{id: 6, value: 'SANITAS'},
+		{id: 7, value: 'SURA'},
 	],
 	estados: [
 		{id: 0, value: 'CUARENTENA'},
 		{id: 1, value: 'HOSPITALIZADO'},
 		{id: 2, value: 'RECUPERADO'},
+		{id: 3, value: 'UCI'},
 		],
 	manejos: [
 		{id: 0, value: 'AMBULATORIO'},
@@ -63,6 +69,9 @@ export var global = {
 		{id:11, value: 'MÉDICO VETERINARIO'},
 		{id:12, value: 'PROFESIONAL DE ENLACE'},
 		{id:13, value: 'TERAPEUTA RESPIRATORIA'},
+		{id:14, value: 'MÉDICO ESPECIALISTA'},
+		{id:15, value: 'MENSAJERO'},
+		{id:16, value: 'AUXILIAR DE ODONTOLOGÍA'},
 	],
 	respuestas: [
 		{id: 0, value: 'SI'},
@@ -115,5 +124,7 @@ export var global = {
 		{ id: 32, value: 'USS SIERRA MORENA' },
 		{ id: 33, value: 'USS USME' },
 		{ id: 34, value: 'USS VISTA HERMOSA' },
+		{ id: 35, value: 'SIRC' },
+		{ id: 36, value: 'PIC' },
 	],
 }

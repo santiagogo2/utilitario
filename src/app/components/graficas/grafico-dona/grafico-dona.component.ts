@@ -15,6 +15,7 @@ export class GraficoDonaComponent implements OnInit {
 	public ChartPlugins = [pluginDataLabels];
 	public ChartOptions: ChartOptions = {
 		responsive: true,
+		maintainAspectRatio: false,
 		legend: {
 			position: 'top',
 		},

@@ -28,6 +28,7 @@ import { InformesComponent } from './sala-situacional/informes/informes.componen
 import { GraficoDonaComponent } from '../components/graficas/grafico-dona/grafico-dona.component';
 import { GraficoPieComponent } from '../components/graficas/grafico-pie/grafico-pie.component';
 import { GraficoBarrasComponent } from '../components/graficas/grafico-barras/grafico-barras.component';
+import { CircleImageComponent } from '../components/imagenes/circle-image/circle-image.component';
 
 @NgModule({
 	declarations: [
@@ -41,7 +42,8 @@ import { GraficoBarrasComponent } from '../components/graficas/grafico-barras/gr
 		GraficoDonaComponent,
     	GraficoPieComponent,
     	GraficoBarrasComponent,
-		InformesComponent
+		InformesComponent,
+    	CircleImageComponent,
 	],
 	exports: [
 		DashboardComponent,

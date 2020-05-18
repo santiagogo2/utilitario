@@ -90,7 +90,7 @@ export class RegistrarColaboradoresComponent implements OnInit {
 					this.responseMessage = response.message;
 					swal('Registro exitoso', this.responseMessage, 'success');
 					collaboratorsForm.reset();
-					this._router.navigate(['/sala-situacional']);
+					this._router.navigate(['/sala-situacional/colaboradores/listar']);
 				}
 			},
 			error => {

@@ -17,6 +17,7 @@ export class GraficoPieComponent implements OnInit {
 	public pieChartPlugins = [pluginDataLabels];
 	public pieChartOptions: ChartOptions = {
 		responsive: true,
+		maintainAspectRatio: false,
 		legend: {
 			position: 'top',
 		},

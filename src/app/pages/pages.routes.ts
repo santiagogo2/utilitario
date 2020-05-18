@@ -12,7 +12,10 @@ import { RelacionarColaboradoresComponent } from './sala-situacional/colaborador
 import { InformesComponent } from './sala-situacional/informes/informes.component';
 
 // Services
+
+// Guards
 import { IdentityGuard } from '../guards/identity.guard';
+import { ReporstGuard } from '../guards/reports.guard';
 
 const pagesRoutes: Routes = [
 	{
@@ -28,10 +31,10 @@ const pagesRoutes: Routes = [
 		path: 'sala-situacional',
 		component: PagesComponent,
 		children: [
-			{ path: 'colaboradores/listar', component: ListarColaboradoresComponent, data: { titulo: 'Listar Colaboradores' }, canActivate: [IdentityGuard] },
-			{ path: 'colaboradores/registrar', component: RegistrarColaboradoresComponent, data: { titulo: 'Registrar Colaborador' }, canActivate: [IdentityGuard] },
-			{ path: 'colaboradores/editar/:id', component: EditarColaboradoresComponent, data: { titulo: 'Editar Colaborador' }, canActivate: [IdentityGuard] },
-			{ path: 'colaboradores/relacionar/:id', component: RelacionarColaboradoresComponent, data: { titulo: 'Relacionar Colaborador' }, canActivate: [IdentityGuard] },
+			{ path: 'colaboradores/listar', component: ListarColaboradoresComponent, data: { titulo: 'Listar Colaboradores' }, canActivate: [IdentityGuard, ReporstGuard] },
+			{ path: 'colaboradores/registrar', component: RegistrarColaboradoresComponent, data: { titulo: 'Registrar Colaborador' }, canActivate: [IdentityGuard, ReporstGuard] },
+			{ path: 'colaboradores/editar/:id', component: EditarColaboradoresComponent, data: { titulo: 'Editar Colaborador' }, canActivate: [IdentityGuard, ReporstGuard] },
+			{ path: 'colaboradores/relacionar/:id', component: RelacionarColaboradoresComponent, data: { titulo: 'Relacionar Colaborador' }, canActivate: [IdentityGuard, ReporstGuard] },
 
 			{ path: 'informes', component: InformesComponent, data: { titulo: 'Informes' }, canActivate: [IdentityGuard] },
 		]		

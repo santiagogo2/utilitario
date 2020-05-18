@@ -1,8 +1,13 @@
-<div class="row">
+<div class="loaderBall" *ngIf="!user && !responseMessage">
+	<div class="ball-pulse-rise">
+		<div></div><div></div><div></div><div></div><div></div>
+	</div>
+</div>
+<div class="row" *ngIf="user">
 	<div class="col-sm-12">
 		<div class="card border-0">
 			<div class="card-body">
-				<div class="formContainerAdmin col col-sm-12 col-md-6" [ngClass]="{'formContainerAdminError': status && status=='error'}">
+				<div class="formContainerAdmin col col-sm-12 col-md-8 col-lg-6" [ngClass]="{'formContainerAdminError': status && status=='error'}">
 					<form #userRegisterForm="ngForm" class="form-container" *ngIf="user" (ngSubmit)="onSubmit(userRegisterForm)">
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">

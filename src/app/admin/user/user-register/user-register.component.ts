@@ -24,6 +24,7 @@ export class UserRegisterComponent implements OnInit {
 	public enabled: boolean;
 	public enabledPassword: boolean;
 	public passwordText: string;
+	public responseMessage: string;
 
 	public user: User;
 	public roles: Array<any>;
@@ -49,6 +50,7 @@ export class UserRegisterComponent implements OnInit {
 
 	onSubmit(userRegisterForm){
 		this.status = undefined;
+		this.responseMessage = undefined;
 
 		this._userService.newUser(this.user, this.token).subscribe(
 			res => {
@@ -58,15 +60,14 @@ export class UserRegisterComponent implements OnInit {
 				}
 			},
 			error => {
-				let responseMessage: string;
-				responseMessage = error.error.message;
+				this.responseMessage = error.error.message;
 
 				if(error.error.errors){
-					responseMessage = responseMessage + '. ' + JSON.stringify(error.error.errors);
+					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
 				}
 
 				this.status = 'error';
-				swal('Error', responseMessage, 'error');
+				swal('Error', this.responseMessage, 'error');
 				console.log(<any>error);
 			}
 		);

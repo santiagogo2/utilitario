@@ -1,12 +1,4 @@
 <header>
-	<!-- <div class="headerContainer col col-sm-12">
-		<div class="titleContainer col col-sm-12 col-md-9 d-inline-block">
-			<h1>Utilitario</h1>
-		</div>
-		<div class="logoContainer col col-sm-12 col-md-3 d-inline-block">
-			<img src="assets/images/logoSubred.png" alt="Subred Integrada de Servicios de Salud Sur">
-		</div>
-	</div> -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class=" navbar-brand titleContainer">
 			<h1>{{ page_title }}</h1>
@@ -26,6 +18,8 @@
 						{{identity.name + ' ' + identity.surname}}
 					</a>
 					<div class="dropdown-menu animated bounceIn" aria-labelledby="navbarDropdownMenuLink" style="left: unset !important; right: 0;">
+						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Usuarios</a>
+						<div class="dropdown-divider" *ngIf="identity.role=='ADMIN_ROLE'"></div>
 						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/logout', 1]">Cerrar Sesión</a>
 					</div>
 				</li>
@@ -33,8 +27,3 @@
 		</div>
 	</nav>
 </header>
-<style>
-	.navbarNavDropdown{
-
-	}
-</style>

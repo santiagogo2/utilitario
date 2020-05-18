@@ -18,6 +18,7 @@ export class GraficoBarrasComponent implements OnInit {
 	public barChartOptions: ChartOptions = {
 
 		responsive: true,
+		maintainAspectRatio: false,
 		legend: { position: 'top' },
 		scales: {
 			yAxes: [{

@@ -1,5 +1,10 @@
+<div class="loaderBall" *ngIf="preloaderStatus">
+	<div class="ball-pulse-rise">
+		<div></div><div></div><div></div><div></div><div></div>
+	</div>
+</div>
 <div class="row reports col-sm-12">
-	<div class="col-sm-6 reportGraph" *ngIf="gender">
+	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="gender">
 		<div class="card border-0">
 			<h4 class="card-header">{{ gender.title }}</h4>
 			<div class="card-body">
@@ -20,7 +25,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 reportGraph" *ngIf="epidemicNexus">
+	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="epidemicNexus">
 		<div class="card border-0">
 			<h4 class="card-header">{{ epidemicNexus.title }}</h4>
 			<div class="card-body">
@@ -42,7 +47,7 @@
 		</div>
 	</div>
 
-	<div class="col-sm-6 reportGraph" *ngIf="profile">
+	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="profile">
 		<div class="card border-0">
 			<h4 class="card-header">{{ profile.title }}</h4>
 			<div class="card-body">
@@ -62,7 +67,7 @@
 				</app-grafico-barras>				
 			</div>
 		</div>
-	</div><div class="col-sm-6 reportGraph" *ngIf="area">
+	</div><div class="col-sm-12 col-md-6 reportGraph" *ngIf="area">
 		<div class="card border-0">
 			<h4 class="card-header">{{ area.title }}</h4>
 			<div class="card-body">
@@ -84,7 +89,7 @@
 		</div>
 	</div>
 
-	<div class="col-sm-6 reportGraph" *ngIf="peopleStatus">
+	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="peopleStatus">
 		<div class="card border-0">
 			<h4 class="card-header">{{ peopleStatus.title }}</h4>
 			<div class="card-body">
@@ -105,7 +110,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 reportGraph" *ngIf="symptoms">
+	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="symptoms">
 		<div class="card border-0">
 			<h4 class="card-header">{{ symptoms.title }}</h4>
 			<div class="card-body">

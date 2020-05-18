@@ -1,8 +1,13 @@
-<div class="row">
+<div class="loaderBall" *ngIf="!users && !responseMessage">
+	<div class="ball-pulse-rise">
+		<div></div><div></div><div></div><div></div><div></div>
+	</div>
+</div>
+<div class="row" *ngIf="users">
 	<div class="col-sm-12">
 		<div class="card border-0">
 			<div class="card-body cardContainer">
-				<div class="registerCollaboratorButton" *ngIf="users">
+				<div class="registerCollaboratorButton">
 					<button class="btn btn-info" [routerLink]="['/admin/agregar']">Crear nuevo usuario</button>
 				</div>
 				

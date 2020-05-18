@@ -21,8 +21,9 @@ header{
 	header nav{
 		padding: 0 !important;
 	}
-	header .active{
-		background-color: #25292D;
+	header .active,
+	.dropdown-item.active{
+		background-color: #25292D !important;
 	}
 	header .dropdown-menu{
 		border-radius: 0 !important;
@@ -332,14 +333,10 @@ header{
 .table td button{
 	font-size: 0.7rem;
 	padding: 0.2rem 0;
-	display: block;
 	margin: auto;
-	width: 50%;
-	height: 50%;
 	text-decoration: none;
-	color: #212529;
-	/*margin-top: 0.35rem;*/
 	color: #F7F7F7;
+	margin-bottom: 0.3rem;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
 	-ms-transition: all 0.3s ease;
@@ -476,6 +473,158 @@ footer p{
 	color: #002142;
 }
 
+/*=============================================*/
+/*===============Alerts Bootstrap==============*/
+/*=============================================*/
+.errorAlert div{
+	border-radius: 0px !important;
+	font-size: 0.9rem;
+}
+
+/*=============================================*/
+/*===================Loaders===================*/
+/*=============================================*/
+.preLoader{
+	position: absolute;
+	left: calc(50% - 35px);
+}
+.loader{
+	border: 3.5px solid #E1E1E1;
+	border-radius: 50%;
+	border-top: 3.5px solid #343a40;
+	width: 35px;
+	height: 35px;
+	-webkit-animation: spin 0.7s linear infinite;
+	-moz-animation: spin 0.7s linear infinite;
+	-ms-animation: spin 0.7s linear infinite;
+	-o-animation: spin 0.7s linear infinite;
+	animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.square{
+	width: 35px;
+	height: 35px;
+	border: none;
+	/*border-radius: 50%;*/
+	box-shadow: 7px 7px #343A40 inset;
+	transform: rotate(45deg);
+	animation: showSquare 2s linear infinite;
+}
+@keyframes showSquare {
+	0% { box-shadow: 7px 7px #343A40 inset; }
+	20% {
+		box-shadow: 7px 7px #343A40 inset,
+					14px 14px #25303EC7 inset;
+	}
+	40% {
+		box-shadow: 7px 7px #343A40 inset,
+					14px 14px #25303EC7 inset,
+					21px 21px #18253582 inset;
+	}
+	60% {
+		box-shadow: 7px 7px #343A40 inset,
+					14px 14px #25303EC7 inset,
+					21px 21px #18253582 inset,
+					28px 28px #1223389C inset;
+	}
+	80% {
+		box-shadow: 7px 7px #343A40 inset,
+					14px 14px #25303EC7 inset,
+					21px 21px #18253582 inset,
+					28px 28px #1223389C inset,
+					35px 35px #0f223C6B inset;
+	}
+	100% { box-shadow: 7px 7px #343A40 inset; }
+}
+.imageLoaderContainer{
+	width: fit-content;
+	margin: auto;
+	padding: 30px 0;
+}
+
+.loaderBall{
+	width: fit-content;
+	margin: 5rem auto;
+}
+.ball-pulse-rise>div:nth-child(2n-1){
+	animation-name: ball-pulse-rise-odd;
+	background-color: #004993;
+}
+.ball-pulse-rise>div:nth-child(2n){
+	animation-name: ball-pulse-rise-even;
+	background-color: #009EE2;
+}
+.ball-pulse-rise>div{
+	width: 15px;
+	animation-fill-mode: both;
+	animation-duration: 1s;
+	animation-timing-function: cubic-bezier(.15,.46,.9,.6);
+	animation-iteration-count: infinite;
+	animation-delay: 0;
+	height: 15px;
+	border-radius: 100%;
+	display: inline-block;
+	background-color: #fff;
+	margin: 2px;
+}
+@keyframes ball-pulse-rise-odd{
+	0%{
+		-webkit-transform: scale(.4);
+		transform: scale(2);
+		background-color: #004993;
+	}
+	25% {
+		-webkit-transform: translateY(30px);
+		transform: translateY(30px);
+	}
+	50% {
+		-webkit-transform: scale(1.1);
+		transform: scale(1.1);
+		background-color: #009EAC;
+	}
+	75% {
+		-webkit-transform: translateY(-30px);
+		transform: translateY(-30px);
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		-webkit-transform: scale(.75);
+		transform: scale(.75);
+		background-color: #009EE2;
+	}
+}
+@keyframes ball-pulse-rise-even{
+	0%{
+		-webkit-transform: scale(1.1);
+		transform: scale(1.1);
+		background-color: #009EE2;
+	}
+	25% {
+		-webkit-transform: translateY(-30px);
+		transform: translateY(-30px);
+	}
+	50% {
+	    -webkit-transform: scale(.4);
+		transform: scale(.4);
+		background-color: #009EAC;
+	}
+	75% {
+		-webkit-transform: translateY(30px);
+		transform: translateY(30px);
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		-webkit-transform: scale(1);
+		transform: scale(1);
+		background-color: #004993;
+	}
+}
 
 /*---------------------------------------------*/
 /*-----------------login Styles----------------*/

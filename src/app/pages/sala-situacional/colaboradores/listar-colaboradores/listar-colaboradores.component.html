@@ -1,4 +1,9 @@
-<div class="row">
+<div class="loaderBall" *ngIf="!collaborators && !responseMessage">
+	<div class="ball-pulse-rise">
+		<div></div><div></div><div></div><div></div><div></div>
+	</div>
+</div>
+<div class="row" *ngIf="collaborators">
 	<div class="col-sm-12">
 		<div class="card border-0">
 			<div class="card-body cardContainer">
@@ -6,7 +11,7 @@
 					<button class="btn btn-info" [routerLink]="['/sala-situacional/colaboradores/registrar']">Crear nuevo registro</button>
 				</div>
 				
-				<div class="tableContainer" *ngIf="collaborators">
+				<div class="tableContainer">
 					<div class="tableContainerAll col col-sm-12">
 						<div class="paginationControls" *ngIf="collaborators && collaborators.length > itemsPerPage">
 							<pagination-controls (pageChange)="pageChange($event)"
@@ -18,19 +23,19 @@
 						<table class="table table-bordered">
 							<thead class="thead_styles">
 								<tr>
+									<th>#</th>
 									<th>Documento</th>
 									<th>Nombres</th>
-									<th>Apellidos</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
 							<tbody class="tbody_styles">
-								<tr *ngFor="let collaborator of collaborators | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage};" class="tableStyles">
+								<tr *ngFor="let collaborator of collaborators | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage}; index as i" class="tableStyles">
+									<td>{{ (itemsPerPage * (actualPage - 1) + i) + 1 }}</td>
 									<td>{{ collaborator.documento }}</td>
 									<td>{{ collaborator.nombre }}</td>
-									<td>{{ collaborator.apellidos }}</td>
 									<td style="padding: 0.55rem">
-										<button type="button" class="btn btn-info col col-sm-12 col-md-4 mr-1 d-inline-block" [routerLink]="['/sala-situacional/colaboradores/relacionar', collaborator.id]">Relacionados</button>
+										<button type="button" class="btn btn-info col col-sm-12 col-md-6 mr-1 d-inline-block" [routerLink]="['/sala-situacional/colaboradores/relacionar', collaborator.id]">Relacionados</button>
 										<button type="button" class="btn btn-warning col col-sm-12 col-md-3 mr-1 d-inline-block" [routerLink]="['/sala-situacional/colaboradores/editar', collaborator.id]">Editar</button>
 										<!-- <button type="button" class="btn btn-danger col col-sm-12 col-md-3 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+collaborator.id">Borrar</button> -->
 									</td>

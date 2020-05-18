@@ -4,8 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/service.index';
 import { User } from '../models/user';
 
-import swal from 'sweetalert';
-
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
@@ -66,9 +64,9 @@ export class LoginComponent implements OnInit {
 							}
 						},
 						error => {
+							this.preloaderStatus = false;
 							this.status = error.error.status;
 							this.responseMessage = error.error.message;
-							swal('Error', this.responseMessage, 'error');
 							console.log(<any>error);
 						}
 					);					
@@ -76,9 +74,9 @@ export class LoginComponent implements OnInit {
 
 			},
 			error => {
+				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
-				swal('Error', this.responseMessage, 'error');
 				console.log(<any>error);
 			}
 		);

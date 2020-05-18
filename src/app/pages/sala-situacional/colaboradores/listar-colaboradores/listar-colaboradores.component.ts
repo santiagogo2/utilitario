@@ -36,7 +36,7 @@ export class ListarColaboradoresComponent implements OnInit {
 		this.getCollaborators();
 	}
 
-	getCollaborators(){
+	getCollaborators(){		
 		this._collaboratorService.getCollaborators(this.token).subscribe(
 			response => {
 				if(response.status == 'success'){

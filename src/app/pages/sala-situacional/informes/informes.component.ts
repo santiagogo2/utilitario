@@ -26,14 +26,6 @@ export class InformesComponent implements OnInit {
 	public token: string;
 	public collaborators: Collaborators[];
 
-	graficos: any = {
-		'grafico1': {
-			'labels': ['Con Frijoles', 'Con Natilla', 'Con tocino'],
-			'data': [24, 30, 46],
-			'type': 'doughnut'
-		}
-	};
-
 	constructor(
 		private _collaboratorService: CollaboratorsService,
 		private _userService: UserService
@@ -46,6 +38,8 @@ export class InformesComponent implements OnInit {
 	}
 
 	getCollaborators(){
+		this.preloaderStatus = true;
+
 		this._collaboratorService.getCollaborators(this.token).subscribe(
 			response => {
 				if(response.status == 'success'){
@@ -58,9 +52,11 @@ export class InformesComponent implements OnInit {
 					this.area.data = [ { data: this.area.data, label: 'Eventos' } ];
 					this.peopleStatus = this.setGeneralInformation('estado', global.estados, 'Distribución de eventos según el estado actual', 'doughnut');
 					this.symptoms = this.setSymptoms('Distribución de eventos por síntomas', 'pie');
+					this.preloaderStatus = false;
 				}
 			},
 			error => {
+				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(<any>error);

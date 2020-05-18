@@ -1,3 +1,8 @@
+<div class="loaderBall" *ngIf="!collaborator && !responseMessage">
+	<div class="ball-pulse-rise">
+		<div></div><div></div><div></div><div></div><div></div>
+	</div>
+</div>
 <div class="row" *ngIf="collaborator">
 	<div class="col-sm-12">
 		<div class="card border-0">
@@ -7,7 +12,7 @@
 						<div class="form-group">
 							<div class="col col-sm-12">
 								<label for="name" class="labelForm">Nombres y Apellidos*</label>
-								<input type="text" name="name" class="form-control inputForm" [ngClass]="{'is-invalid': name.touched && name.invalid}" #name="ngModel" [(ngModel)]="collaborator.nombre" required pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre">
+								<input type="text" name="name" class="form-control inputForm" [ngClass]="{'is-invalid': name.touched && name.invalid}" #name="ngModel" [(ngModel)]="collaborator.nombre" required pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese los nombres y apellidos del colaborador">
 							</div>
 						</div>
 						<div class="form-group">
@@ -30,43 +35,39 @@
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="birthday" class="labelForm">Fecha de nacimiento*</label>
-								<input type="date" name="birthday" id="birthday" class="form-control inputForm" [ngClass]="{'is-invalid': birthday.invalid && birthday.touched}" #birthday="ngModel" [(ngModel)]="collaborator.fechaNacimiento" (ngModelChange)="calculateAge($event)" required>
-							</div>
-							<div class="col col-sm-12 col-md-4 d-inline-block">
 								<label for="age" class="labelForm">Edad</label>
-								<input type="text" name="age" class="form-control inputForm" [ngClass]="{'is-invalid': age.touched && age.invalid}" #age="ngModel" [(ngModel)]="collaborator.edad" required pattern="[0-9]+" maxlength="3" disabled>
+								<input type="text" name="age" class="form-control inputForm" [ngClass]="{'is-invalid': age.touched && age.invalid}" #age="ngModel" [(ngModel)]="collaborator.edad" required pattern="[0-9]+" maxlength="3" placeholder="Ingrese la edad del colaborador">
 							</div>
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="phone" class="labelForm">Teléfono*</label>
-								<input type="text" name="phone" class="form-control inputForm" [ngClass]="{'is-invalid': phone.touched && phone.invalid}" #phone="ngModel" [(ngModel)]="collaborator.telefono" required pattern="[0-9]+" placeholder="Ingrese el número telefónico" maxlength="10">
+								<label for="phone" class="labelForm">Teléfono</label>
+								<input type="text" name="phone" class="form-control inputForm" [ngClass]="{'is-invalid': phone.touched && phone.invalid}" #phone="ngModel" [(ngModel)]="collaborator.telefono" pattern="[0-9]+" placeholder="Ingrese el número telefónico" maxlength="10">
 							</div>
-						</div>
-						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
 								<label for="arl" class="labelForm">ARL*</label>
 								<select style="background-position-x: 93%" name="arl" id="arl" class="form-control inputForm" [ngClass]="{'is-invalid': arl.invalid && arl.touched}" #arl="ngModel" [(ngModel)]="collaborator.arl" required>
 									<option *ngFor="let arl of arls" value="{{ arl.id }}">{{ arl.value }}</option>
 								</select>
 							</div>
+						</div>
+						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="insurers" class="labelForm">Aseguradora*</label>
-								<select style="background-position-x: 93%" name="insurers" id="insurers" class="form-control inputForm" [ngClass]="{'is-invalid': insurers.invalid && insurers.touched}" #insurers="ngModel" [(ngModel)]="collaborator.aseguradora" required>
+								<label for="insurers" class="labelForm">Aseguradora</label>
+								<select style="background-position-x: 93%" name="insurers" id="insurers" class="form-control inputForm" [ngClass]="{'is-invalid': insurers.invalid && insurers.touched}" #insurers="ngModel" [(ngModel)]="collaborator.aseguradora">
 									<option *ngFor="let aseguradora of aseguradoras" value="{{ aseguradora.id }}">{{ aseguradora.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="address" class="labelForm">Dirección de residencia*</label>
-								<input type="text" name="address" class="form-control inputForm" [ngClass]="{'is-invalid': address.touched && address.invalid}" #address="ngModel" [(ngModel)]="collaborator.direccion" required placeholder="Ingrese la dirección del colaborador">
+								<label for="address" class="labelForm">Dirección de residencia</label>
+								<input type="text" name="address" class="form-control inputForm" [ngClass]="{'is-invalid': address.touched && address.invalid}" #address="ngModel" [(ngModel)]="collaborator.direccion" placeholder="Ingrese la dirección del colaborador">
 							</div>
-						</div>						
-						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="profile" class="labelForm">Perfil ocupacional*</label>
-								<select style="background-position-x: 93%" name="profile" id="profile" class="form-control inputForm" [ngClass]="{'is-invalid': profile.invalid && profile.touched}" #profile="ngModel" [(ngModel)]="collaborator.perfil" required>
+								<label for="profile" class="labelForm">Perfil ocupacional</label>
+								<select style="background-position-x: 93%" name="profile" id="profile" class="form-control inputForm" [ngClass]="{'is-invalid': profile.invalid && profile.touched}" #profile="ngModel" [(ngModel)]="collaborator.perfil">
 									<option *ngFor="let prof of perfil" value="{{ prof.id }}">{{ prof.value }}</option>
 								</select>
 							</div>
+						</div>						
+						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
 								<label for="profileType" class="labelForm">Tipo de Vinculación*</label>
 								<select style="background-position-x: 93%" name="profileType" id="profileType" class="form-control inputForm" [ngClass]="{'is-invalid': profileType.invalid && profileType.touched}" #profileType="ngModel" [(ngModel)]="collaborator.vinculacion" required>
@@ -74,16 +75,14 @@
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="wArea" class="labelForm">Area*</label>
-								<select style="background-position-x: 93%" name="wArea" id="wArea" class="form-control inputForm" [ngClass]="{'is-invalid': wArea.invalid && wArea.touched}" #wArea="ngModel" [(ngModel)]="collaborator.area" required>
+								<label for="wArea" class="labelForm">Area</label>
+								<select style="background-position-x: 93%" name="wArea" id="wArea" class="form-control inputForm" [ngClass]="{'is-invalid': wArea.invalid && wArea.touched}" #wArea="ngModel" [(ngModel)]="collaborator.area">
 									<option *ngFor="let work of area" value="{{ work.id }}">{{ work.value }}</option>
 								</select>
 							</div>
-						</div>					
-						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="serviceUnit" class="labelForm">Unidad*</label>
-								<select style="background-position-x: 93%" name="serviceUnit" id="serviceUnit" class="form-control inputForm" [ngClass]="{'is-invalid': serviceUnit.invalid && serviceUnit.touched}" #serviceUnit="ngModel" [(ngModel)]="collaborator.unidad" required>
+								<label for="serviceUnit" class="labelForm">Unidad</label>
+								<select style="background-position-x: 93%" name="serviceUnit" id="serviceUnit" class="form-control inputForm" [ngClass]="{'is-invalid': serviceUnit.invalid && serviceUnit.touched}" #serviceUnit="ngModel" [(ngModel)]="collaborator.unidad">
 									<option *ngFor="let unidad of unidades" value="{{ unidad.id }}">{{ unidad.value }}</option>
 								</select>
 							</div>
@@ -91,28 +90,28 @@
 						<div class="separator"><hr></div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="entry" class="labelForm">Fecha de ingreso*</label>
-								<input type="date" name="entry" id="entry" class="form-control inputForm" [ngClass]="{'is-invalid': entry.invalid && entry.touched}" #entry="ngModel" [(ngModel)]="collaborator.fechaIngreso" required>
+								<label for="entry" class="labelForm">Fecha de ingreso</label>
+								<input type="date" name="entry" id="entry" class="form-control inputForm" [ngClass]="{'is-invalid': entry.invalid && entry.touched}" #entry="ngModel" [(ngModel)]="collaborator.fechaIngreso">
+							</div>
+							<div class="col col-sm-12 col-md-4 d-inline-block" *ngIf="collaborator.fechaIngreso">
+								<label for="egress" class="labelForm">Fecha de egreso</label>
+								<input type="date" name="egress" id="egress" class="form-control inputForm" [ngClass]="{'is-invalid': egress.invalid && egress.touched}" #egress="ngModel" [(ngModel)]="collaborator.fechaEgreso">
 							</div>
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="egress" class="labelForm">Fecha de egreso*</label>
-								<input type="date" name="egress" id="egress" class="form-control inputForm" [ngClass]="{'is-invalid': egress.invalid && egress.touched}" #egress="ngModel" [(ngModel)]="collaborator.fechaEgreso" required>
-							</div>
-							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="starSymptoms" class="labelForm">Fecha de inicio de síntomas*</label>
-								<input type="date" name="starSymptoms" id="starSymptoms" class="form-control inputForm" [ngClass]="{'is-invalid': starSymptoms.invalid && starSymptoms.touched}" #starSymptoms="ngModel" [(ngModel)]="collaborator.fechaSintomas" required>
+								<label for="starSymptoms" class="labelForm">Fecha de inicio de síntomas</label>
+								<input type="date" name="starSymptoms" id="starSymptoms" class="form-control inputForm" [ngClass]="{'is-invalid': starSymptoms.invalid && starSymptoms.touched}" #starSymptoms="ngModel" [(ngModel)]="collaborator.fechaSintomas">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="fever" class="labelForm">Fiebre*</label>
-								<select style="background-position-x: 93%" name="fever" id="fever" class="form-control inputForm" [ngClass]="{'is-invalid': fever.invalid && fever.touched}" #fever="ngModel" [(ngModel)]="collaborator.fiebre" required>
+								<select style="background-position-x: 93%" name="fever" id="fever" class="form-control inputForm" [ngClass]="{'is-invalid': fever.invalid && fever.touched}" #fever="ngModel" [(ngModel)]="collaborator.fiebre">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="discomfort" class="labelForm">Malestar General*</label>
-								<select style="background-position-x: 93%" name="discomfort" id="discomfort" class="form-control inputForm" [ngClass]="{'is-invalid': discomfort.invalid && discomfort.touched}" #discomfort="ngModel" [(ngModel)]="collaborator.malestarGeneral" required>
+								<select style="background-position-x: 93%" name="discomfort" id="discomfort" class="form-control inputForm" [ngClass]="{'is-invalid': discomfort.invalid && discomfort.touched}" #discomfort="ngModel" [(ngModel)]="collaborator.malestarGeneral">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -120,13 +119,13 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="dyspnoea" class="labelForm">Disnea*</label>
-								<select style="background-position-x: 93%" name="dyspnoea" id="dyspnoea" class="form-control inputForm" [ngClass]="{'is-invalid': dyspnoea.invalid && dyspnoea.touched}" #dyspnoea="ngModel" [(ngModel)]="collaborator.disnea" required>
+								<select style="background-position-x: 93%" name="dyspnoea" id="dyspnoea" class="form-control inputForm" [ngClass]="{'is-invalid': dyspnoea.invalid && dyspnoea.touched}" #dyspnoea="ngModel" [(ngModel)]="collaborator.disnea">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="odinia" class="labelForm">Odinia*</label>
-								<select style="background-position-x: 93%" name="odinia" id="odinia" class="form-control inputForm" [ngClass]="{'is-invalid': odinia.invalid && odinia.touched}" #odinia="ngModel" [(ngModel)]="collaborator.odinia" required>
+								<select style="background-position-x: 93%" name="odinia" id="odinia" class="form-control inputForm" [ngClass]="{'is-invalid': odinia.invalid && odinia.touched}" #odinia="ngModel" [(ngModel)]="collaborator.odinia">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -134,13 +133,13 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="gastrointestinal" class="labelForm">Gastrointestinales*</label>
-								<select style="background-position-x: 93%" name="gastrointestinal" id="gastrointestinal" class="form-control inputForm" [ngClass]="{'is-invalid': gastrointestinal.invalid && gastrointestinal.touched}" #gastrointestinal="ngModel" [(ngModel)]="collaborator.gastrointestinales" required>
+								<select style="background-position-x: 93%" name="gastrointestinal" id="gastrointestinal" class="form-control inputForm" [ngClass]="{'is-invalid': gastrointestinal.invalid && gastrointestinal.touched}" #gastrointestinal="ngModel" [(ngModel)]="collaborator.gastrointestinales">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="sneeze" class="labelForm">Estornudo/Flujo Nasal*</label>
-								<select style="background-position-x: 93%" name="sneeze" id="sneeze" class="form-control inputForm" [ngClass]="{'is-invalid': sneeze.invalid && sneeze.touched}" #sneeze="ngModel" [(ngModel)]="collaborator.estornudo" required>
+								<select style="background-position-x: 93%" name="sneeze" id="sneeze" class="form-control inputForm" [ngClass]="{'is-invalid': sneeze.invalid && sneeze.touched}" #sneeze="ngModel" [(ngModel)]="collaborator.estornudo">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -148,7 +147,7 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="myalgia" class="labelForm">Mialgias*</label>
-								<select style="background-position-x: 93%" name="myalgia" id="myalgia" class="form-control inputForm" [ngClass]="{'is-invalid': myalgia.invalid && myalgia.touched}" #myalgia="ngModel" [(ngModel)]="collaborator.mialgias" required>
+								<select style="background-position-x: 93%" name="myalgia" id="myalgia" class="form-control inputForm" [ngClass]="{'is-invalid': myalgia.invalid && myalgia.touched}" #myalgia="ngModel" [(ngModel)]="collaborator.mialgias">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -156,43 +155,43 @@
 						<div class="form-group">
 							<div class="col col-sm-12">
 								<label for="endogenousRisk" class="labelForm">Factores de riesgo endógeno</label>
-								<textarea name="endogenousRisk" id="endogenousRisk" class="form-control inputForm" [ngClass]="{'is-invalid': endogenousRisk.invalid && endogenousRisk.touched}" #endogenousRisk="ngModel" [(ngModel)]="collaborator.riesgoEndogeno" rows="1"></textarea>
+								<textarea name="endogenousRisk" id="endogenousRisk" class="form-control inputForm" [ngClass]="{'is-invalid': endogenousRisk.invalid && endogenousRisk.touched}" #endogenousRisk="ngModel" [(ngModel)]="collaborator.riesgoEndogeno" rows="2" placeholder="Ingrese los factores de riesgo endógeno"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12">
 								<label for="exogenousRisk" class="labelForm">Factores de riesgo exógenos</label>
-								<textarea name="exogenousRisk" id="exogenousRisk" class="form-control inputForm" [ngClass]="{'is-invalid': exogenousRisk.invalid && exogenousRisk.touched}" #exogenousRisk="ngModel" [(ngModel)]="collaborator.riesgoExogeno" rows="1"></textarea>
+								<textarea name="exogenousRisk" id="exogenousRisk" class="form-control inputForm" [ngClass]="{'is-invalid': exogenousRisk.invalid && exogenousRisk.touched}" #exogenousRisk="ngModel" [(ngModel)]="collaborator.riesgoExogeno" rows="2" placeholder="Ingrese los factores de riesgo exógenos"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12">
 								<label for="exposureFactors" class="labelForm">Factores comunes de exposición</label>
-								<textarea name="exposureFactors" id="exposureFactors" class="form-control inputForm" [ngClass]="{'is-invalid': exposureFactors.invalid && exposureFactors.touched}" #exposureFactors="ngModel" [(ngModel)]="collaborator.factoresExposicion" rows="1"></textarea>
+								<textarea name="exposureFactors" id="exposureFactors" class="form-control inputForm" [ngClass]="{'is-invalid': exposureFactors.invalid && exposureFactors.touched}" #exposureFactors="ngModel" [(ngModel)]="collaborator.factoresExposicion" rows="2" placeholder="Ingrese los factores comunes de exposición"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
-								<label for="management" class="labelForm">Manejo*</label>
-								<select style="background-position-x: 93%" name="management" id="management" class="form-control inputForm" [ngClass]="{'is-invalid': management.invalid && management.touched}" #management="ngModel" [(ngModel)]="collaborator.manejo" required>
+								<label for="management" class="labelForm">Manejo</label>
+								<select style="background-position-x: 93%" name="management" id="management" class="form-control inputForm" [ngClass]="{'is-invalid': management.invalid && management.touched}" #management="ngModel" [(ngModel)]="collaborator.manejo">
 									<option *ngFor="let manejo of manejos" value="{{ manejo.id }}">{{ manejo.value }}</option>
 								</select>
 							</div>
-							<div class="col col-sm-12 col-md-6 d-inline-block">
+							<div class="col col-sm-12 col-md-6 d-inline-block" *ngIf="collaborator.manejo==1">
 								<label for="remitted" class="labelForm">Remitido</label>
-								<input type="text" name="remitted" id="remitted" class="form-control inputForm" [ngClass]="{'is-invalid': remitted.invalid && remitted.touched}" #remitted="ngModel" [(ngModel)]="collaborator.remitido">
+								<input type="text" name="remitted" id="remitted" class="form-control inputForm" [ngClass]="{'is-invalid': remitted.invalid && remitted.touched}" #remitted="ngModel" [(ngModel)]="collaborator.remitido" placeholder="Ingrese el lugar al que fue remitido el colaborador">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="samplingDate" class="labelForm">Fecha de toma de muestra*</label>
-								<input type="date" name="samplingDate" id="samplingDate" class="form-control inputForm" [ngClass]="{'is-invalid': samplingDate.invalid && samplingDate.touched}" #samplingDate="ngModel" [(ngModel)]="collaborator.fechaTomaMuestra" (ngModelChange)="calculateTakeDays($event)" required>
+								<label for="samplingDate" class="labelForm">Fecha de toma de muestra</label>
+								<input type="date" name="samplingDate" id="samplingDate" class="form-control inputForm" [ngClass]="{'is-invalid': samplingDate.invalid && samplingDate.touched}" #samplingDate="ngModel" [(ngModel)]="collaborator.fechaTomaMuestra" (ngModelChange)="calculateTakeDays($event)">
 							</div>
-							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="resultDate" class="labelForm">Fecha de resultado*</label>
-								<input type="date" name="resultDate" id="resultDate" class="form-control inputForm" [ngClass]="{'is-invalid': resultDate.invalid && resultDate.touched}" #resultDate="ngModel" [(ngModel)]="collaborator.fechaResultado" (ngModelChange)="calculateResultDays($event)" required>
+							<div class="col col-sm-12 col-md-4 d-inline-block" *ngIf="collaborator.fechaTomaMuestra">
+								<label for="resultDate" class="labelForm">Fecha de resultado</label>
+								<input type="date" name="resultDate" id="resultDate" class="form-control inputForm" [ngClass]="{'is-invalid': resultDate.invalid && resultDate.touched}" #resultDate="ngModel" [(ngModel)]="collaborator.fechaResultado" (ngModelChange)="calculateResultDays($event)">
 							</div>
-							<div class="col col-sm-12 col-md-4 d-inline-block">
+							<div class="col col-sm-12 col-md-4 d-inline-block" *ngIf="collaborator.fechaResultado">
 								<label for="passedDays" class="labelForm">Dias transcurrido</label>
 								<input type="text" name="passedDays" id="passedDays" class="form-control inputForm"  #passedDays="ngModel" [(ngModel)]="collaborator.diasTranscurridos" disabled>
 							</div>
@@ -213,34 +212,34 @@
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="firstFollowUp" class="labelForm">Fecha del primer seguimiento*</label>
-								<input type="date" name="firstFollowUp" id="firstFollowUp" class="form-control inputForm" [ngClass]="{'is-invalid': firstFollowUp.invalid && firstFollowUp.touched}" #firstFollowUp="ngModel" [(ngModel)]="collaborator.primerSeguimiento" required>
+								<label for="firstFollowUp" class="labelForm">Fecha del primer seguimiento</label>
+								<input type="date" name="firstFollowUp" id="firstFollowUp" class="form-control inputForm" [ngClass]="{'is-invalid': firstFollowUp.invalid && firstFollowUp.touched}" #firstFollowUp="ngModel" [(ngModel)]="collaborator.primerSeguimiento">
 							</div>
 							<div class="col col-sm-12 col-md-8 d-inline-block">
-								<label for="firstFollowUpName" class="labelForm">Nombre del que realizó el primer seguimiento*</label>
-								<input type="text" name="firstFollowUpName" id="firstFollowUpName" class="form-control inputForm" [ngClass]="{'is-invalid': firstFollowUpName.invalid && firstFollowUpName.touched}" #firstFollowUpName="ngModel" [(ngModel)]="collaborator.nombrePrimerSeguimiento" pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre de la persona que realizó el primer seguimiento" required>
+								<label for="firstFollowUpName" class="labelForm">Nombre del que realizó el primer seguimiento</label>
+								<input type="text" name="firstFollowUpName" id="firstFollowUpName" class="form-control inputForm" [ngClass]="{'is-invalid': firstFollowUpName.invalid && firstFollowUpName.touched}" #firstFollowUpName="ngModel" [(ngModel)]="collaborator.nombrePrimerSeguimiento" pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre de la persona que realizó el primer seguimiento">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="secondFollowUp" class="labelForm">Fecha del segundo seguimiento*</label>
-								<input type="date" name="secondFollowUp" id="secondFollowUp" class="form-control inputForm" [ngClass]="{'is-invalid': secondFollowUp.invalid && secondFollowUp.touched}" #secondFollowUp="ngModel" [(ngModel)]="collaborator.segundoSeguimiento" required>
+								<label for="secondFollowUp" class="labelForm">Fecha del segundo seguimient*</label>
+								<input type="date" name="secondFollowUp" id="secondFollowUp" class="form-control inputForm" [ngClass]="{'is-invalid': secondFollowUp.invalid && secondFollowUp.touched}" #secondFollowUp="ngModel" [(ngModel)]="collaborator.segundoSeguimiento">
 							</div>
 							<div class="col col-sm-12 col-md-8 d-inline-block">
-								<label for="secondFollowUpName" class="labelForm">Nombre del que realizó el segundo seguimiento*</label>
-								<input type="text" name="secondFollowUpName" id="secondFollowUpName" class="form-control inputForm" [ngClass]="{'is-invalid': secondFollowUpName.invalid && secondFollowUpName.touched}" #secondFollowUpName="ngModel" [(ngModel)]="collaborator.nombreSegundoSeguimiento" pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre de la persona que realizó el segundo seguimiento" required>
+								<label for="secondFollowUpName" class="labelForm">Nombre del que realizó el segundo seguimiento</label>
+								<input type="text" name="secondFollowUpName" id="secondFollowUpName" class="form-control inputForm" [ngClass]="{'is-invalid': secondFollowUpName.invalid && secondFollowUpName.touched}" #secondFollowUpName="ngModel" [(ngModel)]="collaborator.nombreSegundoSeguimiento" pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre de la persona que realizó el segundo seguimiento">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="status" class="labelForm">Estado*</label>
-								<select style="background-position-x: 93%" name="status" id="status" class="form-control inputForm" [ngClass]="{'is-invalid': status.invalid && status.touched}" #status="ngModel" [(ngModel)]="collaborator.estado" required>
+								<label for="status" class="labelForm">Estado</label>
+								<select style="background-position-x: 93%" name="status" id="status" class="form-control inputForm" [ngClass]="{'is-invalid': status.invalid && status.touched}" #status="ngModel" [(ngModel)]="collaborator.estado">
 									<option *ngFor="let estado of estados" value="{{ estado.id }}">{{ estado.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="work" class="labelForm">Trabajo*</label>
-								<select style="background-position-x: 93%" name="work" id="work" class="form-control inputForm" [ngClass]="{'is-invalid': work.invalid && work.touched}" #work="ngModel" [(ngModel)]="collaborator.trabajo" required>
+								<label for="work" class="labelForm">Trabajo</label>
+								<select style="background-position-x: 93%" name="work" id="work" class="form-control inputForm" [ngClass]="{'is-invalid': work.invalid && work.touched}" #work="ngModel" [(ngModel)]="collaborator.trabajo">
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -252,7 +251,7 @@
 						<div class="form-group">
 							<div class="col col-sm-12">
 								<label for="observations" class="labelForm">Observaciones</label>
-								<textarea name="observations" rows="4" class="form-control inputForm" [ngClass]="{'is-invalid': observations.invalid && observations.touched}" #observations="ngModel" [(ngModel)]="collaborator.observaciones"></textarea>
+								<textarea name="observations" rows="4" class="form-control inputForm" [ngClass]="{'is-invalid': observations.invalid && observations.touched}" #observations="ngModel" [(ngModel)]="collaborator.observaciones" placeholder="Ingrese las observaciones adicionales"></textarea>
 							</div>
 						</div>
 						<div class="form-group" style="margin-top: 3rem">
