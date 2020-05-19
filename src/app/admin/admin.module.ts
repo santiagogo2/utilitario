@@ -15,16 +15,23 @@ import { SharedModule } from '../shared/shared.module';
 // Components
 import { AdminComponent } from './admin.component';
 
-import { UserRegisterComponent } from './user/user-register/user-register.component';
-import { UserEditComponent } from './user/user-edit/user-edit.component';
-import { UserListComponent } from './user/user-list/user-list.component';
+import { UserRegisterComponent } from './pages/user/user-register/user-register.component';
+import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
+import { UserListComponent } from './pages/user/user-list/user-list.component';
+
+import { RoleListComponent } from './pages/role/role-list/role-list.component';
+import { RoleEditComponent } from './pages/role/role-edit/role-edit.component';
+import { RoleRegisterComponent } from './pages/role/role-register/role-register.component';
 
 @NgModule({
 	declarations: [
 		AdminComponent,
 		UserRegisterComponent,
 		UserEditComponent,
-		UserListComponent
+		UserListComponent,
+		RoleListComponent,
+		RoleEditComponent,
+		RoleRegisterComponent,
 	],
 	imports: [
 		CommonModule,

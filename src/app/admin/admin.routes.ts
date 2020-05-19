@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 // Components
 import { AdminComponent } from './admin.component';
 
-import { UserRegisterComponent } from './user/user-register/user-register.component';
-import { UserEditComponent } from './user/user-edit/user-edit.component';
-import { UserListComponent } from './user/user-list/user-list.component';
+import { UserRegisterComponent } from './pages/user/user-register/user-register.component';
+import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
+import { UserListComponent } from './pages/user/user-list/user-list.component';
 
 // Guards
-import { AdminGuard } from '../guards/admin.guard';
+import { AdminGuard } from '../guards/guard.index';
 
 const adminRoutes: Routes = [
 	{

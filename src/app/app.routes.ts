@@ -1,12 +1,12 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { PagesComponent } from './pages/pages.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { LoginComponent } from './login/login.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 
 // Guards
-import { LoginGuard } from './guards/login.guard';
+import { LoginGuard } from './guards/guard.index';
 
 const appRoutes: Routes = [
 	{ path: 'login', component: LoginComponent, canActivate: [LoginGuard] },

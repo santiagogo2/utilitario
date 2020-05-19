@@ -8,7 +8,7 @@ import { APP_ROUTES } from './app.routes';
 
 // Modulos
 import { AdminModule } from './admin/admin.module';
-import { PagesModule } from './pages/pages.module';
+import { PagesModule } from './dashboard/dashboard.module';
 
 // Services 
 import { ServiceModule } from './services/service.module';

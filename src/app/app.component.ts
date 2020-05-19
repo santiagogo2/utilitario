@@ -5,7 +5,7 @@ import { UserService } from './services/service.index';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
+	styles: [],
 	providers: [UserService]
 })
 export class AppComponent {

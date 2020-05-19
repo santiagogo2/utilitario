@@ -443,6 +443,8 @@ header{
 /*---------------------------------------------*/
 
 /*=============================================*/
+/*=================Form Styles=================*/
+/*=============================================*/
 .formContainerAdmin{
 	margin: auto;
 	padding: 40px 40px 30px !important;
@@ -456,6 +458,11 @@ header{
 	cursor: pointer;
 	margin-left: 0.7rem;
 	color: #193E63;
+}
+.backLink{
+	margin: 0.5rem auto;
+	padding: 0 !important;
+	font-size: 0.9rem;
 }
 
 /*---------------------------------------------*/
@@ -487,6 +494,10 @@ footer p{
 .preLoader{
 	position: absolute;
 	left: calc(50% - 35px);
+}
+.deleteLoader{
+	width: fit-content;
+	margin: auto;
 }
 .loader{
 	border: 3.5px solid #E1E1E1;

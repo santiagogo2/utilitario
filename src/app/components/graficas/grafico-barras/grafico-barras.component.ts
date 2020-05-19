@@ -13,7 +13,7 @@ export class GraficoBarrasComponent implements OnInit {
 	@Input() public barChartLabels: string[];
 	@Input() public barChartType: string;
 
-	public barChartLegend = true;
+	public barChartLegend = false;
 	public barChartPlugins = [pluginDataLabels];
 	public barChartOptions: ChartOptions = {
 
@@ -53,16 +53,36 @@ export class GraficoBarrasComponent implements OnInit {
 
 	public barChartColors: Array<any>;
 
-	constructor() {
-		this.barChartColors = [
-			{
-				backgroundColor: ['rgba(255,99,132,0.2)', 'rgba(54,162,235,0.2)'],
-				borderColor: ['rgba(255,99,132,1)', 'rgba(54,162,235,1)']
-			},
-		]
-	}
+	constructor() {}
 
 	ngOnInit(): void {
+		this.setColors();
 	}
 
+	setColors(){
+		let backgroundColor = new Array();
+		let borderColor = new Array();
+
+		this.barChartLabels.forEach( element => {
+			let color = this.getRandomColor();
+			backgroundColor.push(color+'33');
+			borderColor.push(color);
+		});
+		
+		this.barChartColors = [
+			{
+				backgroundColor: backgroundColor,
+				borderColor: borderColor
+			},
+		]		
+	}
+
+	getRandomColor() {
+		var letters = '0123456789ABCDEF'.split('');
+		var color = '#';
+		for (var i = 0; i < 6; i++ ) { 
+			color += letters[Math.floor(Math.random() * 16)]; 
+		}
+		return color; 
+	}
 }
