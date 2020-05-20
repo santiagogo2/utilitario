@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ChartsModule } from 'ng2-charts';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Rutas
 import { PAGES_ROUTES } from './dashboard.routes';
@@ -24,6 +25,13 @@ import { ListarColaboradoresComponent } from './sala-situacional/colaboradores/l
 import { EditarColaboradoresComponent } from './sala-situacional/colaboradores/editar-colaboradores/editar-colaboradores.component';
 import { RelacionarColaboradoresComponent } from './sala-situacional/colaboradores/relacionar-colaboradores/relacionar-colaboradores.component';
 import { InformesComponent } from './sala-situacional/informes/informes.component';
+import { ContratacionComponent } from './contratacion/contratacion.component';
+import { ListarContratoComponent } from './contratacion/contrato/listar-contrato/listar-contrato.component';
+import { RegistrarContratoComponent } from './contratacion/contrato/registrar-contrato/registrar-contrato.component';
+import { EditarContratoComponent } from './contratacion/contrato/editar-contrato/editar-contrato.component';
+import { ListarContratistasComponent } from './contratacion/contratistas/listar-contratistas/listar-contratistas.component';
+import { EditarContratistasComponent } from './contratacion/contratistas/editar-contratistas/editar-contratistas.component';
+import { RegistrarContratistasComponent } from './contratacion/contratistas/registrar-contratistas/registrar-contratistas.component';
 
 
 @NgModule({
@@ -36,6 +44,13 @@ import { InformesComponent } from './sala-situacional/informes/informes.componen
 		EditarColaboradoresComponent,
 		RelacionarColaboradoresComponent,
 		InformesComponent,
+		ContratacionComponent,
+		ListarContratoComponent,
+		RegistrarContratoComponent,
+		EditarContratoComponent,
+		ListarContratistasComponent,
+		EditarContratistasComponent,
+		RegistrarContratistasComponent,
 	],
 	exports: [
 		DashboardComponent,
@@ -49,6 +64,7 @@ import { InformesComponent } from './sala-situacional/informes/informes.componen
 		NgxPaginationModule,
 		SharedModule,
 		ComponentsModule,
+		FontAwesomeModule,
 		PAGES_ROUTES,
 	]
 })

@@ -1,14 +1,14 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="card border-0">
-			<div class="card-body">
-				<div class="salaSituacionalContainer col col-sm-12 col-md-3">
-					<a [routerLink]="['/sala-situacional']" class="imageLink">
-						<circle-image imageUrl="assets/images/salaSituacional.png"
-									  imageClass="imageContainer">
+			<div class="card-body cardContainer">
+				<div class="circleImageContainer col col-sm-12 col-md-3 d-inline-block" *ngFor="let home of homeLinks">
+					<a [routerLink]="[home.url]" class="imageLink">
+						<circle-image [imageUrl]="home.imageUrl"
+									  [imageClass]="home.class">
 						</circle-image>
 						<div class="titleContainer">
-							<p>Sala Situacional</p>
+							<p>{{ home.titulo }}</p>
 						</div>
 					</a>
 				</div>

@@ -11,6 +11,14 @@ import { EditarColaboradoresComponent } from './sala-situacional/colaboradores/e
 import { RelacionarColaboradoresComponent } from './sala-situacional/colaboradores/relacionar-colaboradores/relacionar-colaboradores.component';
 import { InformesComponent } from './sala-situacional/informes/informes.component';
 
+import { ContratacionComponent } from './contratacion/contratacion.component';
+import { ListarContratoComponent } from './contratacion/contrato/listar-contrato/listar-contrato.component';
+import { RegistrarContratoComponent } from './contratacion/contrato/registrar-contrato/registrar-contrato.component';
+
+import { ListarContratistasComponent } from './contratacion/contratistas/listar-contratistas/listar-contratistas.component';
+import { RegistrarContratistasComponent } from './contratacion/contratistas/registrar-contratistas/registrar-contratistas.component';
+import { EditarContratistasComponent } from './contratacion/contratistas/editar-contratistas/editar-contratistas.component';
+
 // Services
 
 // Guards
@@ -22,7 +30,6 @@ const pagesRoutes: Routes = [
 		component: DashboardComponent,
 		children: [
 			{ path: 'dashboard', component: HomeComponent, data: { titulo: 'Dashboard' }, canActivate: [IdentityGuard] },
-			{ path: 'sala-situacional', component: SalaSituacionalComponent, data: { titulo: 'Sala Situacional' }, canActivate: [IdentityGuard] },
 			{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 		]		
 	},
@@ -36,6 +43,20 @@ const pagesRoutes: Routes = [
 			{ path: 'colaboradores/relacionar/:id', component: RelacionarColaboradoresComponent, data: { titulo: 'Relacionar Colaborador' }, canActivate: [IdentityGuard, ReporstGuard] },
 
 			{ path: 'informes', component: InformesComponent, data: { titulo: 'Informes' }, canActivate: [IdentityGuard] },
+			{ path: '', component: SalaSituacionalComponent, data: { titulo: 'Sala Situacional' }, canActivate: [IdentityGuard] },
+		]		
+	},
+	{
+		path: 'contratacion',
+		component: DashboardComponent,
+		children: [
+			{ path: 'contratos/listar', component: ListarContratoComponent, data: { titulo: 'Listar Contratos' }, canActivate: [IdentityGuard] },
+			{ path: 'contratos/registrar', component: RegistrarContratoComponent, data: { titulo: 'Registrar Contratos' }, canActivate: [IdentityGuard] },
+			
+			{ path: 'contratistas/listar', component: ListarContratistasComponent, data: { titulo: 'Listar Contratistas' }, canActivate: [IdentityGuard] },
+			{ path: 'contratistas/registrar', component: RegistrarContratistasComponent, data: { titulo: 'Registrar Contratista' }, canActivate: [IdentityGuard] },
+			{ path: 'contratistas/editar/:id', component: EditarContratistasComponent, data: { titulo: 'Editar Contratista' }, canActivate: [IdentityGuard] },
+			{ path: '', component: ContratacionComponent, data: { titulo: 'Contratación' }, canActivate: [IdentityGuard] },
 		]		
 	}
 ];

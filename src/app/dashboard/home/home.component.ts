@@ -8,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 	public preloaderImage: boolean;
 
+	public homeLinks: any[] = [
+		{ titulo: 'Contratación', url: '/contratacion', class: 'imageContainer color-violet', imageUrl: 'assets/images/contratacion.png' },
+		{ titulo: 'Sala Situacional', url: '/sala-situacional', class: 'imageContainer', imageUrl: 'assets/images/salaSituacional.png' },
+	]
+
 	constructor() {
 		this.preloaderImage = true;
 	}

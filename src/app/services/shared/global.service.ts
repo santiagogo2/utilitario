@@ -44,6 +44,10 @@ export var global = {
 		{id: 0, value: 'AMBULATORIO'},
 		{id: 1, value: 'HOSPITALIZADO'},	
 	],
+	modalidad: [
+		{id: 0, value: 'ESCLAVO'},
+		{id: 1, value: 'PRESENCIAL'},
+	],
 	nexos: [
 		{id: 0, value: 'DESCONOCIDO'},
 		{id: 1, value: 'FAMILIAR'},	

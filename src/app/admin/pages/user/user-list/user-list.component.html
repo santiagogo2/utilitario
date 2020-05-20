@@ -3,6 +3,12 @@
 		<div></div><div></div><div></div><div></div><div></div>
 	</div>
 </div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="status=='error' && responseMessage && !users">
+	<div class="alert" role="alert">
+		{{ responseMessage }} <a routerLink="/admin/usuarios/agregar">crear nuevo usuario</a>
+	</div>
+</div>
+
 <div class="row" *ngIf="users">
 	<div class="col-sm-12">
 		<div class="card border-0">

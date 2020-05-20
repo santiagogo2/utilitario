@@ -112,7 +112,7 @@ header{
 	padding-right: 20px;
 }
 
-.salaSituacionalContainer{
+.circleImageContainer{
 	text-align: center;
 	margin: auto;
 	padding: 1rem 2rem !important;
@@ -120,41 +120,50 @@ header{
 .cardContainer{
 	text-align: center;
 }
-.salaSituacionalContainer:hover .imageContainer{
+.circleImageContainer:hover .imageContainer{
 	box-shadow: 0 0 0 180px #3FC2CE inset;
 }
-.salaSituacionalContainer:hover .imageContainer img{
+.circleImageContainer:hover .imageContainer img{
 	transform: scale(1.2);
 }
-.salaSituacionalContainer .imageContainer{
+.circleImageContainer .imageContainer{
 	padding: 50px;
 	border-radius: 50%;
 	background-color: #C3E0E4;
 	overflow: hidden;
 }
-.salaSituacionalContainer .imageContainer img{
+.circleImageContainer .imageContainer img{
 	width: 100%;
 }
-.salaSituacionalContainer .imageContainer,
-.salaSituacionalContainer .imageContainer img{
+.circleImageContainer .imageContainer,
+.circleImageContainer .imageContainer img{
 	-webkit-transition: all 0.8s ease;
 	-moz-transition: all 0.8s ease;
 	-ms-transition: all 0.8s ease;
 	-o-transition: all 0.8s ease;
 	transition: all 0.8s ease;
 }
-.salaSituacionalContainer .titleContainer{
+.circleImageContainer .titleContainer{
 	padding: 1rem 0.5rem;
 	text-transform: uppercase;
 	font-size: 1.4rem;
 	font-weight: 600;
 	color: #3C3C3C;
 }
-.salaSituacionalContainer:hover .color-green{
+.circleImageContainer:hover .color-green{
 	box-shadow: 0 0 0 180px #4FB96F inset;
 }
-.salaSituacionalContainer:hover .color-red{
+.circleImageContainer:hover .color-red{
 	box-shadow: 0 0 0 180px #EC8993 inset;
+}
+.circleImageContainer:hover .color-violet{
+	box-shadow: 0 0 0 180px #D073D2 inset;
+}
+.circleImageContainer:hover .color-orange{
+	box-shadow: 0 0 0 180px #F3B94E inset;
+}
+.circleImageContainer:hover .color-yellow{
+	box-shadow: 0 0 0 180px #EFEF74 inset;
 }
 .labelForm{
 	font-size: 0.8rem;
@@ -467,6 +476,7 @@ header{
 	color: #193E63;
 }
 .backLink{
+	text-align: left;
 	margin: 0.5rem auto;
 	padding: 0 !important;
 	font-size: 0.9rem;
@@ -517,6 +527,13 @@ footer p{
 	-ms-animation: spin 0.7s linear infinite;
 	-o-animation: spin 0.7s linear infinite;
 	animation: spin 0.7s linear infinite;
+}
+.spin svg{
+	-webkit-animation: spin 0.7s linear infinite;
+	-moz-animation: spin 0.7s linear infinite;
+	-ms-animation: spin 0.7s linear infinite;
+	-o-animation: spin 0.7s linear infinite;
+	animation: spin 0.7s linear infinite;	
 }
 @keyframes spin {
 	0% { transform: rotate(0deg); }
