@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				<div class="registerCollaboratorButton">
-					<button class="btn btn-info" [routerLink]="['/admin/agregar']">Crear nuevo usuario</button>
+					<button class="btn btn-info" [routerLink]="['/admin/usuarios/agregar']">Crear nuevo usuario</button>
 				</div>
 				
 				<div class="tableContainer" *ngIf="users">
@@ -40,7 +40,7 @@
 									<td>{{ user.name + ' ' + user.surname }}</td>
 									<td>{{ user.role }}</td>
 									<td style="padding: 0.55rem">
-										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/admin/editar', user.id]">Editar</button>
+										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/admin/usuarios/editar', user.id]">Editar</button>
 										<button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+user.id" *ngIf="identity.sub!=user.id">Borrar</button>
 										<div class="deleteLoader" id="{{ 'loader' + user.id }}" style="display: none;">
 											<div class="loader"></div>

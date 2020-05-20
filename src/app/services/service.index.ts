@@ -1,6 +1,10 @@
-export { CollaboratorsService } from './collaborators/collaborators.service';
-export { SharedService } from './shared/shared.service';
-export { SidebarService } from './shared/sidebar.service';
-export { UserService } from './shared/user.service';
+// Dashboard Services
+	// Sala Situacional Services 
+	export { CollaboratorsService } from './dashboard/sala-situacional/collaborators.service';
 
+// Admin Services
+export { RoleService } from './admin/role.service';
+
+// Shared Services
+export { UserService } from './shared/user.service';
 export { global } from './shared/global.service';

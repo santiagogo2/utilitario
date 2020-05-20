@@ -1,11 +1,7 @@
 export var global = {
+
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
-	roles: [
-		{id:0, value: 'ADMIN_ROLE', name: 'Administrador'},
-		{id:1, value: 'USER_ROLE', name: 'Usuario'},
-		{id:2, value: 'REPORTS_ROLE', name: 'Informes'}
-	],
 	area: [
 		{id:0, value: 'ADMINISTRATIVA'},
 		{id:1, value: 'APH'},

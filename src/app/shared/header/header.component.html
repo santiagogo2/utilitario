@@ -18,7 +18,8 @@
 						{{identity.name + ' ' + identity.surname}}
 					</a>
 					<div class="dropdown-menu animated bounceIn" aria-labelledby="navbarDropdownMenuLink" style="left: unset !important; right: 0;">
-						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Usuarios</a>
+						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/usuarios/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Usuarios</a>
+						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/roles/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Roles</a>
 						<div class="dropdown-divider" *ngIf="identity.role=='ADMIN_ROLE'"></div>
 						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/logout', 1]">Cerrar Sesión</a>
 					</div>

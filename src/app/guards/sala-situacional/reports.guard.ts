@@ -14,7 +14,7 @@ export class ReporstGuard implements CanActivate {
 	canActivate(){
 		let identity = this._userService.getIdentity();
 
-		if(identity.role == 'REPORTS_ROLE'){
+		if(identity.role == 'USER_SALA_SITUACIONAL_INFORMES_ROLE'){
 			this._router.navigate(['/sala-situacional']);
 			return false;
 		} else{

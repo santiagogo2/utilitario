@@ -22,7 +22,7 @@ export class SalaSituacionalComponent implements OnInit {
 		private _userService: UserService
 	) {
 		this.identity = this._userService.getIdentity();
-		if(this.identity.role == 'REPORTS_ROLE'){
+		if(this.identity.role == 'USER_SALA_SITUACIONAL_INFORMES_ROLE'){
 			let array = [];
 			this.salaSituacional.forEach( (element) => {
 				if(element.titulo == 'informes'){

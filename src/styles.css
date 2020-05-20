@@ -256,7 +256,14 @@ header{
 /*---------------------------------------------*/
 /*-----------------Table Styles----------------*/
 /*---------------------------------------------*/
-
+.warningNote{
+	color: #856404;
+	text-align: left;
+	margin-bottom: 0.3rem;
+}
+.warningNote small{
+	font-weight: 700 !important;
+}
 .tableContainer{
 	overflow-x: auto;
 	margin-bottom: 1rem;

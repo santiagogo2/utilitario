@@ -1,14 +1,20 @@
-<div class="loaderBall" *ngIf="!user && !responseMessage">
+<div class="loaderBall" *ngIf="(!user || !roles) && !responseMessage">
 	<div class="ball-pulse-rise">
 		<div></div><div></div><div></div><div></div><div></div>
 	</div>
 </div>
-<div class="row" *ngIf="user">
+<div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage && (!user || !roles)">
+	<div class="alert alert-danger" role="alert">
+		{{ responseMessage }} <a routerLink="/admin/usuarios/listar">listar usuarios</a>
+	</div>
+</div>
+
+<div class="row" *ngIf="user && roles">
 	<div class="col-sm-12">
 		<div class="card border-0">
 			<div class="card-body">
 				<div class="backLink col col-sm-12 col-md-8 col-lg-6">
-					<a routerLink="/admin/listar">Listar Usuarios</a>
+					<a routerLink="/admin/usuarios/listar">Listar Usuarios</a>
 				</div>
 				<div class="formContainerAdmin col col-sm-12 col-md-8 col-lg-6" [ngClass]="{'formContainerAdminError': status && status=='error'}">
 					<form #userRegisterForm="ngForm" class="form-container" *ngIf="user" (ngSubmit)="onSubmit(userRegisterForm)">
@@ -30,7 +36,7 @@
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="userRole" class="labelForm">Role*</label>
 								<select style="background-position-x: 93%" name="userRole" id="userRole" class="form-control inputForm" [ngClass]="{'is-invalid': userRole.invalid && userRole.touched}" #userRole="ngModel" [(ngModel)]="user.role" required>
-									<option *ngFor="let role of roles" value="{{ role.value }}">{{ role.name }}</option>
+									<option *ngFor="let role of roles" value="{{ role.name }}">{{ role.name }}</option>
 								</select>
 							</div>
 						</div>
@@ -52,7 +58,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 buttonSubmit">
-								<input type="submit" value="Registrar" class="btn btn-success btnPrefer col-sm-12" [disabled]="userRegisterForm.invalid || user.password != password">
+								<input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="userRegisterForm.invalid || user.password != password">
 							</div>
 						</div>
 						<div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">

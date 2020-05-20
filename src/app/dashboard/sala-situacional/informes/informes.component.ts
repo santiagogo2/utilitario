@@ -55,7 +55,7 @@ export class InformesComponent implements OnInit {
 					this.area.data = [ { data: this.area.data, label: 'Eventos área asistencial' } ];
 					this.peopleStatus = this.setGeneralInformation('estado', global.estados, 'Distribución de eventos según el estado actual', 'doughnut');
 					this.symptoms = this.setSymptoms('Distribución de eventos por síntomas', 'pie');
-					this.resultingDelay = this.setResultingDelay('Distribución de eventos por demora en los resultados', 'bar');
+					this.resultingDelay = this.setResultingDelay('Distribución de eventos por tiempo de entrega de resultados', 'bar');
 					this.ageGroup = this.setAgeGroup('Distribución de enventos por grupo etario', 'bar');
 					this.ageGroup.data = [ { data: this.ageGroup.data, label: 'Eventos grupo etario' } ];
 					this.weeksReport = this.setWeekReport('Distribución de eventos por semanas', 'line');

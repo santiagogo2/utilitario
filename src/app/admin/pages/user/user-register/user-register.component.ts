@@ -3,16 +3,19 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert';
 
 // Models
-import { User } from '../../../../models/model.index';
+import { Role, User } from '../../../../models/model.index';
 
 // Services 
-import { global, UserService } from '../../../../services/service.index';
+import { global, UserService, RoleService } from '../../../../services/service.index';
 
 @Component({
 	selector: 'app-user-register',
 	templateUrl: './user-register.component.html',
 	styles: [],
-	providers: [UserService]
+	providers: [
+		RoleService,
+		UserService
+	]
 })
 export class UserRegisterComponent implements OnInit {
 	public password: string;
@@ -26,12 +29,14 @@ export class UserRegisterComponent implements OnInit {
 	public enabled: boolean;
 	public enabledPassword: boolean;
 	public passwordText: string;
+	public buttonText: string;
 
 	public user: User;
-	public roles: Array<any>;
+	public roles: Role;
 	public token: string;
 
 	constructor(
+		private _roleService: RoleService,
 		private _userService: UserService
 	) {
 		this.passwordEye = faEye;
@@ -40,13 +45,14 @@ export class UserRegisterComponent implements OnInit {
 		this.passwordConfirmType = 'password';
 		this.enabled = true;
 		this.enabledPassword = false;
+		this.buttonText = 'Registrar';
 
 		this.user = new User(null,null,null,null,null,null);
-		this.roles = global.roles;
 		this.token = this._userService.getToken();
 	}
 
 	ngOnInit(): void {
+		this.roleList();
 	}
 
 	onSubmit(userRegisterForm){
@@ -99,5 +105,23 @@ export class UserRegisterComponent implements OnInit {
 		}
 	}
 
-	showPasswordsInput(){}
+	roleList(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+
+		this._roleService.roleList( this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.roles = res.roles;
+				}
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
+	}
+
+	showPasswordsInput(){} // No se puede eliminar por el reuso del component.html
 }

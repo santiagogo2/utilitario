@@ -7,13 +7,16 @@ import swal from 'sweetalert';
 import { User } from '../../../../models/model.index';
 
 // Services
-import { global, UserService } from '../../../../services/service.index';
+import { global, RoleService, UserService } from '../../../../services/service.index';
 
 @Component({
 	selector: 'app-user-edit',
 	templateUrl: '../user-register/user-register.component.html',
 	styles: [],
-	providers: [UserService]
+	providers: [
+		RoleService,
+		UserService
+	]
 })
 export class UserEditComponent implements OnInit {
 	public password: string;
@@ -27,12 +30,14 @@ export class UserEditComponent implements OnInit {
 	public enabled: boolean;
 	public enabledPassword: boolean;
 	public passwordText: string;
+	public buttonText: string;
 
 	public user: User;
 	public roles: Array<any>;
 	public token: string;
 
 	constructor(
+		private _roleService: RoleService,
 		private _userService: UserService,
 		private _router: Router,
 		private _route: ActivatedRoute
@@ -44,12 +49,13 @@ export class UserEditComponent implements OnInit {
 		this.enabled = false;
 		this.enabledPassword = true;
 		this.passwordText = 'Actualizar Contraseña';
-
-		this.roles = global.roles;
+		this.buttonText = 'Actualizar';
+		
 		this.token = this._userService.getToken();		
 	}
 
 	ngOnInit(): void {
+		this.roleList();
 		this.getUser();
 	}
 
@@ -63,7 +69,7 @@ export class UserEditComponent implements OnInit {
 				this.preloaderStatus = false;
 				if(res.status == 'success'){
 					swal('Usuario editado exitosamente', res.message, 'success');
-					this._router.navigate(['/admin/listar']);
+					this._router.navigate(['/admin/usuarios/listar']);
 				}
 			},
 			error => {
@@ -83,6 +89,10 @@ export class UserEditComponent implements OnInit {
 
 	getUser(){
 		this._route.params.subscribe( params => {
+			this.user = undefined;
+			this.status = undefined;
+			this.responseMessage = undefined;
+
 			let id = params['id'];
 
 			this._userService.getUser( id, this.token ).subscribe(
@@ -134,5 +144,23 @@ export class UserEditComponent implements OnInit {
 				this.passwordText = 'Ocultar Contraseña';
 				break;
 		}
+	}
+
+	roleList(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+
+		this._roleService.roleList( this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.roles = res.roles;
+				}
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
 	}
 }
