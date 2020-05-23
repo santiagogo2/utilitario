@@ -1,6 +1,9 @@
 // Dashboard Models
 		//Sala situacional Models
 		export { Collaborators } from './dashboard/sala-situacional/collaborators';
+		// Admin
+		export { Area } from './admin/sala-situacional/area';
+		export { Profile } from './admin/sala-situacional/profile';
 
 		// Contratacion Models
 		export { Contractor } from './dashboard/contratacion/contractor';

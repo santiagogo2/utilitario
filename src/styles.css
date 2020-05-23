@@ -12,6 +12,15 @@ body::-webkit-scrollbar-thumb{
 h1, h2, h3, h4{
 	font-weight: bold !important;
 }
+.link{
+	color: #007bff !important;
+    text-decoration: none !important;
+    background-color: transparent;
+    cursor: pointer;
+}
+.link:hover{
+	text-decoration: underline !important;
+}
 /*---------------------------------------------*/
 /*----------------Header Styles----------------*/
 /*---------------------------------------------*/
@@ -313,6 +322,10 @@ header{
 .btn{
 	font-size: 1.35rem;
 	vertical-align: inherit;
+}
+.enlarge{
+	padding-top: .375rem !important;
+	padding-bottom: .375rem !important;
 }
 .table td{
 	vertical-align: middle !important;
@@ -680,4 +693,11 @@ footer p{
 .buttonSubmit .btnPrefer{
 	padding: 0.6rem !important;
 	border-radius: 0 !important;
+}
+
+@media ( max-width: 991px ){
+	.reportGraph{
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
 }

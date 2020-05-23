@@ -41,7 +41,7 @@ export class ContractService {
 		let headers = new HttpHeaders().set('Authorization', token)
 									   .set('Content-Type', 'application/x-www-form-urlencoded');
 
-		return this._http.post( this.url + 'contract/' + id, params, { headers:headers } ); 
+		return this._http.put( this.url + 'contract/' + id, params, { headers:headers } ); 
 	}
 
 	deleteContract( id, token ): Observable<any>{

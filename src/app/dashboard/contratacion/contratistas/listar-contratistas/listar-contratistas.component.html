@@ -36,8 +36,7 @@
 								<tr>
 									<th>id</th>
 									<th>Documento</th>
-									<th>Nombres</th>
-									<th>Apellidos</th>
+									<th>Nombre</th>
 									<th width="15%">Acción</th>
 								</tr>
 							</thead>
@@ -45,8 +44,7 @@
 								<tr *ngFor="let contractor of contractors | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage};" class="tableStyles">
 									<td>{{ contractor.id }}</td>
 									<td>{{ contractor.documento }}</td>
-									<td>{{ contractor.nombres }}</td>
-									<td>{{ contractor.apellidos }}</td>
+									<td>{{ contractor.nombres + ' ' + contractor.apellidos }}</td>
 									<td style="padding: 0.55rem">
 										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/contratacion/contratistas/editar', contractor.id]">Editar</button>
 										<button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+contractor.id" *ngIf="identity.role=='ADMIN_ROLE'">Borrar</button>

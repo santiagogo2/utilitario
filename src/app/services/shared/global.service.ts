@@ -2,25 +2,6 @@ export var global = {
 
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
-	area: [
-		{id:0, value: 'ADMINISTRATIVA'},
-		{id:1, value: 'APH'},
-		{id:2, value: 'CALIDAD'},
-		{id:3, value: 'CONSULTA EXTERNA - ABRAHAM LINCON'},
-		{id:4, value: 'ESPACIO VIVIENDA'},
-		{id:5, value: 'FACTURACIÓN'},
-		{id:6, value: 'HOSPITALIZACIÓN'},
-		{id:7, value: 'SIRC'},
-		{id:8, value: 'TERAPIA RESPIRATORIA'},
-		{id:9, value: 'TRANSLADOS INTERNOS'},
-		{id:10, value: 'UCI NEONATOS'},
-		{id:11, value: 'UNIDAD NEONATOS'},
-		{id:12, value: 'URGENCIAS'},
-		{id:13, value: 'VIGILANCIA SANITÁRIA'},
-		{id:14, value: 'ORTOPEDIA'},
-		{id:15, value: 'LABORATORIO'},
-		{id:16, value: 'ODONTOLOGÍA'},
-	],
 	arls: [
 		{id: 0, value: 'SURA'}
 	],

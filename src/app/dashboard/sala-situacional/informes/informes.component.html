@@ -3,8 +3,14 @@
 		<div></div><div></div><div></div><div></div><div></div>
 	</div>
 </div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="status=='error' && responseMessage">
+	<div class="alert" role="alert">
+		{{ responseMessage }}
+	</div>
+</div>
+
 <div class="row reports">
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="gender">
+	<div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="gender">
 		<div class="card border-0">
 			<h4 class="card-header">{{ gender.title }}</h4>
 			<div class="card-body">
@@ -25,7 +31,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="epidemicNexus">
+	<div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="epidemicNexus">
 		<div class="card border-0">
 			<h4 class="card-header">{{ epidemicNexus.title }}</h4>
 			<div class="card-body">
@@ -47,7 +53,7 @@
 		</div>
 	</div>
 
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="profile">
+	<div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="profile">
 		<div class="card border-0">
 			<h4 class="card-header">{{ profile.title }}</h4>
 			<div class="card-body">
@@ -68,7 +74,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="area">
+	<div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="area">
 		<div class="card border-0">
 			<h4 class="card-header">{{ area.title }}</h4>
 			<div class="card-body">
@@ -90,7 +96,7 @@
 		</div>
 	</div>
 
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="peopleStatus">
+	<div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="peopleStatus">
 		<div class="card border-0">
 			<h4 class="card-header">{{ peopleStatus.title }}</h4>
 			<div class="card-body">
@@ -111,7 +117,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="symptoms">
+	<div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="symptoms">
 		<div class="card border-0">
 			<h4 class="card-header">{{ symptoms.title }}</h4>
 			<div class="card-body">
@@ -133,7 +139,7 @@
 		</div>
 	</div>
 
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="resultingDelay">
+	<div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="resultingDelay">
 		<div class="card border-0">
 			<h4 class="card-header">{{ resultingDelay.title }}</h4>
 			<div class="card-body">
@@ -154,7 +160,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 col-md-6 reportGraph" *ngIf="ageGroup">
+	<div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="ageGroup">
 		<div class="card border-0">
 			<h4 class="card-header">{{ ageGroup.title }}</h4>
 			<div class="card-body">

@@ -5,7 +5,7 @@ import { Collaborators } from '../../../../models/model.index';
 import { global } from '../../../../services/service.index';
 
 import { UserService } from '../../../../services/service.index';
-import { CollaboratorsService } from '../../../../services/service.index';
+import { AreaService, CollaboratorsService } from '../../../../services/service.index';
 
 import swal from 'sweetalert';
 
@@ -14,6 +14,7 @@ import swal from 'sweetalert';
 	templateUrl: './registrar-colaboradores.component.html',
 	styles: [],
 	providers: [
+		AreaService,
 		CollaboratorsService,
 		UserService
 	]
@@ -25,7 +26,7 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	public preloaderStatus: boolean;
 	public buttonTitle: string;
 
-	public area: Array<any>;
+	public areas: Array<any>;
 	public arls: Array<any>;
 	public aseguradoras: Array<any>;
 	public estados: Array<any>;
@@ -42,11 +43,11 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	public token: string;
 
 	constructor(
+		private _areaService: AreaService,
 		private _userService: UserService,
 		private _collaboratorService: CollaboratorsService,
 		private _router: Router
 	) {
-		this.area = global.area;
 		this.arls = global.arls;
 		this.aseguradoras = global.aseguradoras;
 		this.estados = global.estados;
@@ -70,6 +71,10 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		// Obtener los datos
+		this.areaList();
+
+		
 		this.getDataRouter().subscribe(
 			response => {
 				this.buttonTitle = response.titulo;
@@ -133,6 +138,26 @@ export class RegistrarColaboradoresComponent implements OnInit {
 			filter( evento => evento instanceof ActivationEnd ), // Si el evento es una instancia de ActivationEnd
 			filter( (evento: ActivationEnd) => evento.snapshot.firstChild == null),
 			map( (evento: ActivationEnd) => evento.snapshot.data )
+		);
+	}
+
+
+	// Obtener todos los datos necesarios
+	areaList(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+
+		this._areaService.areaList( this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.areas = res.areas
+				}
+			},
+			error => {
+				this.status = undefined;
+				this.responseMessage = undefined;
+				console.log(<any>error);
+			}
 		);
 	}
 }

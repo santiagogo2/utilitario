@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CollaboratorsService, global, UserService } from '../../../services/service.index';
+import { AreaService, CollaboratorsService, global, UserService } from '../../../services/service.index';
 import { Collaborators } from '../../../models/model.index';
 
 @Component({
@@ -7,6 +7,7 @@ import { Collaborators } from '../../../models/model.index';
 	templateUrl: './informes.component.html',
 	styles: [],
 	providers: [
+		AreaService,
 		CollaboratorsService,
 		UserService
 	]
@@ -17,6 +18,7 @@ export class InformesComponent implements OnInit {
 	public preloaderStatus: boolean;
 
 	public area: any;
+	public getArea: Array<any>;
 	public gender: any;
 	public epidemicNexus: any;
 	public peopleStatus: any;
@@ -30,6 +32,7 @@ export class InformesComponent implements OnInit {
 	public collaborators: Collaborators[];
 
 	constructor(
+		private _areaService: AreaService,
 		private _collaboratorService: CollaboratorsService,
 		private _userService: UserService
 	) {
@@ -37,6 +40,8 @@ export class InformesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.areaList();
+
 		this.getCollaborators();
 	}
 
@@ -51,7 +56,7 @@ export class InformesComponent implements OnInit {
 					this.epidemicNexus = this.setGeneralInformation('nexo', global.nexos, 'Contagiados por nexo epidemiológico', 'pie');
 					this.profile = this.setGeneralInformation('perfil', global.perfil, 'Distribución de casos según el perfil ocupacional', 'horizontalBar');
 					this.profile.data = [ { data: this.profile.data, label: 'Eventos por perfil' }	];
-					this.area = this.setGeneralInformation('area', global.area, 'Distribución según el área asistencial', 'horizontalBar');
+					this.area = this.setGeneralInformation('area', this.getArea, 'Distribución según el área asistencial', 'horizontalBar');
 					this.area.data = [ { data: this.area.data, label: 'Eventos área asistencial' } ];
 					this.peopleStatus = this.setGeneralInformation('estado', global.estados, 'Distribución de eventos según el estado actual', 'doughnut');
 					this.symptoms = this.setSymptoms('Distribución de eventos por síntomas', 'pie');
@@ -78,7 +83,8 @@ export class InformesComponent implements OnInit {
 		let variable = {};
 
 		vector.forEach(element => {
-			labels.push(element.value);
+			if( element.value ) labels.push(element.value);
+			else if ( element.name ) labels.push(element.name);
 
 			let count:number = 0;
 			for(let i=0; i<this.collaborators.length; i++){
@@ -254,4 +260,23 @@ export class InformesComponent implements OnInit {
 		//Finalmente, calculamos redondeando y ajustando por la naturaleza de los números en JS:
 		return Math.ceil((((d - +new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) / 7);
 	};
+
+
+	areaList(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+
+		this._areaService.areaList( this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.getArea = res.areas;
+				}
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
+	}
 }

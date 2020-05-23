@@ -12,10 +12,22 @@ import { AdminComponent } from './admin.component';
 	import { RoleRegisterComponent } from './pages/role/role-register/role-register.component';
 	import { RoleEditComponent } from './pages/role/role-edit/role-edit.component';
 
+	// Sala Situacional
+		// Area Components
+		import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
+
 // Guards
 import { AdminGuard } from '../guards/guard.index';
 
 const adminRoutes: Routes = [
+	{
+		path: 'admin',
+		component: AdminComponent,
+		children: [
+			{ path: 'sala-situacional', component: SalaSituacionalComponent, data: { titulo: 'Administrar Sala Situacional' }, canActivate: [AdminGuard] },
+		]
+	},
+
 	{
 		path: 'admin/usuarios',
 		component: AdminComponent,
@@ -34,7 +46,8 @@ const adminRoutes: Routes = [
 			{ path: 'agregar', component: RoleRegisterComponent, data: { titulo: 'Agregar un nuevo role' }, canActivate: [AdminGuard] },
 			{ path: 'editar/:id', component: RoleEditComponent, data: { titulo: 'Editar role' }, canActivate: [AdminGuard] },
 		]
-	}
+	},
+
 ];
 
 export const ADMIN_ROUTES = RouterModule.forChild( adminRoutes );

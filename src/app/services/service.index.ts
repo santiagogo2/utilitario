@@ -4,6 +4,9 @@ export { RoleService } from './admin/role.service';
 // Dashboard Services
 	// Sala Situacional Services 
 	export { CollaboratorsService } from './dashboard/sala-situacional/collaborators.service';
+	// Admin
+	export { AreaService } from './admin/sala-situacional/area.service';
+	export { ProfileService } from './admin/sala-situacional/profile.service';
 
 	// Contratacion Services
 	export { ContractService } from './dashboard/contratacion/contract.service';
