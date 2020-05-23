@@ -13,6 +13,7 @@ import { ADMIN_ROUTES } from './admin.routes';
 import { SharedModule } from '../shared/shared.module';
 import { AreaModule } from './pages/sala-situacional/area/area.module';
 import { ProfileModule } from './pages/sala-situacional/profile/profile.module';
+import { UnitModule } from './pages/sala-situacional/unit/unit.module';
 
 // Components
 import { AdminComponent } from './admin.component';
@@ -26,9 +27,6 @@ import { RoleEditComponent } from './pages/role/role-edit/role-edit.component';
 import { RoleRegisterComponent } from './pages/role/role-register/role-register.component';
 
 import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
-import { UnitListComponent } from './pages/sala-situacional/unit/unit-list/unit-list.component';
-import { UnitRegisterComponent } from './pages/sala-situacional/unit/unit-register/unit-register.component';
-import { UnitEditComponent } from './pages/sala-situacional/unit/unit-edit/unit-edit.component';
 
 @NgModule({
 	declarations: [
@@ -40,9 +38,6 @@ import { UnitEditComponent } from './pages/sala-situacional/unit/unit-edit/unit-
 		RoleEditComponent,
 		RoleRegisterComponent,
 		SalaSituacionalComponent,
-		UnitListComponent,
-		UnitRegisterComponent,
-		UnitEditComponent,
 	],
 	imports: [
 		CommonModule,
@@ -52,6 +47,7 @@ import { UnitEditComponent } from './pages/sala-situacional/unit/unit-edit/unit-
 		SharedModule,
 		AreaModule,
 		ProfileModule,
+		UnitModule,
 		FontAwesomeModule,
 
 		ADMIN_ROUTES,
