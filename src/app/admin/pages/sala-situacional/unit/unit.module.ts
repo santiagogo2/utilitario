@@ -17,6 +17,7 @@ import { UnitEditComponent } from './unit-edit/unit-edit.component';
 		UnitEditComponent,
 	],
 	imports:[
+		CommonModule,
 		FormsModule,
 		HttpClientModule,
 		NgxPaginationModule,
