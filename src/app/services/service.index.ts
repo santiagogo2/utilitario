@@ -7,6 +7,7 @@ export { RoleService } from './admin/role.service';
 	// Admin
 	export { AreaService } from './admin/sala-situacional/area.service';
 	export { ProfileService } from './admin/sala-situacional/profile.service';
+	export { UnitService } from './admin/sala-situacional/unit.service';
 
 	// Contratacion Services
 	export { ContractService } from './dashboard/contratacion/contract.service';
