@@ -4,6 +4,7 @@
 		// Admin
 		export { Area } from './admin/sala-situacional/area';
 		export { Profile } from './admin/sala-situacional/profile';
+		export { Unit } from './admin/sala-situacional/unit';
 
 		// Contratacion Models
 		export { Contractor } from './dashboard/contratacion/contractor';
