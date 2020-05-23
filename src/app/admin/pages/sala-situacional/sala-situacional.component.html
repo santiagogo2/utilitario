@@ -25,3 +25,15 @@
 		</div>
 	</div>
 </div>
+<div class="row reports">
+	<div class="col-sm-12 col-lg-6 reportGraph pl-0">
+		<div class="card border-0">
+			<h4 class="card-header">{{areaStatusView + ' áreas'}}</h4>
+			<div class="card-body">	
+				<app-unit-list (changeView)="chageAreaView($event)" *ngIf="areaStatusView == 'Listar'"></app-unit-list>	
+				<app-unit-register (changeView)="chageAreaView($event)" *ngIf="areaStatusView == 'Registrar'"></app-unit-register>
+				<app-unit-edit (changeView)="chageAreaView($event)" *ngIf="areaStatusView == 'Editar'"></app-unit-edit>
+			</div>
+		</div>
+	</div> 
+</div>

@@ -61,7 +61,7 @@ export class UnitRegisterComponent implements OnInit {
 		);
 	}
 
-	sendFlag(){
-		this.changeUnitView.emit('Listar');
+	sendFlag(text){
+		this.changeUnitView.emit(text);
 	}
 }

@@ -73,7 +73,7 @@ export class UnitEditComponent implements OnInit {
 		this._unitService.updateUnit( this.unit, this.token ).subscribe(
 			res => {
 				if( res.status == 'success' ){
-					this.sendFlag();
+					this.sendFlag('Listar');
 				}
 			},
 			error => {
@@ -84,7 +84,7 @@ export class UnitEditComponent implements OnInit {
 		);
 	}
 
-	sendFlag(){
-		this.changeUnitView.emit('Listar');
+	sendFlag(text){
+		this.changeUnitView.emit(text);
 	}
 }
