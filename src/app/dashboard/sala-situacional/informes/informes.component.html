@@ -53,44 +53,44 @@
 		</div>
 	</div>
 
-	<div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="profile">
+	<div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="profiles">
 		<div class="card border-0">
-			<h4 class="card-header">{{ profile.title }}</h4>
+			<h4 class="card-header">{{ profiles.title }}</h4>
 			<div class="card-body">
 				<div class="tableContainer">
 					<table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
 						<thead class="thead_styles">
-							<td *ngFor="let label of profile.labels">{{ label }}</td>
+							<td *ngFor="let label of profiles.labels">{{ label }}</td>
 						</thead>
 						<tbody class="tbody_styles">
-							<td *ngFor="let data of profile.data[0].data">{{ data }}</td>
+							<td *ngFor="let data of profiles.data[0].data">{{ data }}</td>
 						</tbody>
 					</table>
 				</div>
-				<app-grafico-barras [barChartData]="profile.data"
-								  	[barChartLabels]="profile.labels"
-								  	[barChartType]="profile.type">
+				<app-grafico-barras [barChartData]="profiles.data"
+								  	[barChartLabels]="profiles.labels"
+								  	[barChartType]="profiles.type">
 				</app-grafico-barras>				
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="area">
+	<div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="areas">
 		<div class="card border-0">
-			<h4 class="card-header">{{ area.title }}</h4>
+			<h4 class="card-header">{{ areas.title }}</h4>
 			<div class="card-body">
 				<div class="tableContainer">
 					<table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
 						<thead class="thead_styles">
-							<td *ngFor="let label of area.labels">{{ label }}</td>
+							<td *ngFor="let label of areas.labels">{{ label }}</td>
 						</thead>
 						<tbody class="tbody_styles">
-							<td *ngFor="let data of area.data[0].data">{{ data }}</td>
+							<td *ngFor="let data of areas.data[0].data">{{ data }}</td>
 						</tbody>
 					</table>
 				</div>
-				<app-grafico-barras [barChartData]="area.data"
-								  	[barChartLabels]="area.labels"
-								  	[barChartType]="area.type">
+				<app-grafico-barras [barChartData]="areas.data"
+								  	[barChartLabels]="areas.labels"
+								  	[barChartType]="areas.type">
 				</app-grafico-barras>				
 			</div>
 		</div>

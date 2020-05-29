@@ -16,10 +16,10 @@ import { Profile } from '../../../../../models/model.index';
 	]
 })
 export class ProfileListComponent implements OnInit {
-	@Output() public changeProfileView: EventEmitter<any> = new EventEmitter();
+	@Output() public changeView: EventEmitter<any> = new EventEmitter();
 	public status: string;
 	public responseMessage: string;
-	public actualPage: number;
+	public actualProfilePage: number;
 	public itemsPerPage: number;
 
 	public token: string;
@@ -29,7 +29,7 @@ export class ProfileListComponent implements OnInit {
 		private _profileService: ProfileService,
 		private _userService: UserService
 	) {
-		this.actualPage = 1;
+		this.actualProfilePage = 1;
 		this.itemsPerPage = 7;
 
 		this.token = this._userService.getToken();
@@ -83,11 +83,13 @@ export class ProfileListComponent implements OnInit {
 		);
 	}
 
-	pageChange(event){
-		this.actualPage = event;
+	pageProfileChange(event){
+		this.actualProfilePage = event;
 	}
 
-	sendFlag(event){
-		this.changeProfileView.emit(event);
+	sendFlag(event, editId=null){
+		if( editId == 0 ) editId = 'zero';
+		if( editId ) localStorage.setItem( 'profileEditId', editId );
+		this.changeView.emit(event);
 	}
 }

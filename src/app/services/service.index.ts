@@ -12,6 +12,8 @@ export { RoleService } from './admin/role.service';
 	// Contratacion Services
 	export { ContractService } from './dashboard/contratacion/contract.service';
 	export { ContractorService } from './dashboard/contratacion/contractor.service';
+	// Admin
+	export { SupervisorService } from './admin/contratacion/supervisor.service';
 
 // Shared Services
 export { UserService } from './shared/user.service';

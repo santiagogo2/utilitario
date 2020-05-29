@@ -42,11 +42,13 @@ export class AreaRegisterComponent implements OnInit {
 	onSubmit(areaRegisterForm){
 		this.status = undefined;
 		this.responseMessage = undefined;
+		this.preloaderStatus = true;
 
 		this.area.name = this.area.name.toUpperCase().trim();
 
 		this._areaService.newArea( this.area, this.token ).subscribe(
 			res => {
+				this.preloaderStatus = false;
 				if( res.status == 'success' ){
 					this.status = res.status;
 					this.responseMessage = res.message;
@@ -54,6 +56,7 @@ export class AreaRegisterComponent implements OnInit {
 				}
 			},
 			error => {
+				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(<any>error);

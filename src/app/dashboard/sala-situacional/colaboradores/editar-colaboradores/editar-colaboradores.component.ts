@@ -4,8 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { Collaborators } from '../../../../models/model.index';
 import { global } from '../../../../services/service.index';
 
-import { AreaService, UserService } from '../../../../services/service.index';
-import { CollaboratorsService } from '../../../../services/service.index';
+import { AreaService, CollaboratorsService, ProfileService, UnitService, UserService } from '../../../../services/service.index';
 
 import swal from 'sweetalert';
 
@@ -16,6 +15,8 @@ import swal from 'sweetalert';
 	providers: [
 		AreaService,
 		CollaboratorsService,
+		ProfileService,
+		UnitService,
 		UserService
 	]
 })
@@ -32,20 +33,22 @@ export class EditarColaboradoresComponent implements OnInit {
 	public estados: Array<any>;
 	public manejos: Array<any>;
 	public nexos: Array<any>;
-	public perfil: Array<any>;
+	public profiles: Array<any>;
 	public respuestas: Array<any>;
 	public sexo: Array<any>;
 	public tipoDocumento: Array<any>;
 	public tipoVinculacion: Array<any>;
-	public unidades: Array<any>;
+	public units: Array<any>;
 
 	public collaborator: Collaborators;
 	public token: string;
 
 	constructor(
 		private _areaService: AreaService,
-		private _userService: UserService,
 		private _collaboratorService: CollaboratorsService,
+		private _profileService: ProfileService,
+		private _unitService: UnitService,
+		private _userService: UserService,
 		private _router: Router,
 		private _route: ActivatedRoute
 	) {
@@ -54,12 +57,10 @@ export class EditarColaboradoresComponent implements OnInit {
 		this.estados = global.estados;
 		this.manejos = global.manejos;
 		this.nexos = global.nexos;
-		this.perfil = global.perfil;
 		this.respuestas = global.respuestas;
 		this.sexo = global.sexo;
 		this.tipoDocumento = global.tipoDocumento;
 		this.tipoVinculacion = global.tipoVinculacion;
-		this.unidades = global.unidades;
 		
 		this.token = this._userService.getToken();
 	}
@@ -67,6 +68,8 @@ export class EditarColaboradoresComponent implements OnInit {
 	ngOnInit(): void {
 		// Obtener Información Inicial
 		this.areaList();
+		this.profileList();
+		this.unitList();
 
 		this.getCollaborator();
 		this.getDataRouter().subscribe(
@@ -163,8 +166,42 @@ export class EditarColaboradoresComponent implements OnInit {
 				}
 			},
 			error => {
-				this.status = undefined;
-				this.responseMessage = undefined;
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
+	}
+	profileList(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+
+		this._profileService.profileList( this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.profiles = res.profiles;
+				}
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
+	}
+	unitList(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+
+		this._unitService.unitList( this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.units = res.units;
+				}
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
 				console.log(<any>error);
 			}
 		);

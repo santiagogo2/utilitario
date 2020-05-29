@@ -16,7 +16,7 @@ import { Unit } from '../../../../../models/model.index';
 	]
 })
 export class UnitListComponent implements OnInit {
-	@Output() public changeUnitView: EventEmitter<any> = new EventEmitter();
+	@Output() public changeView: EventEmitter<any> = new EventEmitter();
 	public status: string;
 	public responseMessage: string;
 	public actualPage: number;
@@ -87,7 +87,9 @@ export class UnitListComponent implements OnInit {
 		this.actualPage = event;
 	}
 
-	sendFlag(event){
-		this.changeUnitView.emit(event);
+	sendFlag(event, editId=null){
+		if( editId == 0 ) editId = 'zero';
+		if( editId ) localStorage.setItem( 'unitEditId', editId );
+		this.changeView.emit(event);
 	}
 }

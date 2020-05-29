@@ -9,6 +9,8 @@
 		// Contratacion Models
 		export { Contractor } from './dashboard/contratacion/contractor';
 		export { Contract } from './dashboard/contratacion/contract';
+		// Admin
+		export { Supervisor } from './admin/contratacion/supervisor';
 
 // Admin Models
 export { Role } from './admin/role';

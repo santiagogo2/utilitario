@@ -68,7 +68,6 @@ export class AreaListComponent implements OnInit {
 				if( res.status == 'success' ){
 					this.status = res.status;
 					this.responseMessage = res.message;
-					console.log(this.status, this.responseMessage);
 					this.areaList();
 				}
 			},
@@ -87,7 +86,9 @@ export class AreaListComponent implements OnInit {
 		this.actualPage = event;
 	}
 
-	sendFlag(event){
+	sendFlag(event, editId=null){
+		if( editId == 0 ) editId = 'zero';
+		if( editId ) localStorage.setItem( 'areaEditId', editId );
 		this.changeView.emit(event);
 	}
 }

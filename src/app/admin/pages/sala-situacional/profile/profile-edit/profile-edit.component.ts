@@ -17,7 +17,7 @@ import { Profile } from '../../../../../models/model.index';
 	]
 })
 export class ProfileEditComponent implements OnInit {
-	@Output() public changeProfileView: EventEmitter<any> = new EventEmitter();
+	@Output() public changeView: EventEmitter<any> = new EventEmitter();
 
 	public status: string;
 	public responseMessage: string;
@@ -42,41 +42,44 @@ export class ProfileEditComponent implements OnInit {
 	}
 
 	getProfile(){
-		this._route.params.subscribe( params => {
-			this.status = undefined;
-			this.responseMessage = undefined;
-			this.profile = undefined;
+		this.status = undefined;
+		this.responseMessage = undefined;
+		this.profile = undefined;
 
-			let id = +params['id'];
+		let id = localStorage.getItem('profileEditId');
 
-			this._profileServie.getProfile( id , this.token ).subscribe(
-				res => {
-					if( res.status == 'success' ){
-						this.profile = res.profile;
-					}
-				},
-				error => {
-					this.status = error.error.status;
-					this.responseMessage = error.error.message;
-					console.log(<any>error);
+		if( !id || id == 'zero' ) id = '0';
+		
+		this._profileServie.getProfile( id , this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.profile = res.profile;
 				}
-			);
-		});
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);	
 	}
 
 	onSubmit(profileUpdateForm){
 		this.status = undefined;
 		this.responseMessage = undefined;
+		this.preloaderStatus = true;
 
 		this.profile.name = this.profile.name.toUpperCase().trim();
 
 		this._profileServie.updateProfile( this.profile, this.token ).subscribe(
 			res => {
+				this.preloaderStatus = false;
 				if( res.status == 'success' ){
 					this.sendFlag();
 				}
 			},
 			error => {
+				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(<any>error);
@@ -85,6 +88,6 @@ export class ProfileEditComponent implements OnInit {
 	}
 
 	sendFlag(){
-		this.changeProfileView.emit('Listar');
+		this.changeView.emit('Listar');
 	}
 }

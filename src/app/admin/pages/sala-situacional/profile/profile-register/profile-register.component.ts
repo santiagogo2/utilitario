@@ -16,7 +16,7 @@ import { Profile } from '../../../../../models/model.index';
 	]
 })
 export class ProfileRegisterComponent implements OnInit {
-	@Output() public changeProfileView: EventEmitter<any> = new EventEmitter();
+	@Output() public changeView: EventEmitter<any> = new EventEmitter();
 
 	public status: string;
 	public responseMessage: string;
@@ -42,11 +42,13 @@ export class ProfileRegisterComponent implements OnInit {
 	onSubmit(profileRegisterForm){
 		this.status = undefined;
 		this.responseMessage = undefined;
+		this.preloaderStatus = true;
 
 		this.profile.name = this.profile.name.toUpperCase().trim();
 
 		this._profileService.newProfile( this.profile, this.token ).subscribe(
 			res => {
+				this.preloaderStatus = false;
 				if( res.status == 'success' ){
 					this.status = res.status;
 					this.responseMessage = res.message;
@@ -54,6 +56,7 @@ export class ProfileRegisterComponent implements OnInit {
 				}
 			},
 			error => {
+				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(<any>error);
@@ -62,6 +65,6 @@ export class ProfileRegisterComponent implements OnInit {
 	}
 
 	sendFlag(){
-		this.changeProfileView.emit('Listar');
+		this.changeView.emit('Listar');
 	}
 }

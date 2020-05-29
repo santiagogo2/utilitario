@@ -1,15 +1,15 @@
-<div class="loaderBall" *ngIf="(!collaborator || !areas) && !responseMessage">
+<div class="loaderBall" *ngIf="(!collaborator || !areas || !profiles || !units) && !responseMessage">
 	<div class="ball-pulse-rise">
 		<div></div><div></div><div></div><div></div><div></div>
 	</div>
 </div>
-<div class="mt-3 errorAlert alert-danger" *ngIf="(!collaborator || !areas) && status=='error' && responseMessage">
+<div class="mt-3 errorAlert alert-danger" *ngIf="(!collaborator || !areas || !profiles || !units) && status=='error' && responseMessage">
 	<div class="alert" role="alert">
 		{{ responseMessage }}
 	</div>
 </div>
 
-<div class="row" *ngIf="collaborator && areas">
+<div class="row" *ngIf="collaborator && areas && profiles && units">
 	<div class="col-sm-12">
 		<div class="card border-0">
 			<div class="card-body cardContainer">
@@ -72,7 +72,7 @@
 							<div class="col col-sm-12 col-md-4 d-inline-block">
 								<label for="profile" class="labelForm">Perfil ocupacional</label>
 								<select style="background-position-x: 93%" name="profile" id="profile" class="form-control inputForm" [ngClass]="{'is-invalid': profile.invalid && profile.touched}" #profile="ngModel" [(ngModel)]="collaborator.perfil">
-									<option *ngFor="let prof of perfil" value="{{ prof.id }}">{{ prof.value }}</option>
+									<option *ngFor="let profile of profiles" value="{{ profile.id }}">{{ profile.name }}</option>
 								</select>
 							</div>
 						</div>						
@@ -92,7 +92,7 @@
 							<div class="col col-sm-12 col-md-4 d-inline-block">
 								<label for="serviceUnit" class="labelForm">Unidad</label>
 								<select style="background-position-x: 93%" name="serviceUnit" id="serviceUnit" class="form-control inputForm" [ngClass]="{'is-invalid': serviceUnit.invalid && serviceUnit.touched}" #serviceUnit="ngModel" [(ngModel)]="collaborator.unidad">
-									<option *ngFor="let unidad of unidades" value="{{ unidad.id }}">{{ unidad.value }}</option>
+									<option *ngFor="let unit of units" value="{{ unit.id }}">{{ unit.name }}</option>
 								</select>
 							</div>
 						</div>

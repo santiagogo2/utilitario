@@ -25,7 +25,8 @@
 				<div class="tableContainer" *ngIf="areas">
 					<div class="tableContainerAll col col-sm-12">
 						<div class="paginationControls" *ngIf="areas && areas.length > itemsPerPage">
-							<pagination-controls (pageChange)="pageChange($event)"
+							<pagination-controls id="area"
+												 (pageChange)="pageChange($event)"
 												 previousLabel="Anterior"
 												 nextLabel="Siguiente"
 												 maxSize="4">
@@ -39,10 +40,10 @@
 								</tr>
 							</thead>
 							<tbody class="tbody_styles">
-								<tr *ngFor="let area of areas | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage};" class="tableStyles">
+								<tr *ngFor="let area of areas | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage, id:'area'};" class="tableStyles">
 									<td>{{ area.name }}</td>
 									<td style="padding: 0.55rem">
-										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" (click)="sendFlag('Editar')">Editar</button>
+										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" (click)="sendFlag('Editar', area.id)">Editar</button>
 										<button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+area.id" *ngIf="area.collaborators_count==0">Borrar</button>
 										<div class="deleteLoader" id="{{ 'loader' + area.id }}" style="display: none;">
 											<div class="loader"></div>
@@ -77,14 +78,7 @@
 												
 								</tr>					
 							</tbody>
-						</table>		
-						<div class="paginationControls" *ngIf="areas && areas.length > itemsPerPage">
-							<pagination-controls (pageChange)="pageChange($event)"
-												 previousLabel="Anterior"
-												 nextLabel="Siguiente"
-												 maxSize="4">
-							</pagination-controls>
-						</div>
+						</table>
 					</div>
 				</div>
 

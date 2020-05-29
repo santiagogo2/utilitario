@@ -42,41 +42,43 @@ export class UnitEditComponent implements OnInit {
 	}
 
 	getUnit(){
-		this._route.params.subscribe( params => {
-			this.status = undefined;
-			this.responseMessage = undefined;
-			this.unit = undefined;
+		this.status = undefined;
+		this.responseMessage = undefined;
+		this.unit = undefined;
 
-			let id = +params['id'];
+		let id = localStorage.getItem( 'unitEditId' );
+		if( !id || id == 'zero' ) id = '0';
 
-			this._unitService.getUnit( id , this.token ).subscribe(
-				res => {
-					if( res.status == 'success' ){
-						this.unit = res.unit;
-					}
-				},
-				error => {
-					this.status = error.error.status;
-					this.responseMessage = error.error.message;
-					console.log(<any>error);
+		this._unitService.getUnit( id , this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.unit = res.unit;
 				}
-			);
-		});
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
 	}
 
 	onSubmit(unitUpdateForm){
 		this.status = undefined;
 		this.responseMessage = undefined;
+		this.preloaderStatus = true;
 
 		this.unit.name = this.unit.name.toUpperCase().trim();
 
 		this._unitService.updateUnit( this.unit, this.token ).subscribe(
 			res => {
+				this.preloaderStatus = false;
 				if( res.status == 'success' ){
 					this.sendFlag('Listar');
 				}
 			},
 			error => {
+				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(<any>error);

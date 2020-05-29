@@ -27,6 +27,7 @@ import { RoleEditComponent } from './pages/role/role-edit/role-edit.component';
 import { RoleRegisterComponent } from './pages/role/role-register/role-register.component';
 
 import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
+import { SupervisorListComponent } from './pages/contratacion/supervisor/supervisor-list/supervisor-list.component';
 
 @NgModule({
 	declarations: [
@@ -38,6 +39,7 @@ import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacio
 		RoleEditComponent,
 		RoleRegisterComponent,
 		SalaSituacionalComponent,
+		SupervisorListComponent,
 	],
 	imports: [
 		CommonModule,

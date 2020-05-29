@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AreaService, CollaboratorsService, global, UserService } from '../../../services/service.index';
+import { AreaService, CollaboratorsService, global, ProfileService, UserService } from '../../../services/service.index';
 import { Collaborators } from '../../../models/model.index';
 
 @Component({
@@ -9,6 +9,7 @@ import { Collaborators } from '../../../models/model.index';
 	providers: [
 		AreaService,
 		CollaboratorsService,
+		ProfileService,
 		UserService
 	]
 })
@@ -17,65 +18,67 @@ export class InformesComponent implements OnInit {
 	public responseMessage: string;
 	public preloaderStatus: boolean;
 
-	public area: any;
-	public getArea: Array<any>;
+	public areas: any;
 	public gender: any;
 	public epidemicNexus: any;
 	public peopleStatus: any;
-	public profile: any;
+	public profiles: any;
 	public symptoms: any;
 	public resultingDelay: any;
+	public units: any;
 	public ageGroup: any;
 	public weeksReport: any;
 
 	public token: string;
-	public collaborators: Collaborators[];
+	public collaborators: any;
 
 	constructor(
 		private _areaService: AreaService,
 		private _collaboratorService: CollaboratorsService,
+		private _profileService: ProfileService,
 		private _userService: UserService
 	) {
 		this.token = this._userService.getToken();
 	}
 
 	ngOnInit(): void {
-		this.areaList();
-
-		this.getCollaborators();
-	}
-
-	getCollaborators(){
 		this.preloaderStatus = true;
-
-		this._collaboratorService.getCollaborators(this.token).subscribe(
-			response => {
-				if(response.status == 'success'){
-					this.collaborators = response.collaborators;
-					this.gender = this.setGeneralInformation('sexo', global.sexo, 'Contagiados por género', 'doughnut');
-					this.epidemicNexus = this.setGeneralInformation('nexo', global.nexos, 'Contagiados por nexo epidemiológico', 'pie');
-					this.profile = this.setGeneralInformation('perfil', global.perfil, 'Distribución de casos según el perfil ocupacional', 'horizontalBar');
-					this.profile.data = [ { data: this.profile.data, label: 'Eventos por perfil' }	];
-					this.area = this.setGeneralInformation('area', this.getArea, 'Distribución según el área asistencial', 'horizontalBar');
-					this.area.data = [ { data: this.area.data, label: 'Eventos área asistencial' } ];
-					this.peopleStatus = this.setGeneralInformation('estado', global.estados, 'Distribución de eventos según el estado actual', 'doughnut');
-					this.symptoms = this.setSymptoms('Distribución de eventos por síntomas', 'pie');
-					this.resultingDelay = this.setResultingDelay('Distribución de eventos por tiempo de entrega de resultados', 'bar');
-					this.ageGroup = this.setAgeGroup('Distribución de enventos por grupo etario', 'bar');
-					this.ageGroup.data = [ { data: this.ageGroup.data, label: 'Eventos grupo etario' } ];
-					this.weeksReport = this.setWeekReport('Distribución de eventos por semanas', 'line');
-					this.weeksReport.data = [ { data: this.weeksReport.data } ];
-					this.preloaderStatus = false;
-				}
-			},
-			error => {
-				this.preloaderStatus = false;
-				this.status = error.error.status;
-				this.responseMessage = error.error.message;
-				console.log(<any>error);
-			}
+		Promise.all([
+					this.areaList(),
+					this.profileList(),
+					this.getCollaborators()
+				])
+			   .then( responses => {
+			   		this.areas = responses[0];
+			   		this.profiles = responses[1];
+			   		this.collaborators = responses[2];
+			   		this.setReports();
+				})
+			   .catch( error => {
+			   	this.preloaderStatus = false;
+			   		this.status = 'error';
+			   		this.responseMessage = error;
+			   }
 		);
 	}
+
+	setReports(){
+		this.gender = this.setGeneralInformation('sexo', global.sexo, 'Contagiados por género', 'doughnut');
+		this.epidemicNexus = this.setGeneralInformation('nexo', global.nexos, 'Contagiados por nexo epidemiológico', 'pie');
+		this.profiles = this.setGeneralInformation('perfil', this.profiles, 'Distribución de casos según el perfil ocupacional', 'horizontalBar');
+		this.profiles.data = [ { data: this.profiles.data, label: 'Eventos por perfil' }	];
+		this.areas = this.setGeneralInformation('area', this.areas, 'Distribución según el área asistencial', 'horizontalBar');
+		this.areas.data = [ { data: this.areas.data, label: 'Eventos área asistencial' } ];
+		this.peopleStatus = this.setGeneralInformation('estado', global.estados, 'Distribución de eventos según el estado actual', 'doughnut');
+		this.symptoms = this.setSymptoms('Distribución de eventos por síntomas', 'pie');
+		this.resultingDelay = this.setResultingDelay('Distribución de eventos por tiempo de entrega de resultados', 'bar');
+		this.ageGroup = this.setAgeGroup('Distribución de enventos por grupo etario', 'bar');
+		this.ageGroup.data = [ { data: this.ageGroup.data, label: 'Eventos grupo etario' } ];
+		this.weeksReport = this.setWeekReport('Distribución de eventos por semanas', 'line');
+		this.weeksReport.data = [ { data: this.weeksReport.data } ];
+		this.preloaderStatus = false;
+	}
+
 
 	setGeneralInformation(key:string, vector, title:string, type:string){
 		let labels = new Array();
@@ -262,21 +265,52 @@ export class InformesComponent implements OnInit {
 	};
 
 
-	areaList(){
-		this.status = undefined;
-		this.responseMessage = undefined;
-
-		this._areaService.areaList( this.token ).subscribe(
-			res => {
-				if( res.status == 'success' ){
-					this.getArea = res.areas;
+	getCollaborators(){
+		return new Promise((resolve, reject) => {
+			this._collaboratorService.getCollaborators(this.token).subscribe(
+				res => {
+					if(res.status == 'success'){
+						resolve( res.collaborators );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
 				}
-			},
-			error => {
-				this.status = error.error.status;
-				this.responseMessage = error.error.message;
-				console.log(<any>error);
-			}
-		);
+			);			
+		});
+
+	}
+	areaList(){
+		return new Promise((resolve, reject) => {
+			this._areaService.areaList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.areas );
+					}
+				},
+				error => {
+					reject(error.error.message);
+					console.log(<any>error);
+				}
+			);			
+		});
+
+	}
+	profileList(){
+		return new Promise((resolve, reject) => {
+			this._profileService.profileList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.profiles );
+					}
+				},
+				error => {
+					reject(error.error.message);
+					console.log(<any>error);
+				}
+			);			
+		});
+
 	}
 }

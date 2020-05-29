@@ -25,7 +25,8 @@
 				<div class="tableContainer" *ngIf="profiles">
 					<div class="tableContainerAll col col-sm-12">
 						<div class="paginationControls" *ngIf="profiles && profiles.length > itemsPerPage">
-							<pagination-controls (pageChange)="pageChange($event)"
+							<pagination-controls id="profile"
+												 (pageChange)="pageProfileChange($event)"
 												 previousLabel="Anterior"
 												 nextLabel="Siguiente"
 												 maxSize="4">
@@ -39,10 +40,10 @@
 								</tr>
 							</thead>
 							<tbody class="tbody_styles">
-								<tr *ngFor="let profile of profiles | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage};" class="tableStyles">
+								<tr *ngFor="let profile of profiles | paginate: {itemsPerPage: itemsPerPage, currentPage: actualProfilePage, id:'profile'};" class="tableStyles">
 									<td>{{ profile.name }}</td>
 									<td style="padding: 0.55rem">
-										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" (click)="sendFlag('Editar')">Editar</button>
+										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" (click)="sendFlag('Editar', profile.id)">Editar</button>
 										<button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+profile.id" *ngIf="profile.collaborators_count==0">Borrar</button>
 										<div class="deleteLoader" id="{{ 'loader' + profile.id }}" style="display: none;">
 											<div class="loader"></div>
@@ -77,14 +78,7 @@
 												
 								</tr>					
 							</tbody>
-						</table>		
-						<div class="paginationControls" *ngIf="profiles && profiles.length > itemsPerPage">
-							<pagination-controls (pageChange)="pageChange($event)"
-												 previousLabel="Anterior"
-												 nextLabel="Siguiente"
-												 maxSize="4">
-							</pagination-controls>
-						</div>
+						</table>
 					</div>
 				</div>
 

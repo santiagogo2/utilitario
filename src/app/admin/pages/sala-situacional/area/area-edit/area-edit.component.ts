@@ -42,41 +42,43 @@ export class AreaEditComponent implements OnInit {
 	}
 
 	getArea(){
-		this._route.params.subscribe( params => {
-			this.status = undefined;
-			this.responseMessage = undefined;
-			this.area = undefined;
+		this.status = undefined;
+		this.responseMessage = undefined;
+		this.area = undefined;
 
-			let id = +params['id'];
+		let id = localStorage.getItem( 'areaEditId' );
 
-			this._areaService.getArea( id , this.token ).subscribe(
-				res => {
-					if( res.status == 'success' ){
-						this.area = res.area;
-					}
-				},
-				error => {
-					this.status = error.error.status;
-					this.responseMessage = error.error.message;
-					console.log(<any>error);
+		if( !id || id == 'zero' ) id = '0';
+		this._areaService.getArea( id , this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.area = res.area;
 				}
-			);
-		});
+			},
+			error => {
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
 	}
 
 	onSubmit(areaUpdateForm){
 		this.status = undefined;
 		this.responseMessage = undefined;
+		this.preloaderStatus = true;
 
 		this.area.name = this.area.name.toUpperCase().trim();
 
 		this._areaService.updateArea( this.area, this.token ).subscribe(
 			res => {
+				this.preloaderStatus = false;
 				if( res.status == 'success' ){
 					this.sendFlag();
 				}
 			},
 			error => {
+				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(<any>error);
