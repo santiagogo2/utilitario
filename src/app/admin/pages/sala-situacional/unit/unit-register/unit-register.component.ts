@@ -59,6 +59,11 @@ export class UnitRegisterComponent implements OnInit {
 				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
+
+				if(error.error.errors){
+					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
+				}
+				
 				console.log(<any>error);
 			}
 		);

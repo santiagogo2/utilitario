@@ -19,7 +19,7 @@ export class SalaSituacionalGuard implements CanActivate {
 		if(identity.role == 'ADMIN_ROLE' || isContract == 'SALA'){
 			return true;
 		} else{
-			this._router.navigate(['/dashboard']);
+			this._router.navigate(['/inicio']);
 			return false;
 		}
 	} 

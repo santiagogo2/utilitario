@@ -4,7 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { Collaborators } from '../../../../models/model.index';
 import { global } from '../../../../services/service.index';
 
-import { AreaService, CollaboratorsService, ProfileService, UnitService, UserService } from '../../../../services/service.index';
+import { AreaService, ArlService, CollaboratorsService, InsurerService, ProfileService, UnitService, UserService } from '../../../../services/service.index';
 
 import swal from 'sweetalert';
 
@@ -14,7 +14,9 @@ import swal from 'sweetalert';
 	styles: [],
 	providers: [
 		AreaService,
+		ArlService,
 		CollaboratorsService,
+		InsurerService,
 		ProfileService,
 		UnitService,
 		UserService
@@ -27,32 +29,34 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	public preloaderStatus: boolean;
 	public buttonTitle: string;
 
-	public areas: Array<any>;
-	public arls: Array<any>;
-	public aseguradoras: Array<any>;
+	public areas:any;
+	public arls: any;
+	public insurers: any;
 	public estados: Array<any>;
 	public manejos: Array<any>;
 	public nexos: Array<any>;
-	public profiles: Array<any>
+	public profiles: any;
 	public respuestas: Array<any>;
 	public sexo: Array<any>;
 	public tipoDocumento: Array<any>;
 	public tipoVinculacion: Array<any>;
-	public units: Array<any>;
+	public units: any;
 
 	public collaborator: Collaborators;
 	public token: string;
 
 	constructor(
 		private _areaService: AreaService,
+		private _arlService: ArlService,
 		private _collaboratorService: CollaboratorsService,
+		private _insurerService: InsurerService,
 		private _profileService: ProfileService,
 		private _unitService: UnitService,
 		private _userService: UserService,
 		private _router: Router
 	) {
-		this.arls = global.arls;
-		this.aseguradoras = global.aseguradoras;
+		this.buttonTitle = 'Registrar';
+		
 		this.estados = global.estados;
 		this.manejos = global.manejos;
 		this.nexos = global.nexos;
@@ -61,10 +65,6 @@ export class RegistrarColaboradoresComponent implements OnInit {
 		this.tipoDocumento = global.tipoDocumento;
 		this.tipoVinculacion = global.tipoVinculacion;
 
-		this.collaborator = new Collaborators(null,null,null,null,null,null,null,null,null,null,null,null,null,
-											  null,null,null,null,null,null,null,null,null,null,null,null,null,
-											  null,null,null,null,null,null,null,null,null,null,null,null,null,
-											  null,null,null,null,null);
 		this.token = this._userService.getToken();
 		
 		let documentoCargado = localStorage.getItem('utilitarioCollaboratorDocument');
@@ -73,11 +73,31 @@ export class RegistrarColaboradoresComponent implements OnInit {
 
 	ngOnInit(): void {
 		// Obtener los datos
-		this.areaList();
-		this.profileList();
-		this.unitList();
-
-
+		this.status = undefined;
+		this.responseMessage = undefined;
+		Promise.all([
+					this.areaList(),
+					this.profileList(),
+					this.unitList(),
+					this.arlList(),
+					this.insurerList(),
+				])
+				.then( responses => {
+					this.areas = responses[0];
+					this.profiles = responses[1];
+					this.units = responses[2];
+					this.arls = responses[3];
+					this.insurers = responses[4];
+					
+					this.collaborator = new Collaborators(null,null,null,null,null,null,null,null,null,null,null,null,null,
+														  null,null,null,null,null,null,null,null,null,null,null,null,null,
+														  null,null,null,null,null,null,null,null,null,null,null,null,null,
+														  null,null,null,null,null);
+				})
+				.catch( error => {
+					this.status = 'error';
+					this.responseMessage = error;
+				});
 		
 		this.getDataRouter().subscribe(
 			response => {
@@ -99,6 +119,7 @@ export class RegistrarColaboradoresComponent implements OnInit {
 					this.responseMessage = response.message;
 					swal('Registro exitoso', this.responseMessage, 'success');
 					collaboratorsForm.reset();
+					localStorage.removeItem('utilitarioCollaboratorDocument');
 					this._router.navigate(['/sala-situacional/colaboradores/listar']);
 				}
 			},
@@ -146,56 +167,83 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	}
 
 
-	// Obtener todos los datos necesarios
+	//===================================================================================================
+	//=============================================Promesas=============================================
+	//===================================================================================================
 	areaList(){
-		this.status = undefined;
-		this.responseMessage = undefined;
-
-		this._areaService.areaList( this.token ).subscribe(
-			res => {
-				if( res.status == 'success' ){
-					this.areas = res.areas;
+		return new Promise((resolve, reject) => {
+			this._areaService.areaList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.areas );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
 				}
-			},
-			error => {
-				this.status = error.error.status;
-				this.responseMessage = error.error.message;
-				console.log(<any>error);
-			}
-		);
+			);			
+		});
+
+	}
+	arlList(){
+		return new Promise((resolve, reject) => {
+			this._arlService.arlList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.arls );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
+				}
+			);
+		});
+	}
+	insurerList(){
+		return new Promise((resolve, reject) => {
+			this._insurerService.insurerList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.insurers );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any> error);
+				}
+			);
+		});
 	}
 	profileList(){
-		this.status = undefined;
-		this.responseMessage = undefined;
-
-		this._profileService.profileList( this.token ).subscribe(
-			res => {
-				if( res.status == 'success' ){
-					this.profiles = res.profiles;
+		return new Promise((resolve, reject) => {
+			this._profileService.profileList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.profiles );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
 				}
-			},
-			error => {
-				this.status = error.error.status;
-				this.responseMessage = error.error.message;
-				console.log(<any>error);
-			}
-		);
+			);			
+		});
 	}
 	unitList(){
-		this.status = undefined;
-		this.responseMessage = undefined;
-
-		this._unitService.unitList( this.token ).subscribe(
-			res => {
-				if( res.status == 'success' ){
-					this.units = res.units;
+		return new Promise((resolve, reject) => {
+			this._unitService.unitList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.units );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
 				}
-			},
-			error => {
-				this.status = error.error.status;
-				this.responseMessage = error.error.message;
-				console.log(<any>error);
-			}
-		);
+			);			
+		});
 	}
 }

@@ -30,8 +30,8 @@ const pagesRoutes: Routes = [
 		path: '',
 		component: DashboardComponent,
 		children: [
-			{ path: 'dashboard', component: HomeComponent, data: { titulo: 'Dashboard' }, canActivate: [IdentityGuard] },
-			{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+			{ path: 'inicio', component: HomeComponent, data: { titulo: 'Inicio' }, canActivate: [IdentityGuard] },
+			{ path: '', redirectTo: '/inicio', pathMatch: 'full' },
 		]		
 	},
 	{
@@ -39,6 +39,7 @@ const pagesRoutes: Routes = [
 		component: DashboardComponent,
 		canActivate: [IdentityGuard, SalaSituacionalGuard],
 		children: [
+			{ path: 'colaboradores', redirectTo: 'colaboradores/listar', pathMatch: 'full' },
 			{ path: 'colaboradores/listar', component: ListarColaboradoresComponent, data: { titulo: 'Listar Colaboradores' }, canActivate: [ReporstGuard] },
 			{ path: 'colaboradores/registrar', component: RegistrarColaboradoresComponent, data: { titulo: 'Registrar Colaborador' }, canActivate: [ReporstGuard] },
 			{ path: 'colaboradores/editar/:id', component: EditarColaboradoresComponent, data: { titulo: 'Editar Colaborador' }, canActivate: [ReporstGuard] },
@@ -53,10 +54,12 @@ const pagesRoutes: Routes = [
 		component: DashboardComponent,
 		canActivate: [IdentityGuard, ContratacionGuard],
 		children: [
+			{ path: 'contratos', redirectTo: 'contratos/listar', pathMatch: 'full' },
 			{ path: 'contratos/listar', component: ListarContratoComponent, data: { titulo: 'Listar Contratos' } },
 			{ path: 'contratos/registrar', component: RegistrarContratoComponent, data: { titulo: 'Registrar Contratos' } },
 			{ path: 'contratos/editar/:id', component: EditarContratoComponent, data: { titulo: 'Editar Contratos' } },
 			
+			{ path: 'contratistas', redirectTo: 'contratistas/listar', pathMatch: 'full' },
 			{ path: 'contratistas/listar', component: ListarContratistasComponent, data: { titulo: 'Listar Contratistas' } },
 			{ path: 'contratistas/registrar', component: RegistrarContratistasComponent, data: { titulo: 'Registrar Contratista' } },
 			{ path: 'contratistas/editar/:id', component: EditarContratistasComponent, data: { titulo: 'Editar Contratista' } },

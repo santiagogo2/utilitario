@@ -15,7 +15,7 @@ export class LoginGuard implements CanActivate {
 		let identity = this._userService.getIdentity();
 
 		if(identity){
-			this._router.navigate(['/dashboard']);
+			this._router.navigate(['/inicio']);
 			return false;
 		} else{
 			return true;

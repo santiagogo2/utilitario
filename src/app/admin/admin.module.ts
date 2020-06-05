@@ -11,9 +11,16 @@ import { ADMIN_ROUTES } from './admin.routes';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
-import { AreaModule } from './pages/sala-situacional/area/area.module';
-import { ProfileModule } from './pages/sala-situacional/profile/profile.module';
-import { UnitModule } from './pages/sala-situacional/unit/unit.module';
+	// Sala Situacional
+	import { AreaModule } from './pages/sala-situacional/area/area.module';
+	import { ArlModule } from './pages/sala-situacional/arl/arl.module';
+	import { InsurerModule } from './pages/sala-situacional/insurer/insurer.module';
+	import { ProfileModule } from './pages/sala-situacional/profile/profile.module';
+	import { UnitModule } from './pages/sala-situacional/unit/unit.module';
+
+	// Contratación
+	import { SpendingModule } from './pages/contratacion/spending/spending.module';
+	import { SupervisorModule } from './pages/contratacion/supervisor/supervisor.module';
 
 // Components
 import { AdminComponent } from './admin.component';
@@ -27,7 +34,7 @@ import { RoleEditComponent } from './pages/role/role-edit/role-edit.component';
 import { RoleRegisterComponent } from './pages/role/role-register/role-register.component';
 
 import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
-import { SupervisorListComponent } from './pages/contratacion/supervisor/supervisor-list/supervisor-list.component';
+import { ContratacionComponent } from './pages/contratacion/contratacion.component';
 
 @NgModule({
 	declarations: [
@@ -39,7 +46,7 @@ import { SupervisorListComponent } from './pages/contratacion/supervisor/supervi
 		RoleEditComponent,
 		RoleRegisterComponent,
 		SalaSituacionalComponent,
-		SupervisorListComponent,
+		ContratacionComponent,
 	],
 	imports: [
 		CommonModule,
@@ -48,8 +55,13 @@ import { SupervisorListComponent } from './pages/contratacion/supervisor/supervi
 		NgxPaginationModule,
 		SharedModule,
 		AreaModule,
+		ArlModule,
+		InsurerModule,
 		ProfileModule,
 		UnitModule,
+
+		SpendingModule,
+		SupervisorModule,
 		FontAwesomeModule,
 
 		ADMIN_ROUTES,

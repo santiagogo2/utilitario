@@ -57,7 +57,7 @@ export class AreaListComponent implements OnInit {
 	deleteArea(id){
 		this.status = undefined;
 		this.responseMessage = undefined;
-		let loader = document.getElementById('loader'+id);
+		let loader = document.getElementById('loaderArea'+id);
 
 		loader.style.display = 'block';
 

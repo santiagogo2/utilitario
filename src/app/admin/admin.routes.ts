@@ -13,8 +13,10 @@ import { AdminComponent } from './admin.component';
 	import { RoleEditComponent } from './pages/role/role-edit/role-edit.component';
 
 	// Sala Situacional
-		// Area Components
-		import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
+	import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
+
+	// Contración
+	import { ContratacionComponent } from './pages/contratacion/contratacion.component';
 
 // Guards
 import { AdminGuard } from '../guards/guard.index';
@@ -25,6 +27,7 @@ const adminRoutes: Routes = [
 		component: AdminComponent,
 		children: [
 			{ path: 'sala-situacional', component: SalaSituacionalComponent, data: { titulo: 'Administrar Sala Situacional' }, canActivate: [AdminGuard] },
+			{ path: 'contratacion', component: ContratacionComponent, data: { titulo: 'Administrar Elementos Contratación' }, canActivate: [AdminGuard] },
 		]
 	},
 

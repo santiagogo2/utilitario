@@ -55,7 +55,7 @@ export class InformesComponent implements OnInit {
 			   		this.setReports();
 				})
 			   .catch( error => {
-			   	this.preloaderStatus = false;
+			   		this.preloaderStatus = false;
 			   		this.status = 'error';
 			   		this.responseMessage = error;
 			   }
@@ -66,7 +66,7 @@ export class InformesComponent implements OnInit {
 		this.gender = this.setGeneralInformation('sexo', global.sexo, 'Contagiados por género', 'doughnut');
 		this.epidemicNexus = this.setGeneralInformation('nexo', global.nexos, 'Contagiados por nexo epidemiológico', 'pie');
 		this.profiles = this.setGeneralInformation('perfil', this.profiles, 'Distribución de casos según el perfil ocupacional', 'horizontalBar');
-		this.profiles.data = [ { data: this.profiles.data, label: 'Eventos por perfil' }	];
+		this.profiles.data = [ { data: this.profiles.data, label: 'Eventos por perfil' } ];
 		this.areas = this.setGeneralInformation('area', this.areas, 'Distribución según el área asistencial', 'horizontalBar');
 		this.areas.data = [ { data: this.areas.data, label: 'Eventos área asistencial' } ];
 		this.peopleStatus = this.setGeneralInformation('estado', global.estados, 'Distribución de eventos según el estado actual', 'doughnut');
@@ -86,16 +86,17 @@ export class InformesComponent implements OnInit {
 		let variable = {};
 
 		vector.forEach(element => {
-			if( element.value ) labels.push(element.value);
-			else if ( element.name ) labels.push(element.name);
-
 			let count:number = 0;
 			for(let i=0; i<this.collaborators.length; i++){
 				if(this.collaborators[i][key] == element.id && this.collaborators[i].contagiado == 0){
 					count++;
 				}
 			}
-			data.push(count);
+			if(count){
+				data.push(count);
+				if( element.value ) labels.push(element.value);
+				else if ( element.name ) labels.push(element.name);
+			}
 		});
 		variable['title'] = title;
 		variable['labels'] = labels;

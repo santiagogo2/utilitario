@@ -44,14 +44,14 @@
 									<td>{{ profile.name }}</td>
 									<td style="padding: 0.55rem">
 										<button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" (click)="sendFlag('Editar', profile.id)">Editar</button>
-										<button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+profile.id" *ngIf="profile.collaborators_count==0">Borrar</button>
-										<div class="deleteLoader" id="{{ 'loader' + profile.id }}" style="display: none;">
+										<button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModalProfile'+profile.id" *ngIf="profile.collaborators_count==0">Borrar</button>
+										<div class="deleteLoader" id="{{ 'loaderProfile' + profile.id }}" style="display: none;">
 											<div class="loader"></div>
 										</div>
 									</td>
 
 									<!-- the Modal -->
-									<div class="modal animated fadeIn faster" id="{{ 'myModal'+profile.id }}">
+									<div class="modal animated fadeIn faster" id="{{ 'myModalProfile'+profile.id }}">
 										<div class="modal-dialog">
 											<div class="modal-content">
 

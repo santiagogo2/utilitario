@@ -28,7 +28,9 @@ export class ListarColaboradoresComponent implements OnInit {
 		private _userService: UserService
 	) {
 		this.token = this._userService.getToken();
-		this.actualPage = 1;
+		let page = +localStorage.getItem( 'collaboratorPage' );
+		if( page ) this.actualPage = page;
+		else this.actualPage = 1;
 		this.itemsPerPage = 20;
 	}
 
@@ -53,5 +55,6 @@ export class ListarColaboradoresComponent implements OnInit {
 
 	pageChange(event){
 		this.actualPage = event;
+		localStorage.setItem( 'collaboratorPage', event );
 	}
 }

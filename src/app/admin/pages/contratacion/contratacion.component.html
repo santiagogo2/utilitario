@@ -1,0 +1,24 @@
+<div class="row reports">
+	<div class="col-sm-12 col-lg-6 reportGraph pl-0">
+		<div class="card border-0">
+			<h4 class="card-header">{{supervisorStatusView + ' supervisores'}}</h4>
+			<div class="card-body">
+				<app-supervisor-list (changeView)="changeSupervisorView($event)" *ngIf="supervisorStatusView == 'Listar'"></app-supervisor-list>
+				<app-supervisor-register (changeView)="changeSupervisorView($event)" *ngIf="supervisorStatusView == 'Registrar'"></app-supervisor-register>
+				<app-supervisor-edit (changeView)="changeSupervisorView($event)" *ngIf="supervisorStatusView == 'Editar'"></app-supervisor-edit>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12 col-lg-6 reportGraph pr-0">
+		<div class="card border-0">
+			<h4 class="card-header">{{spendingStatusView + ' ordenadores del gasto'}}</h4>
+			<div class="card-body">	
+				<app-spending-list (changeView)="chageSpendingCoordinatorView($event)" *ngIf="spendingStatusView == 'Listar'"></app-spending-list>
+				<app-spending-register (changeView)="chageSpendingCoordinatorView($event)" *ngIf="spendingStatusView == 'Registrar'"></app-spending-register>
+				<app-spending-edit (changeView)="chageSpendingCoordinatorView($event)" *ngIf="spendingStatusView == 'Editar'"></app-spending-edit>	
+				<!-- <app-profile-register (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Registrar'"></app-profile-register> -->
+				<!-- <app-profile-edit (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Editar'"></app-profile-edit> -->
+			</div>
+		</div>
+	</div>
+</div>

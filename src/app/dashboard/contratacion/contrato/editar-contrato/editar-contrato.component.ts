@@ -4,7 +4,12 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert';
 
 // Services
-import { ContractService, ContractorService, global, UserService } from '../../../../services/service.index';
+import { ContractService,
+		 ContractorService,
+		 global,
+		 SpendingCoordinatorService,
+		 SupervisorService,
+		 UserService } from '../../../../services/service.index';
 
 // Models
 import { Contract, Contractor } from '../../../../models/model.index';
@@ -16,6 +21,8 @@ import { Contract, Contractor } from '../../../../models/model.index';
 	providers: [
 		ContractService,
 		ContractorService,
+		SpendingCoordinatorService,
+		SupervisorService,
 		UserService
 	]
 })
@@ -32,6 +39,9 @@ export class EditarContratoComponent implements OnInit {
 	public token: string;
 	public identity: any;
 	public contract: any;
+	public supervisors: any;
+	public spendings: any;
+	public position: string;
 
 	public modalidad: Array<any>;
 	public contractDocument: number;
@@ -42,6 +52,8 @@ export class EditarContratoComponent implements OnInit {
 		private _contractService: ContractService,
 		private _contractorService: ContractorService,
 		private _userService: UserService,
+		private _spendingService: SpendingCoordinatorService,
+		private _supervisorService: SupervisorService,
 		private _router: Router,
 		private _route: ActivatedRoute
 	) {
@@ -54,46 +66,46 @@ export class EditarContratoComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.getContract();
-	}
-
-	getContract(){
 		this._route.params.subscribe( params => {
 			this.status = undefined;
 			this.responseMessage = undefined;
 			this.contract = undefined;
 			this.contractDocument = undefined;
 			this.contractorName = undefined;
+			this.spendings = undefined;
+			this.supervisors = undefined;
 
 			let id = +params['id'];
 
-			this._contractService.getContract(id, this.token).subscribe(
-				res => {
-					if( res.status == 'success' ){
-						this.contract = res.contract;
+			Promise.all([
+						this.getContract(id),
+						this.supervisorList(),
+						this.spendingCoordinatorList(),
+					])
+					.then( responses => {
+						this.contract = responses[0];
+						this.supervisors = responses[1];
+						this.spendings = responses[2];
+
+						this.position = this.contract.supervisor.position;
 						this.contractor = this.contract.contractor;
 						this.contractDocument = this.contractor.documento;
 						this.contractorName = this.contractor.nombres + ' ' + this.contractor.apellidos;
-					}
-				},
-				error => {
-					this.status = error.error.status;
-					this.responseMessage = error.error.message;
-					console.log(error);
-				}
-			);
-		});
+					})
+					.catch( error => {
+						this.status = 'error';
+				   		this.responseMessage = error;
+					});
+		});	
 	}
+
 
 	onSubmit(updateRegisterForm){
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 		delete this.contract.contractor;
-
-		// Text uppercase
-		this.contract.nombreSupervisor = this.contract.nombreSupervisor.toUpperCase().trim();
-		this.contract.cargoSupervisor = this.contract.cargoSupervisor.toUpperCase().trim();
+		delete this.contract.supervisor;
 
 		this._contractService.updateContract( this.contract, this.token ).subscribe(
 			res => {
@@ -140,5 +152,66 @@ export class EditarContratoComponent implements OnInit {
 				console.log(<any>error);
 			}
 		);
+	}
+
+	setPosition(){
+		this.supervisors.forEach( element => {
+			if( element.id == this.contract.supervisors_id ){
+				this.position = element.position;
+			}
+		});
+	}
+
+	// ===============================================================================================
+	// ==========================================Promesas=============================================
+	// ===============================================================================================
+
+	getContract(id){
+		return new Promise((resolve, reject) => {
+			this._contractService.getContract(id, this.token).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.contract );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(error);
+				}
+			);		
+		});
+	}
+
+	supervisorList(){
+		return new Promise((resolve, reject) => {
+			this._supervisorService.supervisorList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.supervisors );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
+				}
+			);			
+		});
+
+	}
+
+	spendingCoordinatorList(){
+		return new Promise((resolve, reject) => {
+			this._spendingService.spendingCoordinatorList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.spendings );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
+				}
+			);
+		});
 	}
 }

@@ -5,7 +5,7 @@
 </div>
 <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage && !area">
 	<div class="alert alert-danger" role="alert">
-		{{ responseMessage }} <a class="link" (click)="sendFlag">listar areas</a>
+		{{ responseMessage }} <a class="link" (click)="sendFlag()">listar areas</a>
 	</div>
 </div>
 

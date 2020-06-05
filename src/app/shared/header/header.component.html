@@ -9,7 +9,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav" style="margin-right: auto !important;">
 				<li class="nav-item" routerLinkActive="active">
-					<a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+					<a class="nav-link" [routerLink]="['/inicio']">Inicio</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav" *ngIf="identity">
@@ -19,6 +19,8 @@
 					</a>
 					<div class="dropdown-menu animated bounceIn" aria-labelledby="navbarDropdownMenuLink" style="left: unset !important; right: 0;">
 						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/usuarios/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Usuarios</a>
+						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/contratacion']" *ngIf="identity.role=='ADMIN_ROLE'">Contratación</a>
+						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/sala-situacional']" *ngIf="identity.role=='ADMIN_ROLE'">Sala Situacional</a>
 						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/roles/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Roles</a>
 						<div class="dropdown-divider" *ngIf="identity.role=='ADMIN_ROLE'"></div>
 						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/logout', 1]">Cerrar Sesión</a>

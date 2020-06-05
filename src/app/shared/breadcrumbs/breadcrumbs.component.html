@@ -7,13 +7,13 @@
 			</div>
 			<div class="col-md-7 align-self-center d-inline-block breadcrumLine">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item" style="margin-left: auto;">
-						<a [routerLink]="['/dashboard']">Dashboard</a>
+					<li class="breadcrumb-item" style="margin-left: auto;" *ngIf="page_title != 'Inicio'">
+						<a [routerLink]="['/inicio']">Inicio</a>
 					</li>
 					<li class="breadcrumb-item" *ngFor="let breadcrum of breadcrumbs" style="text-transform: capitalize;">						
 						<a [routerLink]="[breadcrum.url]">{{ breadcrum.span }}</a>
 					</li>
-					<li class="breadcrumb-item active">{{ page_title }}</li>
+					<li class="breadcrumb-item active" [ngStyle]="{'margin-left': page_title === 'Inicio' ? 'auto':'unset'}">{{ page_title }}</li>
 				</ol>
 			</div>
 			</div>

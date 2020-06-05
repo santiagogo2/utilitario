@@ -57,7 +57,7 @@ export class ProfileListComponent implements OnInit {
 	deleteProfile(id){
 		this.status = undefined;
 		this.responseMessage = undefined;
-		let loader = document.getElementById('loader'+id);
+		let loader = document.getElementById('loaderProfile'+id);
 
 		loader.style.display = 'block';
 

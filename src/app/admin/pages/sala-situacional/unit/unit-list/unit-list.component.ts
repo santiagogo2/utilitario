@@ -57,7 +57,7 @@ export class UnitListComponent implements OnInit {
 	deleteUnit(id){
 		this.status = undefined;
 		this.responseMessage = undefined;
-		let loader = document.getElementById('loader'+id);
+		let loader = document.getElementById('loaderUnit'+id);
 
 		loader.style.display = 'block';
 
@@ -68,7 +68,6 @@ export class UnitListComponent implements OnInit {
 				if( res.status == 'success' ){
 					this.status = res.status;
 					this.responseMessage = res.message;
-					console.log(this.status, this.responseMessage);
 					this.unitList();
 				}
 			},

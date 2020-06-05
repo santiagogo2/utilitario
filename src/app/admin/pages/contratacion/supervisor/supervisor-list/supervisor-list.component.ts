@@ -30,7 +30,7 @@ export class SupervisorListComponent implements OnInit {
 		private _userService: UserService,
 	) {
 		this.actualPage = 1;
-		this.itemsPerPage = 10;
+		this.itemsPerPage = 7;
 
 		this.token = this._userService.getToken();
 	}
@@ -61,7 +61,7 @@ export class SupervisorListComponent implements OnInit {
 		this.status = undefined;
 		this.responseMessage = undefined;
 
-		let loader = document.getElementById('loader' + id);
+		let loader = document.getElementById('loaderSupervisor' + id);
 
 		loader.style.display = 'block';
 

@@ -17,7 +17,7 @@ import { Unit } from '../../../../../models/model.index';
 	]
 })
 export class UnitEditComponent implements OnInit {
-	@Output() public changeUnitView: EventEmitter<any> = new EventEmitter();
+	@Output() public changeView: EventEmitter<any> = new EventEmitter();
 
 	public status: string;
 	public responseMessage: string;
@@ -81,12 +81,17 @@ export class UnitEditComponent implements OnInit {
 				this.preloaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
+
+				if(error.error.errors){
+					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
+				}
+				
 				console.log(<any>error);
 			}
 		);
 	}
 
 	sendFlag(text){
-		this.changeUnitView.emit(text);
+		this.changeView.emit(text);
 	}
 }

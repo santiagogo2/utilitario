@@ -25,7 +25,9 @@
 							</div>
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="spendingOrder" class="labelForm">Ordenador del gasto*</label>
-								<input type="text" name="spendingOrder" class="form-control inputForm" [ngClass]="{'is-invalid': spendingOrder.touched && spendingOrder.invalid}" #spendingOrder="ngModel" [(ngModel)]="contract.ordenadorGasto" required pattern="[0-9]+" placeholder="Seleccione el ordenador del gasto (creo que es una lista)">
+								<select style="background-position-x: 93%" name="spendingCoordinator" id="spendingCoordinator" class="form-control inputForm" [ngClass]="{'is-invalid': spendingCoordinator.invalid && spendingCoordinator.touched}" #spendingCoordinator="ngModel" [(ngModel)]="contract.spendingcoordinators_id" required>
+									<option *ngFor="let spending of spendings" value="{{ spending.id }}">{{ spending.name }}</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group col col-sm-12">
@@ -35,11 +37,13 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="supervisorName" class="labelForm">Nombre del supervisor*</label>
-								<input type="text" name="supervisorName" class="form-control inputForm" [ngClass]="{'is-invalid': supervisorName.touched && supervisorName.invalid}" #supervisorName="ngModel" [(ngModel)]="contract.nombreSupervisor" required pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre del supervisor (deberia ser una lista)">
+								<select style="background-position-x: 93%" name="supervisorName" id="supervisorName" class="form-control inputForm" [ngClass]="{'is-invalid': supervisorName.invalid && supervisorName.touched}" #supervisorName="ngModel" [(ngModel)]="contract.supervisors_id" required (change)="setPosition()">
+									<option *ngFor="let supervisor of supervisors" value="{{ supervisor.id }}">{{ supervisor.name }}</option>
+								</select>
 							</div>
-							<div class="col col-sm-12 col-md-6 d-inline-block">
+							<div class="col col-sm-12 col-md-6 d-inline-block" *ngIf="position">
 								<label for="supervisorPosition" class="labelForm">Cargo del supervisor*</label>
-								<input type="text" name="supervisorPosition" class="form-control inputForm" [ngClass]="{'is-invalid': supervisorPosition.touched && supervisorPosition.invalid}" #supervisorPosition="ngModel" [(ngModel)]="contract.cargoSupervisor" required pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el cargo del supervisor (Deberia traerlo de la base de datos)">
+								<input type="text" name="supervisorPosition" class="form-control inputForm" #supervisorPosition="ngModel" [(ngModel)]="position" required disabled>
 							</div>
 						</div>
 						<div class="form-group">

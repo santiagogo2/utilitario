@@ -1,0 +1,47 @@
+<div class="loaderBall" *ngIf="!spendingCoordinator && !responseMessage">
+	<div class="ball-pulse-rise">
+		<div></div><div></div><div></div><div></div><div></div>
+	</div>
+</div>
+<div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage && !spendingCoordinator">
+	<div class="alert alert-danger" role="alert">
+		{{ responseMessage }} <a class="link" (click)="sendFlag()">listar ordenadores del gasto</a>
+	</div>
+</div>
+
+<div class="row" *ngIf="spendingCoordinator">
+	<div class="col-sm-12">
+		<div class="card border-0">
+			<div class="card-body">
+				<div class="backLink col col-sm-12">
+					<a class="link" (click)="sendFlag()">Listar Ordenadores del Gasto</a>
+				</div>
+				<div class="formContainerAdmin col col-sm-12" [ngClass]="{'formContainerAdminError': status && status=='error'}">
+					<form #spendingCoordinatorForm="ngForm" class="form-container" (ngSubmit)="onSubmit(spendingCoordinatorForm)">
+						<div class="form-group col col-sm-12">
+							<label for="spendingCoordinatorName" class="labelForm">Nombre*</label>
+							<input type="text" name="spendingCoordinatorName" class="form-control inputForm" [ngClass]="{ 'is-invalid': spendingCoordinatorName.touched && spendingCoordinatorName.invalid }" #spendingCoordinatorName="ngModel" [(ngModel)]="spendingCoordinator.name" required pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre del ordenador del gasto que desa registrar">
+						</div>
+						<div class="form-group col-sm-12">
+							<label for="supervisorPosition" class="labelForm">Descripción del Ordenador del Gasto</label>
+							<textarea name="spendingCoordinatorDescription" rows="3" class="form-control inputForm" [ngClass]="{'is-invalid': spendingCoordinatorDescription.touched && spendingCoordinatorDescription.invalid }" #spendingCoordinatorDescription="ngModel" [(ngModel)]="spendingCoordinator.description" placeholder="Ingrese la descripción del ordenador del gasto"></textarea>
+						</div>
+						<div class="form-group">
+							<div class="col col-sm-12 buttonSubmit">
+								<input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="spendingCoordinatorForm.invalid">
+							</div>
+						</div>
+						<div class="mt-3 col col-sm-12 errorAlert" *ngIf="status && responseMessage">
+							<div class="alert" [ngClass]="{'alert-danger': status=='error', 'alert-success': status=='success'}" role="alert">
+								{{ responseMessage }}
+							</div>
+						</div>
+						<div class="deleteLoader" *ngIf="preloaderStatus">
+							<div class="loader"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

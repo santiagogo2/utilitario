@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
 								localStorage.setItem('utilitarioExpiration', expirationtime.toString());
 
 								loginForm.reset();
-								this._router.navigate(['/dashboard']);
+								this._router.navigate(['/inicio']);
 							}
 						},
 						error => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivationEnd } from '@angular/router';
+import { Router, ActivationEnd, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
@@ -12,12 +12,15 @@ export class BreadcrumbsComponent implements OnInit {
 	public page_title: string;
 	public url: any;
 	public breadcrumbs: any[];
+	public exceptions: string[];
 
 	constructor(
 		private _router: Router,
 		private _title: Title,
 		private _meta: Meta
 	) {
+		this.exceptions = [''];
+
 		this.getDataRouter().subscribe(
 			response => {
 				this.page_title = response.titulo;
@@ -31,10 +34,14 @@ export class BreadcrumbsComponent implements OnInit {
 				this._meta.updateTag(metaTag);
 			}
 		);
+		this.getUrl().subscribe(
+			res => {
+				this.setBreadcrumbs(res);
+			}
+		)
 	}
 
 	ngOnInit(): void {
-		this.setBreadcrumbs();
 	}
 
 	getDataRouter(){
@@ -45,36 +52,49 @@ export class BreadcrumbsComponent implements OnInit {
 		);
 	}
 
-	setBreadcrumbs(){
-		let url = document.URL;
-		let splitUrl = url.split("#/");
-		let pageLocation = splitUrl[splitUrl.length-1];
+	getUrl(){
+		return this._router.events.pipe(
+			filter( evento => evento instanceof NavigationEnd ),
+			map( ( evento: NavigationEnd ) => evento.url )
+		);
+	}
 
-		let breadcrumbsArray = pageLocation.split('/');
+	setBreadcrumbs(url){
+		let breadcrumbsArray = url.split('/');
 		let breadcrumbs = new Array();
 		let actualUrl = '';
 		breadcrumbsArray.forEach( element => {
-			// Se crean las url dentro de un objeto
-			let obj = {}; // Nuevo objeto
-			actualUrl = actualUrl + '/' + element;
-			obj['url'] = actualUrl;
-
-			// Se crean los textos del breadcrum dentro del objeto
-			let segments = element.split('-');
-			if(segments.length > 1){
-				let text = '';
-				for( let i = 0; i < segments.length; i++ ){
-					text = text + ' ' + segments[i];
+			if(element && isNaN(element)){
+				let flag = true;
+				for( let i = 0; i < this.exceptions.length; i++ ){
+					if( element === this.exceptions[i]){
+						flag = false;
+						break;
+					}
 				}
-				obj['span'] = text.trim();
-			} else {
-				obj['span'] = element;
+				if( flag ){
+					// Se crean las url dentro de un objeto
+					let obj = {}; // Nuevo objeto
+					actualUrl = actualUrl + '/' + element;
+					obj['url'] = actualUrl;
+
+					// Se crean los textos del breadcrum dentro del objeto
+					let segments = element.split('-');
+					if(segments.length > 1){
+						let text = '';
+						for( let i = 0; i < segments.length; i++ ){
+							text = text + ' ' + segments[i];
+						}
+						obj['span'] = text.trim();
+					} else {
+						obj['span'] = element;
+					}
+					breadcrumbs.push(obj);					
+				}
 			}
-			breadcrumbs.push(obj);
 		});
 
 		breadcrumbs.pop();
-
 		this.breadcrumbs = breadcrumbs;
 	}
 }

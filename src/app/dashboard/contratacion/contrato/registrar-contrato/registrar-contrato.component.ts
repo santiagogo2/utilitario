@@ -3,7 +3,12 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert';
 
 // Services
-import { ContractService, ContractorService, global, UserService } from '../../../../services/service.index';
+import { ContractService,
+		 ContractorService,
+		 global,
+		 SpendingCoordinatorService,
+		 SupervisorService,
+		 UserService } from '../../../../services/service.index';
 
 // Models
 import { Contract, Contractor } from '../../../../models/model.index';
@@ -15,6 +20,8 @@ import { Contract, Contractor } from '../../../../models/model.index';
 	providers: [
 		ContractService,
 		ContractorService,
+		SpendingCoordinatorService,
+		SupervisorService,
 		UserService
 	]
 })
@@ -31,6 +38,9 @@ export class RegistrarContratoComponent implements OnInit {
 	public token: string;
 	public identity: any;
 	public contract: Contract;
+	public supervisors: any;
+	public spendings: any;
+	public position: string;
 
 	public modalidad: Array<any>;
 	public contractDocument: number;
@@ -40,25 +50,41 @@ export class RegistrarContratoComponent implements OnInit {
 	constructor(
 		private _contractService: ContractService,
 		private _contractorService: ContractorService,
+		private _spendingService: SpendingCoordinatorService,
+		private _supervisorService: SupervisorService,
 		private _userService: UserService
 	) {
 		this.buttonText = 'Registrar';
 
 		this.token = this._userService.getToken();
 		this.identity = this._userService.getIdentity();
-		this.contract = new Contract(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
 
 		this.modalidad = global.modalidad;
 	}
 
 	ngOnInit(): void {
+		this.supervisorList();
+		this.status = undefined;
+		this.responseMessage = undefined;
+		Promise.all([
+					this.spendingCoordinatorList(),
+					this.supervisorList(),
+				])
+				.then( responses => {
+					this.spendings = responses[0];
+					this.supervisors = responses[1];
+					this.contract = new Contract(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+				})
+				.catch( error => {
+					this.status = 'error';
+			   		this.responseMessage = error;
+				});
 	}
 
 	onSubmit(contractRegisterForm){
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
-		console.log(this.contract);
 
 		this._contractService.newContract( this.contract, this.token ).subscribe(
 			res => {
@@ -107,5 +133,49 @@ export class RegistrarContratoComponent implements OnInit {
 				console.log(<any>error);
 			}
 		);
+	}
+
+	supervisorList(){
+		this.supervisors = undefined;
+
+		return new Promise((resolve, reject) => {
+			this._supervisorService.supervisorList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.supervisors );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
+				}
+			);
+		});
+	}
+
+	spendingCoordinatorList(){
+		this.spendings = undefined;
+
+		return new Promise((resolve, reject) => {
+			this._spendingService.spendingCoordinatorList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.spendings );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
+				}
+			);
+		});
+	}
+
+	setPosition(){
+		this.supervisors.forEach( element => {
+			if( element.id == this.contract.supervisors_id ){
+				this.position = element.position;
+			}
+		});
 	}
 }

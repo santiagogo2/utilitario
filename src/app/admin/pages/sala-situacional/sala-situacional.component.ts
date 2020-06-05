@@ -9,6 +9,8 @@ export class SalaSituacionalComponent implements OnInit {
 	public areaStatusView: string;
 	public profileStatusView: string;
 	public unitStatusView: string;
+	public arlStatusView: string;
+	public insurerStatusView: string;
 
 	constructor() {
 		let getInfo = localStorage.getItem('areaStatusView');
@@ -22,6 +24,14 @@ export class SalaSituacionalComponent implements OnInit {
 		getInfo = localStorage.getItem('unitStatusView');
 		if( getInfo ) this.unitStatusView = getInfo;
 		else this.unitStatusView = 'Listar';
+
+		getInfo = localStorage.getItem('arlStatusView');
+		if( getInfo ) this.arlStatusView = getInfo;
+		else this.arlStatusView = 'Listar';
+
+		getInfo = localStorage.getItem('insurerStatusView');
+		if( getInfo ) this.insurerStatusView = getInfo;
+		else this.insurerStatusView = 'Listar';
 	}
 
 	ngOnInit(): void {
@@ -40,5 +50,15 @@ export class SalaSituacionalComponent implements OnInit {
 	chageUnitView(result){
 		this.unitStatusView = result;
 		localStorage.setItem( 'unitStatusView', result );
+	}
+
+	chageArlView(result){
+		this.arlStatusView = result;
+		localStorage.setItem( 'arlStatusView', result );
+	}
+
+	chageInsurerView(result){
+		this.insurerStatusView = result;
+		localStorage.setItem( 'insurerStatusView', result );
 	}
 }

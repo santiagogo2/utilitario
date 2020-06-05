@@ -2,19 +2,6 @@ export var global = {
 
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
-	arls: [
-		{id: 0, value: 'SURA'}
-	],
-	aseguradoras: [
-		{id: 0, value: 'ALIANSALUD'},
-		{id: 1, value: 'COMPENSAR'},
-		{id: 2, value: 'FAMISANAR'},
-		{id: 3, value: 'MEDIMAS'},
-		{id: 4, value: 'NUEVA EPS'},
-		{id: 5, value: 'SALUD TOTAL'},
-		{id: 6, value: 'SANITAS'},
-		{id: 7, value: 'SURA'},
-	],
 	estados: [
 		{id: 0, value: 'CUARENTENA'},
 		{id: 1, value: 'HOSPITALIZADO'},
