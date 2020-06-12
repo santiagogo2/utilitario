@@ -108,6 +108,7 @@ export class EditarColaboradoresComponent implements OnInit {
 	}
 
 	onSubmit(editCollaboratorsForm){
+
 		this._collaboratorService.updateRegister(this.collaborator, this.token).subscribe(
 			response => {
 				if(response.status == 'success'){

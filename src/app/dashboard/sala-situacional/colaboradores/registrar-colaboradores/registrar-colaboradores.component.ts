@@ -107,6 +107,11 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	}
 
 	onSubmit(collaboratorsForm){
+		if( collaboratorsForm.invalid ){
+			console.log(collaboratorsForm);
+			return;
+		}
+
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;

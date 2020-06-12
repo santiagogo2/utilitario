@@ -114,13 +114,13 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="fever" class="labelForm">Fiebre*</label>
-								<select style="background-position-x: 93%" name="fever" id="fever" class="form-control inputForm" [ngClass]="{'is-invalid': fever.invalid && fever.touched}" #fever="ngModel" [(ngModel)]="collaborator.fiebre">
+								<select style="background-position-x: 93%" name="fever" id="fever" class="form-control inputForm" [ngClass]="{'is-invalid': fever.invalid && fever.touched}" #fever="ngModel" [(ngModel)]="collaborator.fiebre" required>
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="discomfort" class="labelForm">Malestar General*</label>
-								<select style="background-position-x: 93%" name="discomfort" id="discomfort" class="form-control inputForm" [ngClass]="{'is-invalid': discomfort.invalid && discomfort.touched}" #discomfort="ngModel" [(ngModel)]="collaborator.malestarGeneral">
+								<select style="background-position-x: 93%" name="discomfort" id="discomfort" class="form-control inputForm" [ngClass]="{'is-invalid': discomfort.invalid && discomfort.touched}" #discomfort="ngModel" [(ngModel)]="collaborator.malestarGeneral" required>
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -128,13 +128,13 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="dyspnoea" class="labelForm">Disnea*</label>
-								<select style="background-position-x: 93%" name="dyspnoea" id="dyspnoea" class="form-control inputForm" [ngClass]="{'is-invalid': dyspnoea.invalid && dyspnoea.touched}" #dyspnoea="ngModel" [(ngModel)]="collaborator.disnea">
+								<select style="background-position-x: 93%" name="dyspnoea" id="dyspnoea" class="form-control inputForm" [ngClass]="{'is-invalid': dyspnoea.invalid && dyspnoea.touched}" #dyspnoea="ngModel" [(ngModel)]="collaborator.disnea" required>
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="odinia" class="labelForm">Odinia*</label>
-								<select style="background-position-x: 93%" name="odinia" id="odinia" class="form-control inputForm" [ngClass]="{'is-invalid': odinia.invalid && odinia.touched}" #odinia="ngModel" [(ngModel)]="collaborator.odinia">
+								<select style="background-position-x: 93%" name="odinia" id="odinia" class="form-control inputForm" [ngClass]="{'is-invalid': odinia.invalid && odinia.touched}" #odinia="ngModel" [(ngModel)]="collaborator.odinia" required>
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -142,13 +142,13 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="gastrointestinal" class="labelForm">Gastrointestinales*</label>
-								<select style="background-position-x: 93%" name="gastrointestinal" id="gastrointestinal" class="form-control inputForm" [ngClass]="{'is-invalid': gastrointestinal.invalid && gastrointestinal.touched}" #gastrointestinal="ngModel" [(ngModel)]="collaborator.gastrointestinales">
+								<select style="background-position-x: 93%" name="gastrointestinal" id="gastrointestinal" class="form-control inputForm" [ngClass]="{'is-invalid': gastrointestinal.invalid && gastrointestinal.touched}" #gastrointestinal="ngModel" [(ngModel)]="collaborator.gastrointestinales" required>
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="sneeze" class="labelForm">Estornudo/Flujo Nasal*</label>
-								<select style="background-position-x: 93%" name="sneeze" id="sneeze" class="form-control inputForm" [ngClass]="{'is-invalid': sneeze.invalid && sneeze.touched}" #sneeze="ngModel" [(ngModel)]="collaborator.estornudo">
+								<select style="background-position-x: 93%" name="sneeze" id="sneeze" class="form-control inputForm" [ngClass]="{'is-invalid': sneeze.invalid && sneeze.touched}" #sneeze="ngModel" [(ngModel)]="collaborator.estornudo" required>
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -156,7 +156,7 @@
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-6 d-inline-block">
 								<label for="myalgia" class="labelForm">Mialgias*</label>
-								<select style="background-position-x: 93%" name="myalgia" id="myalgia" class="form-control inputForm" [ngClass]="{'is-invalid': myalgia.invalid && myalgia.touched}" #myalgia="ngModel" [(ngModel)]="collaborator.mialgias">
+								<select style="background-position-x: 93%" name="myalgia" id="myalgia" class="form-control inputForm" [ngClass]="{'is-invalid': myalgia.invalid && myalgia.touched}" #myalgia="ngModel" [(ngModel)]="collaborator.mialgias" required>
 									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 								</select>
 							</div>
@@ -231,7 +231,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col col-sm-12 col-md-4 d-inline-block">
-								<label for="secondFollowUp" class="labelForm">Fecha del segundo seguimient*</label>
+								<label for="secondFollowUp" class="labelForm">Fecha del segundo seguimiento*</label>
 								<input type="date" name="secondFollowUp" id="secondFollowUp" class="form-control inputForm" [ngClass]="{'is-invalid': secondFollowUp.invalid && secondFollowUp.touched}" #secondFollowUp="ngModel" [(ngModel)]="collaborator.segundoSeguimiento">
 							</div>
 							<div class="col col-sm-12 col-md-8 d-inline-block">
@@ -265,7 +265,7 @@
 						</div>
 						<div class="form-group" style="margin-top: 3rem">
 							<div class="col col-sm-12 buttonSubmit">
-								<input type="submit" value="{{ buttonTitle }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="collaboratorsForm.invalid">
+								<input type="submit" value="{{ buttonTitle }}" class="btn btn-success btnPrefer col-sm-12">
 							</div>
 						</div>
 					</form>
