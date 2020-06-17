@@ -48,6 +48,7 @@ const adminRoutes: Routes = [
 			{ path: 'listar', component: RoleListComponent, data: { titulo: 'Listar los roles del sistema' }, canActivate: [AdminGuard] },
 			{ path: 'agregar', component: RoleRegisterComponent, data: { titulo: 'Agregar un nuevo role' }, canActivate: [AdminGuard] },
 			{ path: 'editar/:id', component: RoleEditComponent, data: { titulo: 'Editar role' }, canActivate: [AdminGuard] },
+			{ path: '', component: RoleListComponent, data: { titulo: 'Listar los roles del sistema' }, canActivate: [AdminGuard] },
 		]
 	},
 

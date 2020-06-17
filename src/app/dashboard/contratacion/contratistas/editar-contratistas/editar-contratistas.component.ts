@@ -84,7 +84,7 @@ export class EditarContratistasComponent implements OnInit {
 			res => {
 				this.preloaderStatus = false;
 				if( res.status == 'success' ){
-					swal('Registro exitoso', res.message, 'success');
+					swal('Actualización exitosa', res.message, 'success');
 					this._router.navigate(['/contratacion/contratistas/listar']);
 				}
 			},

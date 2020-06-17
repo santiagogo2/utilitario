@@ -7,9 +7,6 @@ import { UserService } from '../../services/service.index';
 	styles: []
 })
 export class SalaSituacionalComponent implements OnInit {
-
-	public salaa: boolean;
-
 	public identity: any;
 
 	public salaSituacional: any[] = [
@@ -22,7 +19,7 @@ export class SalaSituacionalComponent implements OnInit {
 		private _userService: UserService
 	) {
 		this.identity = this._userService.getIdentity();
-		if(this.identity.role == 'USER_SALA_SITUACIONAL_INFORMES_ROLE'){
+		if(this.identity.role == 'USER_SALA_SITUACIONAL_INFORMES_ROLE' || this.identity.role == 'USER_INFORMES_ROLE'){
 			let array = [];
 			this.salaSituacional.forEach( (element) => {
 				if(element.titulo == 'informes'){
@@ -35,9 +32,4 @@ export class SalaSituacionalComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
-
-	prueba(){
-		alert('entre');
-	}
-
 }

@@ -8,7 +8,7 @@ import { APP_ROUTES } from './app.routes';
 
 // Modulos
 import { AdminModule } from './admin/admin.module';
-import { PagesModule } from './dashboard/dashboard.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 // Services 
 import { ServiceModule } from './services/service.module';
@@ -26,7 +26,7 @@ import { LoginComponent } from './login/login.component';
     AdminModule,
     BrowserModule,
     HttpClientModule,
-    PagesModule, 
+    DashboardModule, 
     APP_ROUTES,
     FormsModule,
     ServiceModule,

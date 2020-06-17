@@ -75,7 +75,7 @@ export class InformesComponent implements OnInit {
 		this.ageGroup = this.setAgeGroup('Distribución de enventos por grupo etario', 'bar');
 		this.ageGroup.data = [ { data: this.ageGroup.data, label: 'Eventos grupo etario' } ];
 		this.weeksReport = this.setWeekReport('Distribución de eventos por semanas', 'line');
-		this.weeksReport.data = [ { data: this.weeksReport.data } ];
+		this.weeksReport.data = [ { data: this.weeksReport.data, label: 'Casos confirmados colaboradores' } ];
 		this.preloaderStatus = false;
 	}
 
@@ -152,13 +152,18 @@ export class InformesComponent implements OnInit {
 		
 		for( let i=0; i<labels.length; i++ ){
 			let cont: number = 0;
+			let total = 0;
 			this.collaborators.forEach( element => {
-				if(element.diasTranscurridos){
+				if(element.diasTranscurridos && element.contagiado == 0){
 					if(labels[i] == element.diasTranscurridos){
+						cont++;
+					} else if(labels[i] == '8 o más días' && element.diasTranscurridos >= 8){
+						total++;
 						cont++;
 					}
 				}
 			});
+			console.log(total)
 			data.push(cont);
 		}
 

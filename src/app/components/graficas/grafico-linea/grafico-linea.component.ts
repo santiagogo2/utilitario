@@ -13,34 +13,10 @@ export class GraficoLineaComponent{
 	@Input() public lineChartType: string;
 	@Input() public xTitle: string;
 	@Input() public yTitle: string;
+	public lineChartLegend = true;
+	public lineChartPlugins = [];
+	public lineChartOptions: ChartOptions;
 
-	public lineChartOptions: ChartOptions = {
-		responsive: true,
-		maintainAspectRatio: false,
-		scales:{
-			xAxes: [{
-				scaleLabel: {
-					display: true,
-					labelString: 'Semanas'
-				}
-			}],
-			yAxes: [
-				{
-					id: 'y-axis-0',
-					position: 'left',
-					scaleLabel: {
-						display: true,
-						labelString: 'Número de casos'
-					} 
-				},
-			]
-		},
-		plugins: {
-			datalabels: {
-				display: false,
-			}
-		}
-	};
 	public lineChartColors: Color[] = [
 		{
 			borderColor: '#009EAC',
@@ -51,11 +27,37 @@ export class GraficoLineaComponent{
 			pointHoverBorderColor: 'rgba(148,159,177,0.8)'
 		},
 	];
-	public lineChartLegend = false;
-	public lineChartPlugins = [];
 
-	constructor() {}
+	constructor() {
+	}
 
 	ngOnInit() {
+		this.lineChartOptions = {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales:{
+				xAxes: [{
+					scaleLabel: {
+						display: true,
+						labelString: this.xTitle
+					}
+				}],
+				yAxes: [
+					{
+						id: 'y-axis-0',
+						position: 'left',
+						scaleLabel: {
+							display: true,
+							labelString: this.yTitle
+						} 
+					},
+				]
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+				}
+			}
+		}
 	}
 }

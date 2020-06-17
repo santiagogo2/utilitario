@@ -160,19 +160,22 @@ header{
 	color: #3C3C3C;
 }
 .circleImageContainer:hover .color-green{
-	box-shadow: 0 0 0 180px #4FB96F inset;
+	box-shadow: 0 0 0 200px #4FB96F inset;
 }
 .circleImageContainer:hover .color-red{
-	box-shadow: 0 0 0 180px #EC8993 inset;
+	box-shadow: 0 0 0 200px #EC8993 inset;
 }
 .circleImageContainer:hover .color-violet{
-	box-shadow: 0 0 0 180px #D073D2 inset;
+	box-shadow: 0 0 0 200px #D073D2 inset;
 }
 .circleImageContainer:hover .color-orange{
-	box-shadow: 0 0 0 180px #F3B94E inset;
+	box-shadow: 0 0 0 200px #F3B94E inset;
 }
 .circleImageContainer:hover .color-yellow{
-	box-shadow: 0 0 0 180px #EFEF74 inset;
+	box-shadow: 0 0 0 200px #EFEF74 inset;
+}
+.circleImageContainer:hover .color-dark-pink{
+	box-shadow: 0 0 0 200px #E75480 inset;
 }
 .labelForm{
 	font-size: 0.8rem;

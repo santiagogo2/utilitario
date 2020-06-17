@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 	public homeLinks: any[] = [
 		{ titulo: 'Contratación', url: '/contratacion', class: 'imageContainer color-violet', imageUrl: 'assets/images/contratacion.png' },
 		{ titulo: 'Sala Situacional', url: '/sala-situacional', class: 'imageContainer', imageUrl: 'assets/images/salaSituacional.png' },
+		{ titulo: 'UCI', url: '/uci', class: 'imageContainer color-dark-pink', imageUrl: 'assets/images/UCI.png' },
 	]
 
 	constructor(
@@ -37,6 +38,22 @@ export class HomeComponent implements OnInit {
 			let array = [];
 			this.homeLinks.forEach( (element) => {
 				if(element.titulo == 'Sala Situacional'){
+					array.push(element);
+				}
+			});
+			this.homeLinks = array;
+		} else if(arraySplit == 'INFORMES' || this.identity.role == 'USER_INFORMES_ROLE'){
+			let array = [];
+			this.homeLinks.forEach( (element) => {
+				if(element.titulo == 'Sala Situacional' || element.titulo == 'UCI'){
+					array.push(element);
+				}
+			});
+			this.homeLinks = array;
+		} else if( this.identity.role == 'USER_UCI_INFORMES_ROLE' || this.identity.role == 'USER_UCI_ROLE'){
+			let array = [];
+			this.homeLinks.forEach( (element) => {
+				if(element.titulo == 'UCI'){
 					array.push(element);
 				}
 			});

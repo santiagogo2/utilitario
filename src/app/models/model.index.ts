@@ -15,6 +15,9 @@
 		export { Supervisor } from './admin/contratacion/supervisor';
 		export { SpendingCoordinator } from './admin/contratacion/spendingCoordinator';
 
+		// UCI Models
+		export { Occupation } from './uci/occupation';
+
 // Admin Models
 export { Role } from './admin/role';
 

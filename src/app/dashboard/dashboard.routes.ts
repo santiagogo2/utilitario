@@ -15,17 +15,25 @@ import { ContratacionComponent } from './contratacion/contratacion.component';
 import { ListarContratoComponent } from './contratacion/contrato/listar-contrato/listar-contrato.component';
 import { RegistrarContratoComponent } from './contratacion/contrato/registrar-contrato/registrar-contrato.component';
 import { EditarContratoComponent } from './contratacion/contrato/editar-contrato/editar-contrato.component';
-
 import { ListarContratistasComponent } from './contratacion/contratistas/listar-contratistas/listar-contratistas.component';
 import { RegistrarContratistasComponent } from './contratacion/contratistas/registrar-contratistas/registrar-contratistas.component';
 import { EditarContratistasComponent } from './contratacion/contratistas/editar-contratistas/editar-contratistas.component';
 
+import { UciComponent } from './uci/uci.component';
+import { EditarOcupacionComponent } from './uci/ocupacion/editar-ocupacion/editar-ocupacion.component';
+import { ListarOcupacionComponent } from './uci/ocupacion/listar-ocupacion/listar-ocupacion.component';
+import { RegistrarOcupacionComponent } from './uci/ocupacion/registrar-ocupacion/registrar-ocupacion.component';
+import { InformesUciComponent } from './uci/informes/informes-uci.component';
+
 // Services
 
 // Guards
-import { ContratacionGuard, IdentityGuard, ReporstGuard, SalaSituacionalGuard } from '../guards/guard.index';
+import { 
+	ContratacionGuard, IdentityGuard, ReporstGuard, SalaSituacionalGuard,
+	UciEditGuard, UciListGuard, UciRegisterGuard, UciReportsGuard,
+} from '../guards/guard.index';
 
-const pagesRoutes: Routes = [
+const dashboardRoutes: Routes = [
 	{
 		path: '',
 		component: DashboardComponent,
@@ -65,7 +73,21 @@ const pagesRoutes: Routes = [
 			{ path: 'contratistas/editar/:id', component: EditarContratistasComponent, data: { titulo: 'Editar Contratista' } },
 			{ path: '', component: ContratacionComponent, data: { titulo: 'Contratación' } },
 		]		
+	},
+	{
+		path: 'uci',
+		component: DashboardComponent,
+		canActivate: [IdentityGuard ],
+		children: [
+			{ path: 'ocupacion', redirectTo: 'ocupacion/listar', pathMatch: 'full' },
+			{ path: 'ocupacion/listar', component: ListarOcupacionComponent, data: { titulo: 'Listar Ocupación' }, canActivate: [ UciListGuard ] },
+			{ path: 'ocupacion/registrar', component: RegistrarOcupacionComponent, data: { titulo: 'Registrar Ocupación' }, canActivate: [ UciRegisterGuard ] },
+			{ path: 'ocupacion/editar/:id', component: EditarOcupacionComponent, data: { titulo: 'Editar Ocupación' }, canActivate: [ UciEditGuard ] },
+			
+			{ path: 'informes', component: InformesUciComponent, data: { titulo: 'Informes' }, canActivate: [ UciReportsGuard ] },
+			{ path: '', component: UciComponent, data: { titulo: 'UCI' } },
+		]
 	}
 ];
 
-export const PAGES_ROUTES = RouterModule.forChild( pagesRoutes );
+export const DASHBOARD_ROUTES = RouterModule.forChild( dashboardRoutes );

@@ -9,7 +9,7 @@ import { ChartsModule } from 'ng2-charts';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Rutas
-import { PAGES_ROUTES } from './dashboard.routes';
+import { DASHBOARD_ROUTES } from './dashboard.routes';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
@@ -19,12 +19,14 @@ import { ComponentsModule } from '../components/components.module';
 import { DashboardComponent } from './dashboard.component';
 
 import { HomeComponent } from './home/home.component';
+
 import { SalaSituacionalComponent } from './sala-situacional/sala-situacional.component';
 import { RegistrarColaboradoresComponent } from './sala-situacional/colaboradores/registrar-colaboradores/registrar-colaboradores.component';
 import { ListarColaboradoresComponent } from './sala-situacional/colaboradores/listar-colaboradores/listar-colaboradores.component';
 import { EditarColaboradoresComponent } from './sala-situacional/colaboradores/editar-colaboradores/editar-colaboradores.component';
 import { RelacionarColaboradoresComponent } from './sala-situacional/colaboradores/relacionar-colaboradores/relacionar-colaboradores.component';
 import { InformesComponent } from './sala-situacional/informes/informes.component';
+
 import { ContratacionComponent } from './contratacion/contratacion.component';
 import { ListarContratoComponent } from './contratacion/contrato/listar-contrato/listar-contrato.component';
 import { RegistrarContratoComponent } from './contratacion/contrato/registrar-contrato/registrar-contrato.component';
@@ -32,6 +34,12 @@ import { EditarContratoComponent } from './contratacion/contrato/editar-contrato
 import { ListarContratistasComponent } from './contratacion/contratistas/listar-contratistas/listar-contratistas.component';
 import { EditarContratistasComponent } from './contratacion/contratistas/editar-contratistas/editar-contratistas.component';
 import { RegistrarContratistasComponent } from './contratacion/contratistas/registrar-contratistas/registrar-contratistas.component';
+
+import { UciComponent } from './uci/uci.component';
+import { EditarOcupacionComponent } from './uci/ocupacion/editar-ocupacion/editar-ocupacion.component';
+import { ListarOcupacionComponent } from './uci/ocupacion/listar-ocupacion/listar-ocupacion.component';
+import { RegistrarOcupacionComponent } from './uci/ocupacion/registrar-ocupacion/registrar-ocupacion.component';
+import { InformesUciComponent } from './uci/informes/informes-uci.component';
 
 
 @NgModule({
@@ -51,6 +59,11 @@ import { RegistrarContratistasComponent } from './contratacion/contratistas/regi
 		ListarContratistasComponent,
 		EditarContratistasComponent,
 		RegistrarContratistasComponent,
+		UciComponent,
+		EditarOcupacionComponent,
+		ListarOcupacionComponent,
+		RegistrarOcupacionComponent,
+		InformesUciComponent,
 	],
 	exports: [
 		DashboardComponent,
@@ -65,7 +78,7 @@ import { RegistrarContratistasComponent } from './contratacion/contratistas/regi
 		SharedModule,
 		ComponentsModule,
 		FontAwesomeModule,
-		PAGES_ROUTES,
+		DASHBOARD_ROUTES,
 	]
 })
-export class PagesModule {}
+export class DashboardModule {}

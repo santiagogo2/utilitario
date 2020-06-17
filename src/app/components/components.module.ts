@@ -11,6 +11,7 @@ import { GraficoLineaComponent } from './graficas/grafico-linea/grafico-linea.co
 import { GraficoPieComponent } from './graficas/grafico-pie/grafico-pie.component';
 
 import { CircleImageComponent } from './imagenes/circle-image/circle-image.component';
+import { GraficoPuntosComponent } from './graficas/grafico-puntos/grafico-puntos.component';
 
 @NgModule({
 	declarations: [
@@ -18,6 +19,7 @@ import { CircleImageComponent } from './imagenes/circle-image/circle-image.compo
 		GraficoDonaComponent,
 		GraficoLineaComponent,
 		GraficoPieComponent,
+		GraficoPuntosComponent,
 		CircleImageComponent,
 	],
 	imports: [
@@ -29,6 +31,7 @@ import { CircleImageComponent } from './imagenes/circle-image/circle-image.compo
 		GraficoDonaComponent,
 		GraficoLineaComponent,
 		GraficoPieComponent,
+		GraficoPuntosComponent,
 		CircleImageComponent,
 	]
 })

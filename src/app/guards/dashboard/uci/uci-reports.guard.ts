@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+import { CanActivate } from '@angular/router';
+import { Router } from '@angular/router';
+
+// Services
 import { UserService } from '../../../services/service.index';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class SalaSituacionalGuard implements CanActivate {
+export class UciReportsGuard implements CanActivate {
 	constructor(
 		private _userService: UserService,
-		private _router: Router
+		private _router: Router,
 	){}
 
 	canActivate(){
 		let identity = this._userService.getIdentity();
-		let stringSplit = identity.role.split('_');
-		let isContract = stringSplit[1];
 
-		if(identity.role == 'ADMIN_ROLE' || identity.role == 'USER_INFORMES_ROLE' || isContract == 'SALA'){
+		if(identity.role == 'ADMIN_ROLE' || identity.role == 'USER_UCI_INFORMES_ROLE' || identity.role == 'USER_INFORMES_ROLE'){
 			return true;
-		} else{
+		} else {
 			this._router.navigate(['/inicio']);
 			return false;
 		}
-	} 
-  
+	}  
 }

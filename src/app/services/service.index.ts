@@ -18,6 +18,9 @@ export { RoleService } from './admin/role.service';
 	export { SupervisorService } from './admin/contratacion/supervisor.service';
 	export { SpendingCoordinatorService } from './admin/contratacion/spendingCoordinator.service';
 
+	// UCI Services
+	export { OccupationService } from './dashboard/uci/occupation.service';
+
 // Shared Services
 export { UserService } from './shared/user.service';
 export { global } from './shared/global.service';
