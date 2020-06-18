@@ -99,7 +99,7 @@ export class RegistrarContratoComponent implements OnInit {
 			error => {
 				this.preloaderStatus = false;
 				this.status = error.error.status;
-				this.responseMessage = error.error.message;				
+				this.responseMessage = error.error.message;
 
 				if(error.error.errors){
 					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);

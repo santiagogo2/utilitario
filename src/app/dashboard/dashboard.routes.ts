@@ -25,6 +25,11 @@ import { ListarOcupacionComponent } from './uci/ocupacion/listar-ocupacion/lista
 import { RegistrarOcupacionComponent } from './uci/ocupacion/registrar-ocupacion/registrar-ocupacion.component';
 import { InformesUciComponent } from './uci/informes/informes-uci.component';
 
+import { GestionRiesgoComponent } from './gestion-riesgo/gestion-riesgo.component';
+import { EditarCasoComponent } from './gestion-riesgo/caso/editar-caso/editar-caso.component';
+import { ListarCasoComponent } from './gestion-riesgo/caso/listar-caso/listar-caso.component';
+import { RegistrarCasoComponent } from './gestion-riesgo/caso/registrar-caso/registrar-caso.component';
+
 // Services
 
 // Guards
@@ -86,6 +91,18 @@ const dashboardRoutes: Routes = [
 			
 			{ path: 'informes', component: InformesUciComponent, data: { titulo: 'Informes' }, canActivate: [ UciReportsGuard ] },
 			{ path: '', component: UciComponent, data: { titulo: 'UCI' } },
+		]
+	},
+	{
+		path: 'gestion-riesgo',
+		component: DashboardComponent,
+		canActivate: [IdentityGuard ],
+		children: [
+			{ path: 'casos', redirectTo: 'casos/listar', pathMatch: 'full' },
+			{ path: 'casos/listar', component: ListarCasoComponent, data: { titulo: 'Listar Casos' }, canActivate: [  ] },
+			{ path: 'casos/registrar', component: RegistrarCasoComponent, data: { titulo: 'Registrar Casos' }, canActivate: [  ] },
+			{ path: 'casos/editar/:id', component: EditarCasoComponent, data: { titulo: 'Editar Casos' }, canActivate: [  ] },
+			{ path: '', component: GestionRiesgoComponent, data: { titulo: 'Gestión del Riesgo' } },
 		]
 	}
 ];

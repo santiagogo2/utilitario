@@ -6,6 +6,7 @@ import { AdminComponent } from './admin.component';
 	import { UserListComponent } from './pages/user/user-list/user-list.component';
 	import { UserRegisterComponent } from './pages/user/user-register/user-register.component';
 	import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
+	import { UserPasswordEditComponent } from './pages/user/user-password-edit/user-password-edit.component';
 
 	// Roles Components
 	import { RoleListComponent } from './pages/role/role-list/role-list.component';
@@ -19,39 +20,51 @@ import { AdminComponent } from './admin.component';
 	import { ContratacionComponent } from './pages/contratacion/contratacion.component';
 
 // Guards
-import { AdminGuard } from '../guards/guard.index';
+import { AdminGuard, IdentityGuard } from '../guards/guard.index';
 
 const adminRoutes: Routes = [
 	{
 		path: 'admin',
 		component: AdminComponent,
+		canActivate: [ AdminGuard ],
 		children: [
-			{ path: 'sala-situacional', component: SalaSituacionalComponent, data: { titulo: 'Administrar Sala Situacional' }, canActivate: [AdminGuard] },
-			{ path: 'contratacion', component: ContratacionComponent, data: { titulo: 'Administrar Elementos Contratación' }, canActivate: [AdminGuard] },
+			{ path: 'sala-situacional', component: SalaSituacionalComponent, data: { titulo: 'Administrar Sala Situacional' } },
+			{ path: 'contratacion', component: ContratacionComponent, data: { titulo: 'Administrar Elementos Contratación' } },
 		]
 	},
 
 	{
 		path: 'admin/usuarios',
 		component: AdminComponent,
+		canActivate: [ AdminGuard ],
 		children: [
-			{ path: 'listar', component: UserListComponent, data: { titulo: 'Listar usuarios del sistema' }, canActivate: [AdminGuard] },
-			{ path: 'agregar', component: UserRegisterComponent, data: { titulo: 'Agregar un nuevo usuario' }, canActivate: [AdminGuard] },
-			{ path: 'editar/:id', component: UserEditComponent, data: { titulo: 'Editar usuario' }, canActivate: [AdminGuard] },
+			{ path: 'listar', component: UserListComponent, data: { titulo: 'Listar usuarios del sistema' } },
+			{ path: 'agregar', component: UserRegisterComponent, data: { titulo: 'Agregar un nuevo usuario' } },
+			{ path: 'editar/:id', component: UserEditComponent, data: { titulo: 'Editar usuario' } },
 		]
 	},
 
 	{
 		path: 'admin/roles',
 		component: AdminComponent,
+		canActivate: [ AdminGuard ],
 		children: [
-			{ path: 'listar', component: RoleListComponent, data: { titulo: 'Listar los roles del sistema' }, canActivate: [AdminGuard] },
-			{ path: 'agregar', component: RoleRegisterComponent, data: { titulo: 'Agregar un nuevo role' }, canActivate: [AdminGuard] },
-			{ path: 'editar/:id', component: RoleEditComponent, data: { titulo: 'Editar role' }, canActivate: [AdminGuard] },
-			{ path: '', component: RoleListComponent, data: { titulo: 'Listar los roles del sistema' }, canActivate: [AdminGuard] },
+			{ path: 'listar', component: RoleListComponent, data: { titulo: 'Listar los roles del sistema' } },
+			{ path: 'agregar', component: RoleRegisterComponent, data: { titulo: 'Agregar un nuevo role' } },
+			{ path: 'editar/:id', component: RoleEditComponent, data: { titulo: 'Editar role' } },
+			{ path: '', component: RoleListComponent, data: { titulo: 'Listar los roles del sistema' } },
 		]
 	},
 
+	{
+		path: 'perfil',
+		component: AdminComponent,
+		canActivate: [ IdentityGuard ],
+		children: [
+			{ path: 'editar-contraseña', component: UserPasswordEditComponent, data: { titulo: 'Editar contraseña' } },
+			{ path: '', component: UserPasswordEditComponent, data: { titulo: 'Editar contraseña' } }
+		]
+	}
 ];
 
 export const ADMIN_ROUTES = RouterModule.forChild( adminRoutes );

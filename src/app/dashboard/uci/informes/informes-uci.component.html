@@ -16,14 +16,14 @@
 				<div class="tableContainer">
 					<table class="table table-bordered infoReportTable col col-sm-12 mt-3">
 						<thead class="thead_styles">
-							<td>Camas UCI ocupadas COVID 19</td>
-							<td>Camas UCI disponibles COVID 19</td>
-							<td>% Ocupación UCI</td>
+							<td style="font-size: 1rem">Camas UCI ocupadas COVID 19</td>
+							<td style="font-size: 1rem">Camas UCI disponibles COVID 19</td>
+							<td style="font-size: 1rem">% Ocupación UCI</td>
 						</thead>
-						<tbody class="tbody_styles">
+						<tbody class="tbody_styles" style="font-size: 2rem">
 							<td>{{ lastScatterData.occupiedBeds }}</td>
 							<td>{{ lastScatterData.availableBeds }}</td>
-							<td>{{ lastScatterData.percentage }}</td>
+							<td [ngStyle]="{'background-color': light}">{{ lastScatterData.percentage }}</td>
 						</tbody>
 					</table>
 				</div>
@@ -35,9 +35,12 @@
 									[yAxesConfiguration]="scatteryAxesConfiguration">
 				</app-grafico-puntos>
 			</div>
+			<div class="legend col col-sm-12">
+				*Fuente de datos SIRC
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 reportGraph" *ngIf="scatterData">
+	<div class="col-sm-12 reportGraph pl-0 pr-0" *ngIf="scatterData">
 		<div class="card border-0">
 			<h4 class="card-header">{{ lineTitle }}</h4>
 			<div class="card-body">
@@ -47,6 +50,9 @@
 								   xTitle="Fecha"
 								   yTitle="Número de casos">
 				</app-grafico-linea>				
+			</div>
+			<div class="legend col col-sm-12">
+				*Fuente de datos SIRC
 			</div>
 		</div>
 	</div>

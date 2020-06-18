@@ -249,6 +249,13 @@ header{
 	.infoReportTable .thead_styles td{
 		font-size: 0.75rem;
 	}
+.legend{
+	font-size: 0.9rem;
+	color: #092B4E;
+	font-weight: bold;
+	text-align: right;
+	padding-bottom: 1rem;
+}
 /*---------------------------------------------*/
 /*---------------------------------------------*/
 

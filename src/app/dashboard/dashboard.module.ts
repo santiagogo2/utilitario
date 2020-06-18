@@ -41,6 +41,11 @@ import { ListarOcupacionComponent } from './uci/ocupacion/listar-ocupacion/lista
 import { RegistrarOcupacionComponent } from './uci/ocupacion/registrar-ocupacion/registrar-ocupacion.component';
 import { InformesUciComponent } from './uci/informes/informes-uci.component';
 
+import { GestionRiesgoComponent } from './gestion-riesgo/gestion-riesgo.component';
+import { EditarCasoComponent } from './gestion-riesgo/caso/editar-caso/editar-caso.component';
+import { ListarCasoComponent } from './gestion-riesgo/caso/listar-caso/listar-caso.component';
+import { RegistrarCasoComponent } from './gestion-riesgo/caso/registrar-caso/registrar-caso.component';
+
 
 @NgModule({
 	declarations: [
@@ -64,6 +69,10 @@ import { InformesUciComponent } from './uci/informes/informes-uci.component';
 		ListarOcupacionComponent,
 		RegistrarOcupacionComponent,
 		InformesUciComponent,
+		GestionRiesgoComponent,
+		EditarCasoComponent,
+		ListarCasoComponent,
+		RegistrarCasoComponent,
 	],
 	exports: [
 		DashboardComponent,

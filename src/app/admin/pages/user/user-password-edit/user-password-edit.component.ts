@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert';
 
-// Models
-import { Role, User } from '../../../../models/model.index';
+// Services
+import { UserService } from '../../../../services/service.index';
 
-// Services 
-import { UserService, RoleService } from '../../../../services/service.index';
+// Models
+import { User } from '../../../../models/model.index';
 
 @Component({
-	selector: 'app-user-register',
-	templateUrl: './user-register.component.html',
+	selector: 'app-user-password-edit',
+	templateUrl: './user-password-edit.component.html',
 	styles: [],
 	providers: [
-		RoleService,
 		UserService
 	]
 })
-export class UserRegisterComponent implements OnInit {
+export class UserPasswordEditComponent implements OnInit {
 	public password: string;
 	public passwordEye: any;
 	public passwordConfirmEye: any;
@@ -31,13 +31,14 @@ export class UserRegisterComponent implements OnInit {
 	public passwordText: string;
 	public buttonText: string;
 
-	public user: User;
-	public roles: Role;
 	public token: string;
+	public identity: any;
+	public user: User;
 
 	constructor(
-		private _roleService: RoleService,
-		private _userService: UserService
+		private _userService: UserService,
+		private _router: Router,
+		private _route: ActivatedRoute,
 	) {
 		this.passwordEye = faEye;
 		this.passwordConfirmEye = faEye;
@@ -45,27 +46,27 @@ export class UserRegisterComponent implements OnInit {
 		this.passwordConfirmType = 'password';
 		this.enabled = true;
 		this.enabledPassword = false;
-		this.buttonText = 'Registrar';
-
-		this.user = new User(null,null,null,null,null,null);
+		this.buttonText = 'Actualizar Contraseña';
 		this.token = this._userService.getToken();
+		this.identity = this._userService.getIdentity();
 	}
 
 	ngOnInit(): void {
-		this.roleList();
+		this.getUser();
 	}
 
-	onSubmit(userRegisterForm){
+	onSubmit( userPasswordEditRegisterForm ){
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 
-		this._userService.newUser(this.user, this.token).subscribe(
+		this._userService.updateUser( this.user, this.token ).subscribe(
 			res => {
 				this.preloaderStatus = false;
-				if(res.status == 'success'){
-					swal('Registro exitoso', res.message, 'success');
-					userRegisterForm.reset();
+				if( res.status == 'success' ){
+					swal('Contraseña Actualizada', res.message, 'success');
+					this._router.navigate(['/inicio']);
+					userPasswordEditRegisterForm.reset();
 				}
 			},
 			error => {
@@ -78,6 +79,24 @@ export class UserRegisterComponent implements OnInit {
 
 				this.status = 'error';
 				swal('Error', this.responseMessage, 'error');
+				console.log(<any>error);
+			}
+		);
+	}
+
+	getUser(){
+		this.status = undefined;
+		this.responseMessage = undefined
+
+		this._userService.getUser( this.identity.sub, this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.user = res.user;
+				}
+			},
+			error => {
+				this.status = 'error';
+				this.responseMessage = error.error.message;
 				console.log(<any>error);
 			}
 		);
@@ -104,24 +123,4 @@ export class UserRegisterComponent implements OnInit {
 			}
 		}
 	}
-
-	roleList(){
-		this.status = undefined;
-		this.responseMessage = undefined;
-
-		this._roleService.roleList( this.token ).subscribe(
-			res => {
-				if( res.status == 'success' ){
-					this.roles = res.roles;
-				}
-			},
-			error => {
-				this.status = error.error.status;
-				this.responseMessage = error.error.message;
-				console.log(<any>error);
-			}
-		);
-	}
-
-	showPasswordsInput(){} // No se puede eliminar por el reuso del component.html
 }

@@ -16,6 +16,7 @@ export class InformesUciComponent implements OnInit {
 	public status: string;
 	public responseMessage: string;
 	public preloaderStatus: boolean;
+	public light: string;
 
 	public scatterTitle: string;
 	public scatterData: any[];
@@ -80,8 +81,14 @@ export class InformesUciComponent implements OnInit {
 		});
 
 		this.lastScatterData = this.occupations[this.occupations.length-1];
-		this.lastScatterData.percentage = this.percentage(+this.lastScatterData.availableBeds, +this.lastScatterData.occupiedBeds) + '%';
+		let numberData = this.percentage(+this.lastScatterData.availableBeds, +this.lastScatterData.occupiedBeds);
+		this.lastScatterData.percentage = numberData + '%';
 		this.scatterData = scatterArray;
+
+		// Semaforización
+		if( numberData <= 50 ) this.light = "rgb(102, 208, 126)";
+		else if ( numberData > 50 && numberData <= 70 ) this.light = "#FFC107";
+		else if ( numberData > 70 ) this.light = "#DC3545";
 	}
 
 	setLineData(){

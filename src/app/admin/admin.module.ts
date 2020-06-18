@@ -35,6 +35,7 @@ import { RoleRegisterComponent } from './pages/role/role-register/role-register.
 
 import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
 import { ContratacionComponent } from './pages/contratacion/contratacion.component';
+import { UserPasswordEditComponent } from './pages/user/user-password-edit/user-password-edit.component';
 
 @NgModule({
 	declarations: [
@@ -47,6 +48,7 @@ import { ContratacionComponent } from './pages/contratacion/contratacion.compone
 		RoleRegisterComponent,
 		SalaSituacionalComponent,
 		ContratacionComponent,
+		UserPasswordEditComponent,
 	],
 	imports: [
 		CommonModule,
