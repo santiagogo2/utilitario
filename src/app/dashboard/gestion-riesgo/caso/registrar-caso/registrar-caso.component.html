@@ -1,1 +1,279 @@
-<p>registrar-caso works!</p>
+<div class="loaderBall" *ngIf="!case && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !case">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a routerLink="/gestion-riesgo/casos/listar">listar casos</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="case">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-12" routerLink="/gestion-riesgo/casos/listar">Listar casos</a>
+                </div>
+                <div class="formContainer">
+                    <form #casesForm="ngForm" class="form-container" (ngSubmit)="onSubmit(casesForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="clasificacionCaso" class="labelForm">Clasificación del caso*</label>
+                                <select style="background-position-x: 93%" name="clasificacionCaso" id="clasificacionCaso" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionCaso.invalid && clasificacionCaso.touched}" #clasificacionCaso="ngModel" [(ngModel)]="case.clasificacionCaso"
+                                    required>
+									<option *ngFor="let clasificacion of clasificaciones" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
+								</select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="numeroRadicado" class="labelForm">Número de Radicado*</label>
+                                <input type="text" name="numeroRadicado" class="form-control inputForm" [ngClass]="{'is-invalid': numeroRadicado.touched && numeroRadicado.invalid}" #numeroRadicado="ngModel" [(ngModel)]="case.numeroRadicado" required pattern="[0-9]+" maxlength="10" placeholder="Ingrese el número del contrato">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="fechaNotificacion" class="labelForm">Fecha de notificación*</label>
+                                <input type="date" name="fechaNotificacion" class="form-control inputForm" [ngClass]="{'is-invalid': fechaNotificacion.touched && fechaNotificacion.invalid}" #fechaNotificacion="ngModel" [(ngModel)]="case.fechaNotificacion" max="{{ actualDate }}" required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="fechaRecepcion" class="labelForm">Fecha de recepción*</label>
+                                <input type="date" name="fechaRecepcion" class="form-control inputForm" [ngClass]="{'is-invalid': fechaRecepcion.touched && fechaRecepcion.invalid}" #fechaRecepcion="ngModel" [(ngModel)]="case.fechaRecepcion" max="{{ actualDate }}" required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="upgd" class="labelForm">UPGD notificadora*</label>
+                                <select style="background-position-x: 93%" name="upgd" id="upgd" class="form-control inputForm" [ngClass]="{'is-invalid': upgd.invalid && upgd.touched}" #upgd="ngModel" [(ngModel)]="case.UPGD_id" required>
+									<option *ngFor="let upgd of upgds" value="{{ upgd.id }}">{{ upgd.name }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="fechaAsignacionCaso" class="labelForm">Fecha de asignación del caso*</label>
+                                <input type="date" name="fechaAsignacionCaso" class="form-control inputForm" [ngClass]="{'is-invalid': fechaAsignacionCaso.touched && fechaAsignacionCaso.invalid}" #fechaAsignacionCaso="ngModel" [(ngModel)]="case.fechaAsignacionCaso" max="{{ actualDate }}"
+                                    required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="fechaConsultaPersona" class="labelForm">Fecha de consulta de la persona*</label>
+                                <input type="date" name="fechaConsultaPersona" class="form-control inputForm" [ngClass]="{'is-invalid': fechaConsultaPersona.touched && fechaConsultaPersona.invalid}" #fechaConsultaPersona="ngModel" [(ngModel)]="case.fechaConsultaPersona" max="{{ actualDate }}"
+                                    required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="fechaHospitalizacion" class="labelForm">Fecha de hospitalización*</label>
+                                <input type="date" name="fechaHospitalizacion" class="form-control inputForm" [ngClass]="{'is-invalid': fechaHospitalizacion.touched && fechaHospitalizacion.invalid}" #fechaHospitalizacion="ngModel" [(ngModel)]="case.fechaHospitalizacion" max="{{ actualDate }}"
+                                    required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="fechaAsignacion" class="labelForm">Fecha de asignación*</label>
+                                <input type="date" name="fechaAsignacion" class="form-control inputForm" [ngClass]="{'is-invalid': fechaAsignacion.touched && fechaAsignacion.invalid}" #fechaAsignacion="ngModel" [(ngModel)]="case.fechaAsignacion" max="{{ actualDate }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="asignacionProfesionalGrupo" class="labelForm">Profesional o grupo de asignación del caso*</label>
+                                <input type="text" name="asignacionProfesionalGrupo" class="form-control inputForm" [ngClass]="{'is-invalid': asignacionProfesionalGrupo.touched && asignacionProfesionalGrupo.invalid}" #asignacionProfesionalGrupo="ngModel" [(ngModel)]="case.asignacionProfesionalGrupo"
+                                    (ngModelChange)="case.asignacionProfesionalGrupo=upperCase($event)" required maxlength="100" pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el profesional o grupo al que se le asigna el caso">
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="asignacionAuxiliarGrupo" class="labelForm">Auxiliar o grupo al cual se le asigna el caso*</label>
+                                <input type="text" name="asignacionAuxiliarGrupo" class="form-control inputForm" [ngClass]="{'is-invalid': asignacionAuxiliarGrupo.touched && asignacionAuxiliarGrupo.invalid}" #asignacionAuxiliarGrupo="ngModel" [(ngModel)]="case.asignacionAuxiliarGrupo"
+                                    (ngModelChange)="case.asignacionAuxiliarGrupo = upperCase($event)" required maxlength="100" pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el auxiliar o grupo al cual se le asigna el caso">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="searchIEC" class="labelForm">¿Se realiza IEC?*</label>
+                                <select style="background-position-x: 93%" name="searchIEC" id="searchIEC" class="form-control inputForm" [ngClass]="{'is-invalid': searchIEC.invalid && searchIEC.touched}" #searchIEC="ngModel" [(ngModel)]="case.IEC" required>
+									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+								</select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="case.IEC == 1">
+                                <label for="fechaIEC" class="labelForm">Fecha de notificación*</label>
+                                <input type="date" name="fechaIEC" class="form-control inputForm" [ngClass]="{'is-invalid': fechaIEC.touched && fechaIEC.invalid}" #fechaIEC="ngModel" [(ngModel)]="case.fechaIEC" max="{{ actualDate }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="case.IEC == 1">
+                            <div class="col col-sm-9 col-lg-4 d-inline-block align-top">
+                                <label for="responsableId" class="labelForm">Buscar responsable de la IEC*</label>
+                                <input type="text" name="responsableId" class="form-control inputForm" [ngClass]="{'is-invalid': responsableId.touched && responsableId.invalid}" #responsableId="ngModel" [(ngModel)]="responsable" pattern="[a-zA-ZÀ-ÿ ]+" [required]="!case.user_id">
+                            </div>
+                            <div class="col col-sm-3 col-lg-2 d-inline-block align-bottom">
+                                <a class="btn btn-info btn-sm col-sm-12 enlarge" style="color: white; border-radius: 0;" *ngIf="responsable && responsableId.valid" (click)="getUserByName()">Buscar</a>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="usersFinded">
+                                <label for="IEC" class="labelForm">Responsable de la IEC*</label>
+                                <select style="background-position-x: 93%" name="IEC" id="IEC" class="form-control inputForm" [ngClass]="{'is-invalid': IEC.invalid && IEC.touched}" #IEC="ngModel" [(ngModel)]="case.user_id" required>
+									<option *ngFor="let user of usersFinded" value="{{ user.id }}">{{ user.name + ' ' + user.surname }}</option>
+								</select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="searchPreloaderStatus">
+                                <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="searchStatus=='error' && searchResponseMessage"><small class="invalid-feedback d-block">{{ searchResponseMessage }}</small></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="primerNombre" class="labelForm">Primer nombre*</label>
+                                <input type="text" name="primerNombre" class="form-control inputForm" [ngClass]="{'is-invalid': primerNombre.touched && primerNombre.invalid}" #primerNombre="ngModel" [(ngModel)]="case.primerNombre" (ngModelChange)="case.primerNombre = upperCase($event)"
+                                    required pattern="[a-zA-ZÀ-ÿ ]+" maxlength="50" placeholder="Ingrese el primer nombre">
+                            </div>
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="segundoNombre" class="labelForm">Segundo nombre</label>
+                                <input type="text" name="segundoNombre" class="form-control inputForm" [ngClass]="{'is-invalid': segundoNombre.touched && segundoNombre.invalid}" #segundoNombre="ngModel" [(ngModel)]="case.segundoNombre" (ngModelChange)="case.segundoNombre = upperCase($event)"
+                                    pattern="[a-zA-ZÀ-ÿ ]+" maxlength="50" placeholder="Ingrese el segundo nombre">
+                            </div>
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="primerApellido" class="labelForm">Primer apellido*</label>
+                                <input type="text" name="primerApellido" class="form-control inputForm" [ngClass]="{'is-invalid': primerApellido.touched && primerApellido.invalid}" #primerApellido="ngModel" [(ngModel)]="case.primerApellido" (ngModelChange)="case.primerApellido = upperCase($event)"
+                                    required pattern="[a-zA-ZÀ-ÿ ]+" maxlength="50" placeholder="Ingrese el primer apellido">
+                            </div>
+                            <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                <label for="segundoApellido" class="labelForm">Segundo apellido</label>
+                                <input type="text" name="segundoApellido" class="form-control inputForm" [ngClass]="{'is-invalid': segundoApellido.touched && segundoApellido.invalid}" #segundoApellido="ngModel" [(ngModel)]="case.segundoApellido" (ngModelChange)="case.segundoApellido = upperCase($event)"
+                                    pattern="[a-zA-ZÀ-ÿ ]+" maxlength="50" placeholder="Ingrese el segundo apellido">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="tipoDocumento" class="labelForm">Tipo de documento*</label>
+                                <select style="background-position-x: 93%" name="tipoDocumento" id="tipoDocumento" class="form-control inputForm" [ngClass]="{'is-invalid': tipoDocumento.invalid && tipoDocumento.touched}" #tipoDocumento="ngModel" [(ngModel)]="case.tipoDocumento" required>
+									<option *ngFor="let tipo of tipoDocumentos" value="{{ tipo.id }}">{{ tipo.value }}</option>
+								</select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for=" documento" class="labelForm">Documento*</label>
+                                <input type="text" name="documento" class="form-control inputForm" [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="case.documento" maxlength='10' pattern="[0-9]+" required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for=" nacionalidad" class="labelForm">Nacionalidad*</label>
+                                <input type="text" name="nacionalidad" class="form-control inputForm" [ngClass]="{ 'is-invalid': nacionalidad.touched && nacionalidad.invalid}" #nacionalidad="ngModel" [(ngModel)]="case.nacionalidad" (ngModelChange)="case.nacionalidad = upperCase($event)"
+                                    maxlength="50" pattern="[a-zA-ZÀ-ÿ ]+" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="edad" class="labelForm">Edad*</label>
+                                <input type="text" name="edad" class="form-control inputForm" [ngClass]="{ 'is-invalid': edad.touched && edad.invalid}" #edad="ngModel" [(ngModel)]="case.edad" maxlength="3" pattern="[0-9]+" required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="unidadMedida" class="labelForm">Unidad de medida*</label>
+                                <select style="background-position-x: 93%" name="unidadMedida" id="unidadMedida" class="form-control inputForm" [ngClass]="{'is-invalid': unidadMedida.invalid && unidadMedida.touched}" #unidadMedida="ngModel" [(ngModel)]="case.unidadMedida" required>
+									<option *ngFor="let unidad of unidadesMedida" value="{{ unidad.id }}">{{ unidad.name }}</option>
+								</select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="sexo" class="labelForm">Sexo*</label>
+                                <select style="background-position-x: 93%" name="sexo" id="sexo" class="form-control inputForm" [ngClass]="{'is-invalid': sexo.invalid && sexo.touched}" #sexo="ngModel" [(ngModel)]="case.sexo" required>
+									<option *ngFor="let sexo of sexos" value="{{ sexo.id }}">{{ sexo.value }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="direccion" class="labelForm">Direccion*</label>
+                                <input type="text" name="direccion" class="form-control inputForm" [ngClass]="{ 'is-invalid': direccion.touched && direccion.invalid}" #direccion="ngModel" [(ngModel)]="case.direccion" (ngModelChange)="case.direccion = upperCase($event)" maxlength="100"
+                                    required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="barrio" class="labelForm">Barrio*</label>
+                                <input type="text" name="barrio" class="form-control inputForm" [ngClass]="{ 'is-invalid': barrio.touched && barrio.invalid}" #barrio="ngModel" [(ngModel)]="case.barrio" (ngModelChange)="case.barrio = upperCase($event)" maxlength="100" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="location" class="labelForm">Localidad de residencia*</label>
+                                <select style="background-position-x: 93%" name="location" id="location" class="form-control inputForm" [ngClass]="{'is-invalid': location.invalid && location.touched}" #location="ngModel" [(ngModel)]="selectedLocation" required (change)="getUpzs()">
+									<option *ngFor="let localidad of localidades" value="{{ localidad.id }}">{{ localidad.name }}</option>
+								</select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="upzs && selectedLocation && selectedLocation!=5">
+                                <label for="upz" class="labelForm">UPZ*</label>
+                                <select style="background-position-x: 93%" name="upz" id="upz" class="form-control inputForm" [ngClass]="{'is-invalid': upz.invalid && upz.touched}" #upz="ngModel" [(ngModel)]="case.UPZ_id" required>
+									<option *ngFor="let upz of upzs" value="{{ upz.id }}">{{ upz.name }}</option>
+								</select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="upzPreloaderStatus">
+                                <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="upzSearchStatus=='error' && upzSearchResponseMessage"><small class="invalid-feedback d-block">{{ upzSearchResponseMessage }}</small></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="telefono" class="labelForm">Telefono*</label>
+                                <input type="text" name="telefono" class="form-control inputForm" [ngClass]="{ 'is-invalid': telefono.touched && telefono.invalid}" #telefono="ngModel" [(ngModel)]="case.telefono" maxlength="10" pattern="[0-9]+" required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="insurer" class="labelForm">Aseguradora*</label>
+                                <select style="background-position-x: 93%" name="insurer" id="insurer" class="form-control inputForm" [ngClass]="{'is-invalid': insurer.invalid && insurer.touched}" #insurer="ngModel" [(ngModel)]="case.insurers_id" required>
+									<option *ngFor="let insurer of insurers" value="{{ insurer.id }}">{{ insurer.name }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="antecedenteViaje" class="labelForm">Antecedente de viaje*</label>
+                                <select style="background-position-x: 93%" name="antecedenteViaje" id="antecedenteViaje" class="form-control inputForm" [ngClass]="{'is-invalid': antecedenteViaje.invalid && antecedenteViaje.touched}" #antecedenteViaje="ngModel" [(ngModel)]="case.antecedenteViaje"
+                                    required>
+									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+								</select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="case.antecedenteViaje==1">
+                                <label for="lugarViaje" class="labelForm">Lugar a donde viajó*</label>
+                                <input type="text" name="lugarViaje" class="form-control inputForm" [ngClass]="{ 'is-invalid': lugarViaje.touched && lugarViaje.invalid}" #lugarViaje="ngModel" [(ngModel)]="case.lugarViaje" (ngModelChange)="case.lugarViaje = upperCase($event)" maxlength="100"
+                                    pattern="[a-zA-ZÀ-ÿ ]+" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="fuenteContagio" class="labelForm">Fuente de contagio*</label>
+                                <select style="background-position-x: 93%" name="fuenteContagio" id="fuenteContagio" class="form-control inputForm" [ngClass]="{'is-invalid': fuenteContagio.invalid && fuenteContagio.touched}" #fuenteContagio="ngModel" [(ngModel)]="case.fuenteContagio"
+                                    required>
+									<option *ngFor="let fuente of fuenteContagios" value="{{ fuente.id }}">{{ fuente.name }}</option>
+								</select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="fechaInicioSintomas" class="labelForm">Fecha de incio de síntomas*</label>
+                                <input type="date" name="fechaInicioSintomas" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaInicioSintomas.touched && fechaInicioSintomas.invalid}" #fechaInicioSintomas="ngModel" [(ngModel)]="case.fechaInicioSintomas" max="{{ actualDate }}"
+                                    required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="fechaDiagnostico" class="labelForm">Fecha de incio de diagnóstico*</label>
+                                <input type="date" name="fechaDiagnostico" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaDiagnostico.touched && fechaDiagnostico.invalid}" #fechaDiagnostico="ngModel" [(ngModel)]="case.fechaDiagnostico" max="{{ actualDate }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="ocupacion" class="labelForm">Ocupación*</label>
+                                <input type="text" name="ocupacion" class="form-control inputForm" [ngClass]="{ 'is-invalid': ocupacion.touched && ocupacion.invalid}" #ocupacion="ngModel" [(ngModel)]="case.ocupacion" (ngModelChange)="case.ocupacion = upperCase($event)" maxlength="100"
+                                    pattern="[a-zA-ZÀ-ÿ ]+" required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="estadoPersona" class="labelForm">Estado de la persona*</label>
+                                <select style="background-position-x: 93%" name="estadoPersona" id="estadoPersona" class="form-control inputForm" [ngClass]="{'is-invalid': estadoPersona.invalid && estadoPersona.touched}" #estadoPersona="ngModel" [(ngModel)]="case.estadoPersona" required>
+									<option *ngFor="let estado of estados" value="{{ estado.id }}">{{ estado.value }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 3rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="casesForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

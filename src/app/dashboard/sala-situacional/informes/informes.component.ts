@@ -88,7 +88,7 @@ export class InformesComponent implements OnInit {
 		vector.forEach(element => {
 			let count:number = 0;
 			for(let i=0; i<this.collaborators.length; i++){
-				if(this.collaborators[i][key] == element.id && this.collaborators[i].contagiado == 0){
+				if(this.collaborators[i][key] == element.id && this.collaborators[i].contagiado == 1){
 					count++;
 				}
 			}
@@ -135,7 +135,7 @@ export class InformesComponent implements OnInit {
 	dataSymptomsArray(data, key){
 		let count:number = 0;
 		for(let i=0; i<this.collaborators.length; i++){
-			if(this.collaborators[i][key] == 0 && this.collaborators[i].contagiado == 0){
+			if(this.collaborators[i][key] == 1 && this.collaborators[i].contagiado == 1){
 				count++;
 			}
 		}
@@ -154,7 +154,7 @@ export class InformesComponent implements OnInit {
 			let cont: number = 0;
 			let total = 0;
 			this.collaborators.forEach( element => {
-				if(element.diasTranscurridos && element.contagiado == 0){
+				if(element.diasTranscurridos && element.contagiado == 1){
 					if(labels[i] == element.diasTranscurridos){
 						cont++;
 					} else if(labels[i] == '8 o más días' && element.diasTranscurridos >= 8){
@@ -203,7 +203,7 @@ export class InformesComponent implements OnInit {
 		let cont: number = 0;
 
 		this.collaborators.forEach( element => {
-			if(element.edad >= a && element.edad <= b && element.contagiado == 0){
+			if(element.edad >= a && element.edad <= b && element.contagiado == 1){
 				cont++;
 			}
 		});
@@ -219,7 +219,7 @@ export class InformesComponent implements OnInit {
 		let inicial = true;
 
 		this.collaborators.forEach( element => {
-			if(element.fechaResultado && element.contagiado == 0) {
+			if(element.fechaResultado && element.contagiado == 1) {
 				let week = this.getWeekNumber(element.fechaResultado);
 
 				if(inicial){
@@ -243,7 +243,7 @@ export class InformesComponent implements OnInit {
 		for(let i=0; i<labels.length; i++){
 			let cont:number = 0;
 			this.collaborators.forEach( element => {
-				if(element.fechaResultado && element.contagiado == 0){
+				if(element.fechaResultado && element.contagiado == 1){
 					let week = this.getWeekNumber(element.fechaResultado);
 					if( labels[i] == week ){
 						cont++;

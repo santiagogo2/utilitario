@@ -37,6 +37,11 @@ export class UserService{
 		return this._http.get(this.url + 'user/' + id, {headers:headers});
 	}
 
+	getUserByChain( chain, token): Observable<any>{
+		let headers = new HttpHeaders().set('Authorization', token);
+		return this._http.get(this.url + 'user/chain/' + chain, {headers:headers});
+	}
+
 	newUser(user, token):Observable<any>{
 		let json = JSON.stringify(user);
 		let params = "json="+json;

@@ -3,13 +3,12 @@ import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 
 // Services
-import { UserService } from '../../../services/service.index';
-
+import { UserService } from '../../../../services/service.index';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class UciRegisterGuard implements CanActivate {
+export class UciOcupacionEditGuard implements CanActivate {
 	constructor(
 		private _userService: UserService,
 		private _router: Router,
@@ -21,8 +20,8 @@ export class UciRegisterGuard implements CanActivate {
 		if(identity.role == 'ADMIN_ROLE' || identity.role == 'USER_UCI_ROLE'){
 			return true;
 		} else {
-			this._router.navigate(['/inicio']);
+			this._router.navigate(['/uci/ocupacion/listar']);
 			return false;
 		}
-	}  
+	}
 }

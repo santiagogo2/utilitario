@@ -12,7 +12,7 @@ export class GestionRiesgoComponent implements OnInit {
 	public identity: any;
 
 	public uci: any[] = [
-		{ titulo: 'Casos', url: 'casos/listar', class: 'imageContainer color-green', imageUrl: 'assets/images/UCI/ocupacionUCI.png' },
+		{ titulo: 'Casos', url: 'casos/listar', class: 'imageContainer color-green', imageUrl: 'assets/images/gestionRiesgo/casos.png' },
 		// { titulo: 'informes', url: 'informes', class: 'imageContainer color-red', imageUrl: 'assets/images/UCI/informes.png' }
 	]
 

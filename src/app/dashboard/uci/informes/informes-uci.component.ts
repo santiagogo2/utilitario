@@ -55,12 +55,14 @@ export class InformesUciComponent implements OnInit {
 	getData(){
 		this.status = undefined;
 		this.responseMessage = undefined;
+		this.preloaderStatus = true;
 
 		Promise.all([this.occupationList()])
 			   .then( responses => {
 			   		this.occupations = responses[0];
 			   		this.setScatterData();
-			   		this.setLineData();
+					   this.setLineData();
+					   this.preloaderStatus = false;
 			   })
 			   .catch( error => {
 				   	this.status = 'error';

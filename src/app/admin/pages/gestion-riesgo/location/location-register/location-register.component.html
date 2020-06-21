@@ -1,0 +1,49 @@
+<div class="loaderBall" *ngIf="!location && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage && !location">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a class="link" (click)="sendFlag()">listar localidad</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="location">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="backLink col col-sm-12">
+                    <a class="link" (click)="sendFlag()">Listar localidad</a>
+                </div>
+                <div class="formContainerAdmin col col-sm-12" [ngClass]="{'formContainerAdminError': status && status=='error'}">
+                    <form #locationForm="ngForm" class="form-container" (ngSubmit)="onSubmit(locationForm)">
+                        <div class="form-group col col-sm-12">
+                            <label for="locationName" class="labelForm">Nombre*</label>
+                            <input type="text" name="locationName" class="form-control inputForm" [ngClass]="{ 'is-invalid': locationName.touched && locationName.invalid }" #locationName="ngModel" [(ngModel)]="location.name" (ngModelChange)="location.name = upperCase($event)" required
+                                pattern="[a-zA-ZÀ-ÿ ]+" placeholder="Ingrese el nombre de la localidad">
+                            <small class="invalid-feedback d-block" *ngIf="locationName.invalid && locationName.touched">Debe ingresar un nombre correcto. Solo se admiten letras.</small>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="locationForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status && responseMessage">
+                            <div class="alert" [ngClass]="{'alert-danger': status=='error', 'alert-success': status=='success'}" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

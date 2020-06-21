@@ -4,7 +4,10 @@ import { UserService } from '../../services/service.index';
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
-	styles: []
+	styles: [],
+	providers: [
+		UserService,
+	]
 })
 export class HomeComponent implements OnInit {
 	public preloaderImage: boolean;
@@ -13,6 +16,7 @@ export class HomeComponent implements OnInit {
 
 	public homeLinks: any[] = [
 		{ titulo: 'Contratación', url: '/contratacion', class: 'imageContainer color-violet', imageUrl: 'assets/images/contratacion.png' },
+		{ titulo: 'Gestión del Riesgo', url: '/gestion-riesgo', class: 'imageContainer color-soft-brown', imageUrl: 'assets/images/gestionRiesgo.png' },
 		{ titulo: 'Sala Situacional', url: '/sala-situacional', class: 'imageContainer', imageUrl: 'assets/images/salaSituacional.png' },
 		{ titulo: 'UCI', url: '/uci', class: 'imageContainer color-dark-pink', imageUrl: 'assets/images/UCI.png' },
 	]
@@ -38,6 +42,14 @@ export class HomeComponent implements OnInit {
 			let array = [];
 			this.homeLinks.forEach( (element) => {
 				if(element.titulo == 'Sala Situacional'){
+					array.push(element);
+				}
+			});
+			this.homeLinks = array;
+		} else if(stringSplit[1] == 'GESTION' && stringSplit[2] == 'RIESGO'){
+			let array = [];
+			this.homeLinks.forEach( (element) => {
+				if(element.titulo == 'Gestión del Riesgo'){
 					array.push(element);
 				}
 			});

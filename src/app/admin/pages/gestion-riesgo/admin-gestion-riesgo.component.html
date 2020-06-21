@@ -1,0 +1,32 @@
+<div class="row reports">
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{upgdStatusView + ' UPGD'}}</h4>
+            <div class="card-body">
+                <app-upgd-list (changeView)="changeUpgdView($event)" *ngIf="upgdStatusView == 'Listar'"></app-upgd-list>
+                <app-upgd-register (changeView)="changeUpgdView($event)" *ngIf="upgdStatusView == 'Registrar'"></app-upgd-register>
+                <app-upgd-edit (changeView)="changeUpgdView($event)" *ngIf="upgdStatusView == 'Editar'"></app-upgd-edit>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{locationStatusView + ' Localidades'}}</h4>
+            <div class="card-body">
+                <app-location-list (changeView)="changeLocationView($event)" *ngIf="locationStatusView == 'Listar'"></app-location-list>
+                <app-location-register (changeView)="changeLocationView($event)" *ngIf="locationStatusView == 'Registrar'"></app-location-register>
+                <app-location-edit (changeView)="changeLocationView($event)" *ngIf="locationStatusView == 'Editar'"></app-location-edit>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{upzStatusView + ' UPZ'}}</h4>
+            <div class="card-body">
+                <app-upz-list (changeView)="changeUpzView($event)" *ngIf="upzStatusView == 'Listar'"></app-upz-list>
+                <app-upz-register (changeView)="changeUpzView($event)" *ngIf="upzStatusView == 'Registrar'"></app-upz-register>
+                <app-upz-edit (changeView)="changeUpzView($event)" *ngIf="upzStatusView == 'Editar'"></app-upz-edit>
+            </div>
+        </div>
+    </div>
+</div>

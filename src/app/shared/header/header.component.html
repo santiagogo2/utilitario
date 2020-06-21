@@ -1,33 +1,34 @@
 <header>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class=" navbar-brand titleContainer">
-			<h1>{{ page_title }}</h1>
-		</div>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class=" navbar-brand titleContainer">
+            <h1>{{ page_title }}</h1>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			<ul class="navbar-nav" style="margin-right: auto !important;">
-				<li class="nav-item" routerLinkActive="active">
-					<a class="nav-link" [routerLink]="['/inicio']">Inicio</a>
-				</li>
-			</ul>
-			<ul class="navbar-nav" *ngIf="identity">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav" style="margin-right: auto !important;">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/inicio']">Inicio</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" *ngIf="identity">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						{{identity.name + ' ' + identity.surname}}
 					</a>
-					<div class="dropdown-menu animated bounceIn" aria-labelledby="navbarDropdownMenuLink" style="left: unset !important; right: 0;">
-						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/contratacion']" *ngIf="identity.role=='ADMIN_ROLE'">Contratación</a>
-						<a class="dropdown-item" routerLinkActive="active" routerLink="/perfil/editar-contraseña">Editar Contraseña</a>
-						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/roles/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Roles</a>
-						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/sala-situacional']" *ngIf="identity.role=='ADMIN_ROLE'">Sala Situacional</a>
-						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/usuarios/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Usuarios</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" routerLinkActive="active" [routerLink]="['/logout', 1]">Cerrar Sesión</a>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</nav>
+                    <div class="dropdown-menu animated bounceIn" aria-labelledby="navbarDropdownMenuLink" style="left: unset !important; right: 0;">
+                        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/contratacion']" *ngIf="identity.role=='ADMIN_ROLE'">Contratación</a>
+                        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/gestion-riesgo']" *ngIf="identity.role=='ADMIN_ROLE' || identity.role == 'ADMIN_GESTION_RIESGO_ROLE'">Gestión del Riesgo</a>
+                        <a class="dropdown-item" routerLinkActive="active" routerLink="/perfil/editar-contraseña">Editar Contraseña</a>
+                        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/roles/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Roles</a>
+                        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/sala-situacional']" *ngIf="identity.role=='ADMIN_ROLE'">Sala Situacional</a>
+                        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin/usuarios/listar']" *ngIf="identity.role=='ADMIN_ROLE'">Usuarios</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/logout', 1]">Cerrar Sesión</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </header>

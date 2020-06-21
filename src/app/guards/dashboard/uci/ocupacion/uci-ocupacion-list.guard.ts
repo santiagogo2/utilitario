@@ -3,12 +3,12 @@ import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 
 // Services
-import { UserService } from '../../../services/service.index';
+import { UserService } from '../../../../services/service.index';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class UciReportsGuard implements CanActivate {
+export class UciOcupacionListGuard implements CanActivate {
 	constructor(
 		private _userService: UserService,
 		private _router: Router,
@@ -17,10 +17,10 @@ export class UciReportsGuard implements CanActivate {
 	canActivate(){
 		let identity = this._userService.getIdentity();
 
-		if(identity.role == 'ADMIN_ROLE' || identity.role == 'USER_UCI_INFORMES_ROLE' || identity.role == 'USER_INFORMES_ROLE'){
+		if(identity.role == 'ADMIN_ROLE' || identity.role == 'USER_UCI_ROLE'){
 			return true;
 		} else {
-			this._router.navigate(['/inicio']);
+			this._router.navigate(['/uci']);
 			return false;
 		}
 	}  

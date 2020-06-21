@@ -17,19 +17,21 @@ import { AdminComponent } from './admin.component';
 	import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
 
 	// Contración
-	import { ContratacionComponent } from './pages/contratacion/contratacion.component';
-
+	import { AdminContratacionComponent } from './pages/contratacion/admin-contratacion.component';
+	
+	// Gestión del Riesgo
+	import { AdminGestionRiesgoComponent } from './pages/gestion-riesgo/admin-gestion-riesgo.component';
 // Guards
-import { AdminGuard, IdentityGuard } from '../guards/guard.index';
+import { AdminGuard, IdentityGuard, GestionRiesgoAdminGuard } from '../guards/guard.index';
 
 const adminRoutes: Routes = [
 	{
 		path: 'admin',
 		component: AdminComponent,
-		canActivate: [ AdminGuard ],
 		children: [
-			{ path: 'sala-situacional', component: SalaSituacionalComponent, data: { titulo: 'Administrar Sala Situacional' } },
-			{ path: 'contratacion', component: ContratacionComponent, data: { titulo: 'Administrar Elementos Contratación' } },
+			{ path: 'sala-situacional', component: SalaSituacionalComponent, data: { titulo: 'Administrar Sala Situacional' }, canActivate:[AdminGuard] },
+			{ path: 'contratacion', component: AdminContratacionComponent, data: { titulo: 'Administrar Elementos Contratación' }, canActivate:[AdminGuard] },
+			{ path: 'gestion-riesgo', component: AdminGestionRiesgoComponent, data: { titulo: 'Administrar Elementos Gestión del Riesgo' }, canActivate:[GestionRiesgoAdminGuard] },
 		]
 	},
 

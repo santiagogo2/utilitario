@@ -21,6 +21,13 @@ export { RoleService } from './admin/role.service';
 	// UCI Services
 	export { OccupationService } from './dashboard/uci/occupation.service';
 
+	// Gestión del Riesgo services
+	export { CaseService } from './dashboard/gestion-riesgo/case.service';
+	// Admin
+	export { LocationService } from './admin/gestion-riesgo/location.service';
+	export { UpgdService } from './admin/gestion-riesgo/upgd.service';
+	export { UpzService } from './admin/gestion-riesgo/upz.service';
+
 // Shared Services
 export { UserService } from './shared/user.service';
 export { global } from './shared/global.service';

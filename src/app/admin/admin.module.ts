@@ -21,9 +21,14 @@ import { SharedModule } from '../shared/shared.module';
 	// Contratación
 	import { SpendingModule } from './pages/contratacion/spending/spending.module';
 	import { SupervisorModule } from './pages/contratacion/supervisor/supervisor.module';
+	
+	// Gestión del Riesgo
+	import { UpgdModule } from './pages/gestion-riesgo/updg/upgd.module';
+	import { LocationModule } from './pages/gestion-riesgo/location/location.module';
 
 // Components
 import { AdminComponent } from './admin.component';
+import { AdminContratacionComponent } from './pages/contratacion/admin-contratacion.component';
 
 import { UserRegisterComponent } from './pages/user/user-register/user-register.component';
 import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
@@ -34,12 +39,16 @@ import { RoleEditComponent } from './pages/role/role-edit/role-edit.component';
 import { RoleRegisterComponent } from './pages/role/role-register/role-register.component';
 
 import { SalaSituacionalComponent } from './pages/sala-situacional/sala-situacional.component';
-import { ContratacionComponent } from './pages/contratacion/contratacion.component';
 import { UserPasswordEditComponent } from './pages/user/user-password-edit/user-password-edit.component';
+import { AdminGestionRiesgoComponent } from './pages/gestion-riesgo/admin-gestion-riesgo.component';
+import { UpzEditComponent } from './pages/gestion-riesgo/upz/upz-edit/upz-edit.component';
+import { UpzListComponent } from './pages/gestion-riesgo/upz/upz-list/upz-list.component';
+import { UpzRegisterComponent } from './pages/gestion-riesgo/upz/upz-register/upz-register.component';
 
 @NgModule({
 	declarations: [
 		AdminComponent,
+		AdminContratacionComponent,
 		UserRegisterComponent,
 		UserEditComponent,
 		UserListComponent,
@@ -47,8 +56,11 @@ import { UserPasswordEditComponent } from './pages/user/user-password-edit/user-
 		RoleEditComponent,
 		RoleRegisterComponent,
 		SalaSituacionalComponent,
-		ContratacionComponent,
 		UserPasswordEditComponent,
+		AdminGestionRiesgoComponent,
+		UpzEditComponent,
+		UpzListComponent,
+		UpzRegisterComponent,
 	],
 	imports: [
 		CommonModule,
@@ -61,6 +73,8 @@ import { UserPasswordEditComponent } from './pages/user/user-password-edit/user-
 		InsurerModule,
 		ProfileModule,
 		UnitModule,
+		UpgdModule,
+		LocationModule,
 
 		SpendingModule,
 		SupervisorModule,
