@@ -34,6 +34,7 @@ export class RegistrarCasoComponent implements OnInit {
 	public upzSearchResponseMessage: string;
 	public upzPreloaderStatus: boolean;
 	public actualDate: string;
+	public showSamples: boolean;
 
 	public token: string;
 	public identity: any;
@@ -65,6 +66,7 @@ export class RegistrarCasoComponent implements OnInit {
 		private _userService: UserService,
 	) {
 		this.buttonText = 'Registrar';
+		this.showSamples = false;
 
 		this.token = this._userService.getToken();
 

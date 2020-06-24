@@ -23,6 +23,7 @@ export { RoleService } from './admin/role.service';
 
 	// Gestión del Riesgo services
 	export { CaseService } from './dashboard/gestion-riesgo/case.service';
+	export { SampleService } from './dashboard/gestion-riesgo/sample.service';
 	// Admin
 	export { LocationService } from './admin/gestion-riesgo/location.service';
 	export { UpgdService } from './admin/gestion-riesgo/upgd.service';

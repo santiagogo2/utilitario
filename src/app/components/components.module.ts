@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
 
 // Modules
 
@@ -12,6 +13,7 @@ import { GraficoPieComponent } from './graficas/grafico-pie/grafico-pie.componen
 
 import { CircleImageComponent } from './imagenes/circle-image/circle-image.component';
 import { GraficoPuntosComponent } from './graficas/grafico-puntos/grafico-puntos.component';
+import { LoadDocumentComponent } from './load-document/load-document.component';
 
 @NgModule({
 	declarations: [
@@ -21,10 +23,12 @@ import { GraficoPuntosComponent } from './graficas/grafico-puntos/grafico-puntos
 		GraficoPieComponent,
 		GraficoPuntosComponent,
 		CircleImageComponent,
+		LoadDocumentComponent,
 	],
 	imports: [
 		CommonModule,
 		ChartsModule,
+		AngularFileUploaderModule,
 	],
 	exports: [
 		GraficoBarrasComponent,
@@ -33,6 +37,7 @@ import { GraficoPuntosComponent } from './graficas/grafico-puntos/grafico-puntos
 		GraficoPieComponent,
 		GraficoPuntosComponent,
 		CircleImageComponent,
+		LoadDocumentComponent,
 	]
 })
 export class ComponentsModule { }

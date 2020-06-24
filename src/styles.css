@@ -710,6 +710,38 @@ footer p {
 }
 
 
+/*Upload Files Styles*/
+
+.afu-attach-pin {
+    font-size: 0.8rem !important;
+    cursor: pointer;
+}
+
+.label-info {
+    font-size: 0.7rem !important;
+}
+
+.correct {
+    border-color: #28A745 !important;
+}
+
+.incorrect {
+    border-color: #DC3545 !important;
+}
+
+.personalizedBadge {
+    width: fit-content;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    color: #FFF !important;
+    cursor: pointer;
+}
+
+.personalizedBadge:hover {
+    background-color: #117A8B;
+}
+
+
 /*=============================================*/
 
 

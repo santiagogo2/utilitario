@@ -92,7 +92,7 @@
 								</select>
                             </div>
                             <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="case.IEC == 1">
-                                <label for="fechaIEC" class="labelForm">Fecha de notificación*</label>
+                                <label for="fechaIEC" class="labelForm">Fecha IEC*</label>
                                 <input type="date" name="fechaIEC" class="form-control inputForm" [ngClass]="{'is-invalid': fechaIEC.touched && fechaIEC.invalid}" #fechaIEC="ngModel" [(ngModel)]="case.fechaIEC" max="{{ actualDate }}" required>
                             </div>
                         </div>
@@ -272,6 +272,7 @@
                             <div class="loader"></div>
                         </div>
                     </form>
+                    <app-listar-toma-muestras caseId={{case.id}} disableButton=true *ngIf="showSamples"></app-listar-toma-muestras>
                 </div>
             </div>
         </div>

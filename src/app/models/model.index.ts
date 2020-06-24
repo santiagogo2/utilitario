@@ -20,6 +20,7 @@
 
 		// Gestión del Riesgo Models
 		export { Caso } from './dashboard/gestion-riesgo/case';
+		export { Sample } from './dashboard/gestion-riesgo/sample';
 		// Admin
 		export { Upgd } from './admin/gestion-riesgo/upgd';
 		export { Location } from './admin/gestion-riesgo/location';

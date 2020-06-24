@@ -37,6 +37,7 @@ export class EditarCasoComponent implements OnInit {
 	public upzSearchResponseMessage: string;
 	public upzPreloaderStatus: boolean;
 	public actualDate: string;
+	public showSamples: boolean;
 
 	public token: string;
 	public identity: any;
@@ -70,6 +71,7 @@ export class EditarCasoComponent implements OnInit {
 		private _route: ActivatedRoute,
 	) {
 		this.buttonText = 'Actualizar';
+		this.showSamples = true;
 
 		this.token = this._userService.getToken();
 		this.identity = this._userService.getIdentity();
