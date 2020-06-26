@@ -29,6 +29,7 @@ export class RegistrarTomaMuestrasComponent implements OnInit {
 	public searchText: string;
 	public searchResponseMessage: string;
 	public searchPreloaderStatus: boolean;
+	public previusDocument: string;
 
 	public token: string;
 	public identity: any;
@@ -36,6 +37,7 @@ export class RegistrarTomaMuestrasComponent implements OnInit {
 	public cases: Caso[];
 
 	public tomaMuestras: Array<any>;
+	public resultados: Array<any>;
 
 	constructor(
 		private _caseService: CaseService,
@@ -47,13 +49,10 @@ export class RegistrarTomaMuestrasComponent implements OnInit {
 		this.showFile = false;
 
 		this.token = this._userService.getToken();
-		this.sample = new Sample(null,null,null,null,null,null,null);
+		this.sample = new Sample(null,null,null,null,null,null,null,null);
 
-		this.tomaMuestras = [
-			{ id: 1, value: 'SI' },
-			{ id: 2, value: 'NO' },
-			{ id: 3, value: 'PENDIENTE' },
-		]
+		this.tomaMuestras = global.tomaMuestras;
+		this.resultados = global.resultados;
 	}
 
 	ngOnInit(): void {
@@ -63,7 +62,6 @@ export class RegistrarTomaMuestrasComponent implements OnInit {
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
-		console.log(this.sample);
 
 		this._sampleService.newSample( this.sample, this.token ).subscribe(
 			res => {
@@ -126,6 +124,12 @@ export class RegistrarTomaMuestrasComponent implements OnInit {
 
 	setFileName(filename){
 		this.sample.archivo = filename;
+	}
+
+	editFile(estado){}
+
+	deleteFile(loadedDocument){
+		this._sampleService.deleteFile( loadedDocument, this.token ).subscribe();
 	}
 
 	setMaxDate(){

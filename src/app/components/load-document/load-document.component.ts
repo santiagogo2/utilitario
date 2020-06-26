@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { global, UserService } from 'src/app/services/service.index';
-import { SampleService } from '../../services/dashboard/gestion-riesgo/sample.service';
+// import { SampleService } from '../../services/dashboard/gestion-riesgo/sample.service';
 
 @Component({
 	selector: 'app-load-document',
@@ -9,9 +9,11 @@ import { SampleService } from '../../services/dashboard/gestion-riesgo/sample.se
 })
 export class LoadDocumentComponent implements OnInit {
 	@Output() public sendFileName: EventEmitter<any> = new EventEmitter();
+	@Output() public deleteFile: EventEmitter<any> = new EventEmitter();
 	@Input() public formatsAllowed: string;
 	@Input() public maxSize: string;
 	@Input() public url: string;
+	@Input() public localStorageText: string;
 	public successMessage: string;
 	public errorMessage: string;
 
@@ -19,7 +21,7 @@ export class LoadDocumentComponent implements OnInit {
 	public token: string;
 	
 	constructor(
-		private _sampleService: SampleService,
+		// private _sampleService: SampleService,
 		private _userService: UserService,
 	) {
 		this.token = this._userService.token;
@@ -61,14 +63,14 @@ export class LoadDocumentComponent implements OnInit {
 		let data = JSON.parse(datos.response);
 		
 		// Saber si ya se cargo un documento en el backend
-		let loadedDocument = localStorage.getItem('loadedDocument');
+		let loadedDocument = localStorage.getItem(this.localStorageText);
 		if( loadedDocument ) {
-			this._sampleService.deleteFile( loadedDocument, this.token ).subscribe();
+			this.deleteFile.emit(loadedDocument);
 		}
 		
 		if(data.status == 'success'){
 			this.successMessage = data.message ? data.message:'Archivo cargado';
-			localStorage.setItem( 'loadedDocument', data.file );
+			localStorage.setItem( this.localStorageText, data.file );
 			inputSelected.classList.add('correct');
 			this.sendFileName.emit(data.file); // Enviar el nombre del archivo cargado al componente
 		} else{

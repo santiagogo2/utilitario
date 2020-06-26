@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
 
 	public homeLinks: any[] = [
 		{ titulo: 'Contratación', url: '/contratacion', class: 'imageContainer color-violet', imageUrl: 'assets/images/contratacion.png' },
+		{ titulo: 'EPP', url: '/epp/seguimiento/listar', class: 'imageContainer color-pink', imageUrl: 'assets/images/EPP.png' },
 		{ titulo: 'Gestión del Riesgo', url: '/gestion-riesgo', class: 'imageContainer color-soft-brown', imageUrl: 'assets/images/gestionRiesgo.png' },
 		{ titulo: 'Sala Situacional', url: '/sala-situacional', class: 'imageContainer', imageUrl: 'assets/images/salaSituacional.png' },
 		{ titulo: 'UCI', url: '/uci', class: 'imageContainer color-dark-pink', imageUrl: 'assets/images/UCI.png' },
@@ -42,6 +43,14 @@ export class HomeComponent implements OnInit {
 			let array = [];
 			this.homeLinks.forEach( (element) => {
 				if(element.titulo == 'Sala Situacional'){
+					array.push(element);
+				}
+			});
+			this.homeLinks = array;
+		} else if(stringSplit[1] == 'EPP'){
+			let array = [];
+			this.homeLinks.forEach( (element) => {
+				if(element.titulo == 'EPP'){
 					array.push(element);
 				}
 			});

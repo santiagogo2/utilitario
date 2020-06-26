@@ -23,12 +23,18 @@ export { RoleService } from './admin/role.service';
 
 	// Gestión del Riesgo services
 	export { CaseService } from './dashboard/gestion-riesgo/case.service';
+	export { ContactService } from './dashboard/gestion-riesgo/contact.service';
 	export { SampleService } from './dashboard/gestion-riesgo/sample.service';
+	export { PatientService } from './dashboard/gestion-riesgo/patient.service';
 	// Admin
 	export { LocationService } from './admin/gestion-riesgo/location.service';
 	export { UpgdService } from './admin/gestion-riesgo/upgd.service';
 	export { UpzService } from './admin/gestion-riesgo/upz.service';
 
+	// EPP Services
+	export { EppTrackingService } from './dashboard/epp/eppTracking.service';
+
 // Shared Services
-export { UserService } from './shared/user.service';
+export { ExportService } from './shared/export.service';
 export { global } from './shared/global.service';
+export { UserService } from './shared/user.service';

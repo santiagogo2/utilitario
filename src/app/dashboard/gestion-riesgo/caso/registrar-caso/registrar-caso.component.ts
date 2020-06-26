@@ -35,6 +35,8 @@ export class RegistrarCasoComponent implements OnInit {
 	public upzPreloaderStatus: boolean;
 	public actualDate: string;
 	public showSamples: boolean;
+	public showFile: boolean;
+	public previusDocument: string;
 
 	public token: string;
 	public identity: any;
@@ -48,10 +50,16 @@ export class RegistrarCasoComponent implements OnInit {
 	public tipoDocumentos: Array<any>;
 	public unidadesMedida: Array<any>;
 	public sexos: Array<any>;
+	public pertenenciasEtnicas: Array<any>;
+	public gruposPoblacionales: Array<any>;
 	public localidades: any;
 	public upzs: Array<any>;
 	public fuenteContagios: Array<any>;
 	public estados: Array<any>;
+	public tipoCasos: Array<any>;
+	public tipoContactos: Array<any>;
+	public vinculos: Array<any>;
+	public estadosFinal: Array<any>;
 
 	public responsable: string;
 	public usersFinded: User[];
@@ -67,6 +75,7 @@ export class RegistrarCasoComponent implements OnInit {
 	) {
 		this.buttonText = 'Registrar';
 		this.showSamples = false;
+		this.showFile = false;
 
 		this.token = this._userService.getToken();
 
@@ -75,8 +84,14 @@ export class RegistrarCasoComponent implements OnInit {
 		this.tipoDocumentos = global.tipoDocumento;
 		this.unidadesMedida = global.unidadMedida;
 		this.sexos = global.sexo;
+		this.pertenenciasEtnicas = global.pertenenciaEtnica;
+		this.gruposPoblacionales = global.grupoPoblacional;
 		this.fuenteContagios = global.fuenteContagio;
 		this.estados = global.estados;
+		this.tipoCasos = global.tipoCasos;
+		this.tipoContactos = global.tipoContactos;
+		this.vinculos = global.vinculos;
+		this.estadosFinal = global.estadosFinal;
 	}
 
 	ngOnInit(): void {
@@ -94,9 +109,10 @@ export class RegistrarCasoComponent implements OnInit {
 				   this.insurers = responses[0];
 				   this.upgds = responses[1];
 				   this.localidades = responses[2];
-				   this.case = new Caso(null,null,null,null,null,null,null,null,null,null,null,null,null,
-										null,null,null,null,null,null,null,null,null,null,null,null,
-										null,null,null,null,null,null,null,null,null,null,null,null);
+				   this.case = undefined;
+				   // this.case = new Caso(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+										// null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+										// null,null,null,null,null,null,null,null,null,null,null,null,null,null,1);
 			   })
 			   .catch( error => {
 				   this.status = 'error';
@@ -116,6 +132,7 @@ export class RegistrarCasoComponent implements OnInit {
 					swal('Registro exitoso', res.message, 'success');
 					this.usersFinded = undefined;
 					this.selectedLocation = undefined;
+					localStorage.removeItem('loadedIECDocument');
 					caseRegisterForm.reset();
 				}
 			},
@@ -139,7 +156,7 @@ export class RegistrarCasoComponent implements OnInit {
 		this.searchResponseMessage = undefined;
 		this.searchPreloaderStatus = true;
 		this.usersFinded = undefined;
-		this.case.user_id = undefined;
+		// this.case.user_id = undefined;
 
 		this._userService.getUserByChain( this.responsable, this.token ).subscribe(
 			res => {
@@ -155,6 +172,33 @@ export class RegistrarCasoComponent implements OnInit {
 				console.log(<any>error);
 			}
 		);
+	}
+
+	downloadFile(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+		let url = global.url;
+		
+		// this._caseService.downloadIECDocument(this.case.archivo, this.token).subscribe(
+		// 	res => {
+		// 		window.open(url+'grcase/get-file/'+this.case.archivo);
+		// 	},
+		// 	error => {
+		// 		this.status = 'error';
+		// 		this.responseMessage = error.error.message;
+		// 		console.log(<any>error);
+		// 	}
+		// );
+	}
+
+	setFileName(filename){
+		// this.case.archivo = filename;
+	}
+
+	editFile(estado){}
+
+	deleteFile(loadedDocument){
+		// this._caseService.deleteFile( loadedDocument, this.token ).subscribe();
 	}
 
 	setMaxDate(){

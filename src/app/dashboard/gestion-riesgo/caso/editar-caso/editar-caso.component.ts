@@ -38,6 +38,8 @@ export class EditarCasoComponent implements OnInit {
 	public upzPreloaderStatus: boolean;
 	public actualDate: string;
 	public showSamples: boolean;
+	public showFile: boolean;
+	public previusDocument: string;
 
 	public token: string;
 	public identity: any;
@@ -51,10 +53,16 @@ export class EditarCasoComponent implements OnInit {
 	public tipoDocumentos: Array<any>;
 	public unidadesMedida: Array<any>;
 	public sexos: Array<any>;
+	public pertenenciasEtnicas: Array<any>;
+	public gruposPoblacionales: Array<any>;
 	public localidades: any;
 	public upzs: any;
 	public fuenteContagios: Array<any>;
 	public estados: Array<any>;
+	public tipoCasos: Array<any>;
+	public tipoContactos: Array<any>;
+	public vinculos: Array<any>;
+	public estadosFinal: Array<any>;
 
 	public responsable: string;
 	public usersFinded: User[];
@@ -81,8 +89,14 @@ export class EditarCasoComponent implements OnInit {
 		this.tipoDocumentos = global.tipoDocumento;
 		this.unidadesMedida = global.unidadMedida;
 		this.sexos = global.sexo;
+		this.pertenenciasEtnicas = global.pertenenciaEtnica;
+		this.gruposPoblacionales = global.grupoPoblacional;
 		this.fuenteContagios = global.fuenteContagio;
 		this.estados = global.estados;
+		this.tipoCasos = global.tipoCasos;
+		this.tipoContactos = global.tipoContactos;
+		this.vinculos = global.vinculos;
+		this.estadosFinal = global.estadosFinal;
 	}
 
 	ngOnInit(): void {
@@ -104,6 +118,7 @@ export class EditarCasoComponent implements OnInit {
 			   .then( responses => {
 				   this.insurers = responses[0];
 				   this.case = responses[1];
+				   this.showFile = this.case.archivo ? true:false;
 				   this.selectedLocation = this.case.upz.locations_id;
 				   this.getUpzs();
 				   this.upgds = responses[2];
@@ -134,6 +149,8 @@ export class EditarCasoComponent implements OnInit {
 					swal('Registro actualizado exitosamente', res.message, 'success');
 					this.usersFinded = undefined;
 					this.selectedLocation = undefined;
+					localStorage.removeItem('loadedIECDocument');
+					if(this.previusDocument) this.deleteFile(this.previusDocument);
 					this._router.navigate(['/gestion-riesgo/casos/listar']);
 				}
 			},
@@ -173,6 +190,43 @@ export class EditarCasoComponent implements OnInit {
 				console.log(<any>error);
 			}
 		);
+	}
+
+	downloadFile(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+		let url = global.url;
+		
+		// this._caseService.downloadIECDocument(this.case.archivo, this.token).subscribe(
+		// 	res => {
+		// 		window.open(url+'grcase/get-file/'+this.case.archivo);
+		// 	},
+		// 	error => {
+		// 		this.status = 'error';
+		// 		this.responseMessage = error.error.message;
+		// 		console.log(<any>error);
+		// 	}
+		// );
+	}
+
+	setFileName(filename){
+		this.case.archivo = filename;
+	}
+
+	editFile(estado){
+		if(estado == 'cancelar'){			
+			this.case.archivo = this.previusDocument;
+			this.previusDocument = null;
+			this.showFile = true;
+		}
+		if(estado == 'editar'){
+			this.previusDocument = this.case.archivo;
+			this.showFile = false;
+		}
+	}
+
+	deleteFile(loadedDocument){
+		// this._caseService.deleteFile( loadedDocument, this.token ).subscribe();
 	}
 
 	setMaxDate(){

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { UserService } from '../services/service.index';
+import { CaseService, SampleService, UserService } from '../services/service.index';
 import { User } from '../models/model.index';
 
 @Component({
@@ -9,7 +9,9 @@ import { User } from '../models/model.index';
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css'],
 	providers: [
-		UserService
+		UserService,
+		CaseService,
+		SampleService,
 	]
 })
 export class LoginComponent implements OnInit {
@@ -23,6 +25,8 @@ export class LoginComponent implements OnInit {
 	public identity: any[];
 
 	constructor(
+		private _caseService: CaseService,
+		private _sampleService: SampleService,
 		private _userService: UserService,
 		private _router: Router,
 		private _route: ActivatedRoute
@@ -87,9 +91,12 @@ export class LoginComponent implements OnInit {
 			let logout = +params['sure'];
 
 			if(logout == 1){
-				localStorage.removeItem('utilitarioToken');
-				localStorage.removeItem('utilitarioIdentity');
-				localStorage.removeItem('utilitarioExpiration');
+				let document = localStorage.getItem('loadedDocument');
+				if( document ) this._sampleService.deleteFile( document, this._userService.getToken() ).subscribe();
+				document = localStorage.getItem('loadedIECDocument');
+				console.log(document);
+				// if( document ) this._caseService.deleteFile( document, this._userService.getToken() ).subscribe();
+				localStorage.clear();
 				this.token = null;
 				this.identity = null;
 

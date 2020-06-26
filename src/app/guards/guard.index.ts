@@ -26,3 +26,10 @@ export { ReporstGuard } from './shared/reports.guard';
 		export { GestionRiesgoCasoEditGuard } from './dashboard/gestion-riesgo/caso/gestion-riesgo-caso-edit.guard';
 		export { GestionRiesgoCasoListGuard } from './dashboard/gestion-riesgo/caso/gestion-riesgo-caso-list.guard';
 		export { GestionRiesgoCasoRegisterGuard } from './dashboard/gestion-riesgo/caso/gestion-riesgo-caso-register.guard';
+	// EPP Guards
+	export { EppGuard } from './dashboard/epp/epp.guard';
+	export { EppAdminGuard } from './dashboard/epp/epp-admin.guard';
+		// Casos
+		export { EppSeguimientoEditGuard } from './dashboard/epp/seguimiento/epp-seguimiento-edit.guard';
+		export { EppSeguimientoListGuard } from './dashboard/epp/seguimiento/epp-seguimiento-list.guard';
+		export { EppSeguimientoRegisterGuard } from './dashboard/epp/seguimiento/epp-seguimiento-register.guard';

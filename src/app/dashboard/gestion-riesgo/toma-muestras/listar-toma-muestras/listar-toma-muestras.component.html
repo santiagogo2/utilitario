@@ -39,6 +39,7 @@
                                     <th>Número de Radicado</th>
                                     <th>Documento</th>
                                     <th>Fecha Toma de Muestra</th>
+                                    <th>Resultado</th>
                                     <th>Fecha de Resultado</th>
                                     <th width="15%">Acción</th>
                                 </tr>
@@ -49,6 +50,7 @@
                                     <td>{{ sample.grcases.numeroRadicado }}</td>
                                     <td>{{ sample.grcases.documento }}</td>
                                     <td>{{ sample.fechaTomaMuestra }}</td>
+                                    <td>{{ sample.resultado | global:'resultados' }}</td>
                                     <td>{{ sample.fechaResultado }}</td>
                                     <td style="padding: 0.55rem">
                                         <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/gestion-riesgo/toma-muestras/editar', sample.id]" *ngIf="sample.created_by==identity.sub || adminFlag">Editar</button>

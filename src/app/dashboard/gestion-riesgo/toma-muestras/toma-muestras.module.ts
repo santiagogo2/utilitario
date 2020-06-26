@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
 
+// Pipes module
+import { PipesModule } from '../../../pipes/pipes.module';
+
 // Components
 import { EditarTomaMuestrasComponent } from './editar-toma-muestras/editar-toma-muestras.component';
 import { ListarTomaMuestrasComponent } from './listar-toma-muestras/listar-toma-muestras.component';
@@ -23,6 +26,7 @@ import { RegistrarTomaMuestrasComponent } from './registrar-toma-muestras/regist
 		FontAwesomeModule,
 		FormsModule,
 		NgxPaginationModule,
+		PipesModule,
 		RouterModule,
 	],
 	exports:[

@@ -31,8 +31,8 @@
 								<tr>
 									<th>#</th>
 									<th>Fecha de Registro</th>
-									<th>Camas Disponibles</th>
 									<th>Camas Ocupadas</th>
+									<th>Camas Disponibles</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
@@ -40,8 +40,8 @@
 								<tr *ngFor="let occupation of occupations | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage}; index as i" class="tableStyles">
 									<td>{{ (itemsPerPage * (actualPage - 1) + i) + 1 }}</td>
 									<td>{{ occupation.reportDate }}</td>
-									<td>{{ occupation.availableBeds }}</td>
 									<td>{{ occupation.occupiedBeds }}</td>
+									<td>{{ occupation.availableBeds }}</td>
 									<td style="padding: 0.55rem">
 										<button type="button" class="btn btn-warning col col-sm-12 col-md-12 mr-1 d-inline-block" [routerLink]="['/uci/ocupacion/editar', occupation.id]">Editar</button>
 										<!-- <button type="button" class="btn btn-danger col col-sm-12 col-md-3 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+occupation.id">Borrar</button> -->

@@ -21,19 +21,19 @@ export class CaseService {
     casesList( token ): Observable<any>{
         let headers = new HttpHeaders().set('Authorization', token);
 
-        return this._http.get( this.url + 'grcase', {headers:headers});
+        return this._http.get( this.url + 'case', {headers:headers});
     }
 
     getCase( id, token ): Observable<any>{
         let headers = new HttpHeaders().set('Authorization', token);
 
-        return this._http.get( this.url + 'grcase/' + id, {headers:headers});
+        return this._http.get( this.url + 'case/' + id, {headers:headers});
 	}
 	
 	searchCases( chain, token ): Observable<any>{		
         let headers = new HttpHeaders().set('Authorization', token);
 
-        return this._http.get( this.url + 'grcase/search/cases/' + chain, {headers:headers});
+        return this._http.get( this.url + 'case/search/cases/' + chain, {headers:headers});
 	}
 
     newCase( caso: Caso, token ): Observable<any>{
@@ -42,7 +42,7 @@ export class CaseService {
         let headers = new HttpHeaders().set('Authorization', token)
                                        .set('Content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.post( this.url + 'grcase', params, {headers:headers});
+        return this._http.post( this.url + 'case', params, {headers:headers});
     }
 
     updateCase( caso: Caso, token ): Observable<any>{
@@ -52,12 +52,12 @@ export class CaseService {
         let headers = new HttpHeaders().set('Authorization', token)
                                        .set('Content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.put( this.url + 'grcase/' + id, params, {headers:headers});
+        return this._http.put( this.url + 'case/' + id, params, {headers:headers});
     }
 
     deleteCase( id, token ): Observable<any>{
         let headers = new HttpHeaders().set('Authorization', token);
 
-        return this._http.delete( this.url + 'grcase/' + id, {headers:headers});
+        return this._http.delete( this.url + 'case/' + id, {headers:headers});
     }
 }

@@ -30,6 +30,7 @@ export class EditarTomaMuestrasComponent implements OnInit {
 	public searchText: string;
 	public searchResponseMessage: string;
 	public searchPreloaderStatus: boolean;
+	public previusDocument: string;
 
 	public token: string;
 	public identity: any;
@@ -37,6 +38,7 @@ export class EditarTomaMuestrasComponent implements OnInit {
 	public cases: any;
 
 	public tomaMuestras: Array<any>;
+	public resultados: Array<any>;
 
 	constructor(
 		private _caseService: CaseService,
@@ -50,11 +52,8 @@ export class EditarTomaMuestrasComponent implements OnInit {
 
 		this.token = this._userService.getToken();
 
-		this.tomaMuestras = [
-			{ id: 1, value: 'SI' },
-			{ id: 2, value: 'NO' },
-			{ id: 3, value: 'PENDIENTE' },
-		]
+		this.tomaMuestras = global.tomaMuestras;
+		this.resultados = global.resultados;
 	}
 
 	ngOnInit(): void {
@@ -105,7 +104,6 @@ export class EditarTomaMuestrasComponent implements OnInit {
 			res => {
 				if( res.status == 'success' ){
 					this.sample = res.sample;
-					console.log(this.sample);
 					this.showFile = this.sample.archivo ? true:false;
 					this.cases.push(this.sample.grcases);
 				}
@@ -156,6 +154,22 @@ export class EditarTomaMuestrasComponent implements OnInit {
 
 	setFileName(filename){
 		this.sample.archivo = filename;
+	}
+
+	editFile(estado){
+		if(estado == 'cancelar'){			
+			this.sample.archivo = this.previusDocument;
+			this.previusDocument = null;
+			this.showFile = true;
+		}
+		if(estado == 'editar'){
+			this.previusDocument = this.sample.archivo;
+			this.showFile = false;
+		}
+	}
+
+	deleteFile(loadedDocument){
+		this._sampleService.deleteFile( loadedDocument, this.token ).subscribe();
 	}
 
 	setMaxDate(){

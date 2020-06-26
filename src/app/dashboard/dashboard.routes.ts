@@ -8,7 +8,7 @@ import { DashboardComponent } from './dashboard.component';
 // Guards
 import { 
 	ContratacionGuard, IdentityGuard, ReporstGuard, SalaSituacionalGuard,
-	UciGuard, GestionRiesgoGuard,
+	UciGuard, GestionRiesgoGuard, EppGuard,
 } from '../guards/guard.index';
 
 const dashboardRoutes: Routes = [
@@ -40,6 +40,12 @@ const dashboardRoutes: Routes = [
 		component: DashboardComponent,
 		canActivate: [IdentityGuard, GestionRiesgoGuard ],
 		loadChildren: () => import('./gestion-riesgo/gestion-riesgo.module').then(m => m.GestionRiesgoModule),
+	},
+	{
+		path: 'epp',
+		component: DashboardComponent,
+		canActivate: [IdentityGuard, EppGuard ],
+		loadChildren: () => import('./epp/epp.module').then(m => m.EppModule),
 	}
 ];
 

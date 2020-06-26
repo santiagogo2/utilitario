@@ -10,17 +10,18 @@ import { ListarTomaMuestrasComponent } from './toma-muestras/listar-toma-muestra
 import { RegistrarTomaMuestrasComponent } from './toma-muestras/registrar-toma-muestras/registrar-toma-muestras.component';
 import { EditarTomaMuestrasComponent } from './toma-muestras/editar-toma-muestras/editar-toma-muestras.component';
 
+
+import { RegistrarCaracterizacionComponent } from './caracterizacion/registrar-caracterizacion/registrar-caracterizacion.component';
 // Guards
-import { GestionRiesgoCasoListGuard } from '../../guards/dashboard/gestion-riesgo/caso/gestion-riesgo-caso-list.guard';
-import { GestionRiesgoCasoRegisterGuard } from '../../guards/dashboard/gestion-riesgo/caso/gestion-riesgo-caso-register.guard';
-import { GestionRiesgoCasoEditGuard } from '../../guards/dashboard/gestion-riesgo/caso/gestion-riesgo-caso-edit.guard';
+import { GestionRiesgoCasoListGuard, GestionRiesgoCasoRegisterGuard, GestionRiesgoCasoEditGuard } from '../../guards/guard.index';
 
 const gestionRiesgoRoutes: Routes = [
-	{ path: 'casos', redirectTo: 'casos/listar', pathMatch: 'full' },
-	{ path: 'casos/listar', component: ListarCasoComponent, data: { titulo: 'Listar Casos' }, canActivate: [ GestionRiesgoCasoListGuard ] },
-	{ path: 'casos/registrar', component: RegistrarCasoComponent, data: { titulo: 'Registrar Casos' }, canActivate: [ GestionRiesgoCasoRegisterGuard ] },
-	{ path: 'casos/editar/:id', component: EditarCasoComponent, data: { titulo: 'Editar Casos' }, canActivate: [ GestionRiesgoCasoEditGuard ] },
+	// { path: 'casos', redirectTo: 'casos/listar', pathMatch: 'full' },
+	// { path: 'casos/listar', component: ListarCasoComponent, data: { titulo: 'Listar Casos' }, canActivate: [ GestionRiesgoCasoListGuard ] },
+	// { path: 'casos/registrar', component: RegistrarCasoComponent, data: { titulo: 'Registrar Casos' }, canActivate: [ GestionRiesgoCasoRegisterGuard ] },
+	// { path: 'casos/editar/:id', component: EditarCasoComponent, data: { titulo: 'Editar Casos' }, canActivate: [ GestionRiesgoCasoEditGuard ] },
 	
+	{ path: 'prueba', component: RegistrarCaracterizacionComponent, data: { titulo: 'Listar Casos' } },
 	{ path: 'toma-muestras', redirectTo: 'toma-muestras/listar', pathMatch: 'full' },
 	{ path: 'toma-muestras/listar', component: ListarTomaMuestrasComponent, data: { titulo: 'Listar Muestras' }, canActivate: [] },
 	{ path: 'toma-muestras/registrar', component: RegistrarTomaMuestrasComponent, data: { titulo: 'Registrar Muestras' }, canActivate: [] },

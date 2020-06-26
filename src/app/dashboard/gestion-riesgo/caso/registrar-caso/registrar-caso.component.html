@@ -115,6 +115,15 @@
                             </div>
                             <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="searchStatus=='error' && searchResponseMessage"><small class="invalid-feedback d-block">{{ searchResponseMessage }}</small></div>
                         </div>
+                        <div class="form-group" *ngIf="case.IEC == 1">
+                            <div class="col col-sm-12 align-top">
+                                <label for="document" class="labelForm">Documento IEC</label>
+                                <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="case.archivo && showFile">{{'Descargar archivo: ' + case.archivo }}</div>
+                                <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="case.archivo && showFile">Editar</div>
+                                <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".pdf" maxSize="100" url="grcase/upload-file" localStorageText="loadedIECDocument" *ngIf="!showFile"></app-load-document>
+                                <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
                                 <label for="primerNombre" class="labelForm">Primer nombre*</label>
@@ -170,6 +179,20 @@
                                 <select style="background-position-x: 93%" name="sexo" id="sexo" class="form-control inputForm" [ngClass]="{'is-invalid': sexo.invalid && sexo.touched}" #sexo="ngModel" [(ngModel)]="case.sexo" required>
 									<option *ngFor="let sexo of sexos" value="{{ sexo.id }}">{{ sexo.value }}</option>
 								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="pertenenciaEtnica" class="labelForm">Pertenencia Étnica*</label>
+                                <select style="background-position-x: 93%" name="pertenenciaEtnica" id="pertenenciaEtnica" class="form-control inputForm" [ngClass]="{'is-invalid': pertenenciaEtnica.invalid && pertenenciaEtnica.touched}" #pertenenciaEtnica="ngModel" [(ngModel)]="case.pertenenciaEtnica" required>
+                                    <option *ngFor="let pertenencia of pertenenciasEtnicas" value="{{ pertenencia.id }}">{{ pertenencia.name }}</option>
+                                </select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="grupoPoblacional" class="labelForm">Grupo Poblacional*</label>
+                                <select style="background-position-x: 93%" name="grupoPoblacional" id="grupoPoblacional" class="form-control inputForm" [ngClass]="{'is-invalid': grupoPoblacional.invalid && grupoPoblacional.touched}" #grupoPoblacional="ngModel" [(ngModel)]="case.grupoPoblacional" required>
+                                    <option *ngFor="let grupo of gruposPoblacionales" value="{{ grupo.id }}">{{ grupo.name }}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -256,6 +279,43 @@
                                 <select style="background-position-x: 93%" name="estadoPersona" id="estadoPersona" class="form-control inputForm" [ngClass]="{'is-invalid': estadoPersona.invalid && estadoPersona.touched}" #estadoPersona="ngModel" [(ngModel)]="case.estadoPersona" required>
 									<option *ngFor="let estado of estados" value="{{ estado.id }}">{{ estado.value }}</option>
 								</select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col col-sm-12 d-inline-block align-top">
+                                <label for="tipoCaso" class="labelForm">Tipo de caso*</label>
+                                <select style="background-position-x: 93%" name="tipoCaso" id="tipoCaso" class="form-control inputForm" [ngClass]="{'is-invalid': tipoCaso.invalid && tipoCaso.touched}" #tipoCaso="ngModel" [(ngModel)]="case.tipoCaso" required>
+                                    <option *ngFor="let tipo of tipoCasos" value="{{ tipo.id }}">{{ tipo.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="case.tipoCaso == 2">
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="tipoContacto" class="labelForm">Tipo de contacto*</label>
+                                <select style="background-position-x: 93%" name="tipoContacto" id="tipoContacto" class="form-control inputForm" [ngClass]="{'is-invalid': tipoContacto.invalid && tipoContacto.touched}" #tipoContacto="ngModel" [(ngModel)]="case.tipoContacto" required>
+                                    <option *ngFor="let tipo of tipoContactos" value="{{ tipo.id }}">{{ tipo.name }}</option>
+                                </select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="vinculo" class="labelForm">Vinculo*</label>
+                                <select style="background-position-x: 93%" name="vinculo" id="vinculo" class="form-control inputForm" [ngClass]="{'is-invalid': vinculo.invalid && vinculo.touched}" #vinculo="ngModel" [(ngModel)]="case.vinculo" required>
+                                    <option *ngFor="let vinculo of vinculos" value="{{ vinculo.id }}">{{ vinculo.name }}</option>
+                                </select>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="brote" class="labelForm">¿Es un brote?*</label>
+                                <select style="background-position-x: 93%" name="brote" id="brote" class="form-control inputForm" [ngClass]="{'is-invalid': brote.invalid && brote.touched}" #brote="ngModel" [(ngModel)]="case.brote" required>
+                                    <option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 d-inline-block align-top">
+                                <label for="estadoFinal" class="labelForm">Estado final*</label>
+                                <select style="background-position-x: 93%" name="estadoFinal" id="estadoFinal" class="form-control inputForm" [ngClass]="{'is-invalid': estadoFinal.invalid && estadoFinal.touched}" #estadoFinal="ngModel" [(ngModel)]="case.estadoFinal" required>
+                                    <option *ngFor="let estado of estadosFinal" value="{{ estado.id }}">{{ estado.name }}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 3rem">

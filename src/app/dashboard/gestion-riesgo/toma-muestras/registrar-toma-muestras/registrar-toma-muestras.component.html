@@ -45,7 +45,7 @@
                             <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
                                 <label for="tomaMuestra" class="labelForm">Toma de Muestra*</label>
                                 <select style="background-position-x: 93%" name="tomaMuestra" id="tomaMuestra" class="form-control inputForm" [ngClass]="{'is-invalid': tomaMuestra.invalid && tomaMuestra.touched}" #tomaMuestra="ngModel" [(ngModel)]="sample.tomaMuestra" required>
-									<option *ngFor="let response of tomaMuestras" value="{{ response.id }}">{{ response.value }}</option>
+									<option *ngFor="let response of tomaMuestras" value="{{ response.id }}">{{ response.name }}</option>
 								</select>
                             </div>
                             <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
@@ -59,9 +59,19 @@
                         </div>
                         <div class="form-group">
                             <div class="col col-sm-12 align-top">
+                                <label for="resultado" class="labelForm">Resultado*</label>
+                                <select style="background-position-x: 93%" name="resultado" id="resultado" class="form-control inputForm" [ngClass]="{'is-invalid': resultado.invalid && resultado.touched}" #resultado="ngModel" [(ngModel)]="sample.resultado" required>
+                                    <option *ngFor="let resultado of resultados" value="{{ resultado.id }}">{{ resultado.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 align-top">
                                 <label for="document" class="labelForm">Documento</label>
                                 <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="sample.archivo && showFile">{{'Descargar archivo: ' + sample.archivo }}</div>
-                                <app-load-document (sendFileName)="setFileName($event)" formatsAllowed=".pdf" maxSize="100" url="sample/upload-file" *ngIf="!showFile"></app-load-document>
+                                <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="sample.archivo && showFile">Editar</div>
+                                <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".pdf" maxSize="100" url="sample/upload-file" localStorageText="loadedDocument" *ngIf="!showFile"></app-load-document>
+                                <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 3rem">
