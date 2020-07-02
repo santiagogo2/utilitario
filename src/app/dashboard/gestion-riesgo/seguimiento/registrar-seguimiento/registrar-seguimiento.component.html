@@ -1,0 +1,176 @@
+<div class="loaderBall" *ngIf="!load && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="row" *ngIf="load">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" href="javascript:history.back()">Regresar</a>
+                    </div>
+                    <form #searchForm="ngForm" class="form-container" (ngSubmit)="search()" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-sm-12 d-inline-block align-top" [ngClass]="{ 'col-lg-10': !patientId }">
+                                <label for="parametro" class="labelForm">Ingrese el parametro de busqueda del paciente</label>
+                                <input type="text" name="parametro" class="form-control inputForm" [ngClass]="{ 'is-invalid': parametro.touched && parametro.invalid }" #parametro="ngModel" [(ngModel)]="chain" maxlength="100" required [disabled]="patientId">
+                            </div>
+                            <div class="col col-sm-12 col-lg-2 d-inline-block align-bottom" *ngIf="!patientId">
+                                <input type="submit" value="Buscar" class="btn btn-success btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                            </div>
+                            <small class="col col-sm-12 invalid-feedback d-block" *ngIf="parametro.touched && parametro.invalid">Debe ingresar un parametro de búsqueda</small>
+                            <small class="col col-sm-12 system-message d-block" *ngIf="!patientId">Puede realizar busquedas por ID del usuario, primer nombre, segundo nombre, primer apellido, segundo apellido y número de documento.</small>
+                        </div>
+                    </form>
+                    <div class="form-group" *ngIf="patients && !patientId">
+                        <div class="col col-sm-12">
+                            <label for="patient" class="labelForm">Pacientes Encontrados</label>
+                            <select style="background-position-x: 93%" name="patient" class="form-control inputForm" [ngClass]="{'is-invalid': patient.invalid && patient.touched}" #patient="ngModel" [(ngModel)]="patientSelectedId" (change)="setSelectedPatient()">
+								<option *ngFor="let patient of patients" value="{{ patient.id }}">{{ patient.documento + ' - ' + patient.primerNombre + ' ' + (patient.segundoNombre | isnull) }} {{ patient.primerApellido + ' ' + (patient.segundoApellido | isnull) }}</option>
+							</select>
+                        </div>
+                    </div>
+                    <div class="mt-3 col col-sm-12 errorAlert" *ngIf="alertCurrentFollowMessage">
+                        <div class="alert alert-warning" role="alert">
+                            {{ alertCurrentFollowMessage }}
+                        </div>
+                    </div>
+                    <div *ngIf="selectedPatient">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-8 d-inline-block">
+                                <label for="paciente" class="labelForm">Nombre del paciente índice</label>
+                                <input name="paciente" #paciente="ngModel" ngModel="{{ selectedPatient.primerNombre + ' ' + (selectedPatient.segundoNombre | isnull) + ' ' + selectedPatient.primerApellido + ' ' + (selectedPatient.segundoApellido | isnull) }}" class="form-control inputForm"
+                                    disabled>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block">
+                                <label for="phone" class="labelForm">Número de teléfono</label>
+                                <input name="phone" #phone="ngModel" ngModel="{{ selectedPatient.telefono }}" class="form-control inputForm" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 d-block">
+                                <small class="system-message d-block" *ngIf="selectedPatient.follow_count">Se le han realizado {{ selectedPatient.follow_count }} seguimientos al paciente <a [routerLink]="['/gestion-riesgo/seguimientos/listar', selectedPatient.documento]" *ngIf="selectedPatient.follow_count>0">Ver todos los seguimientos del paciente</a></small>
+                            </div>
+                        </div>
+                    </div>
+                    <form #followForm="ngForm" *ngIf="selectedPatient && follow" (ngSubmit)="onSubmit(followForm)">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="fechaSeguimiento" class="labelForm">Fecha de seguimiento*</label>
+                                <input type="date" name="fechaNotificacion" #fechaSeguimiento="ngModel" [(ngModel)]="follow.fechaSeguimiento" class="form-control inputForm" [ngClass]="{'is-invalid': fechaSeguimiento.touched && fechaSeguimiento.invalid}" max="{{ actualDate }}" required>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="horaSeguimiento" class="labelForm">Hora de seguimiento*</label>
+                                <input type="time" name="horaSeguimiento" #horaSeguimiento="ngModel" [(ngModel)]="follow.horaSeguimiento" class="form-control inputForm" [ngClass]="{'is-invalid': horaSeguimiento.touched && horaSeguimiento.invalid}" max="{{ currentTime }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 d-block">
+                                <label for="tipoSeguimiento" class="labelForm">Tipo de seguimiento*</label>
+                                <select style="background-position-x: 98%" name="tipoSeguimiento" class="form-control inputForm" [ngClass]="{'is-invalid': tipoSeguimiento.invalid && tipoSeguimiento.touched}" #tipoSeguimiento="ngModel" [(ngModel)]="follow.tipoSeguimiento" required>
+									<option *ngFor="let tipo of tiposSeguimiento" value="{{ tipo.id }}">{{ tipo.name }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div *ngIf="follow.tipoSeguimiento == 1">
+                            <div class="form-group">
+                                <div class="col col-sm-12 d-block">
+                                    <label for="asintomatico" class="labelForm">El paciente es asintomático*</label>
+                                    <select style="background-position-x: 98%" name="asintomatico" class="form-control inputForm" [ngClass]="{'is-invalid': asintomatico.invalid && asintomatico.touched}" #asintomatico="ngModel" [(ngModel)]="follow.asintomatico" required (change)="cambiarEstado()">
+										<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+									</select>
+                                </div>
+                            </div>
+                            <div class="form-group" *ngIf="follow.asintomatico == 2">
+                                <div class="col col-sm-12 col-lg-6 d-inline-block">
+                                    <input type="checkbox" name="fiebre" #fiebre="ngModel" [(ngModel)]="follow.fiebre" class="form-check-input" id="fiebre" style="margin-top: 6px; margin-left: 10px;">
+                                    <label for="fiebre" style="margin-left: 30px;">¿El paciente tiene fiebre?</label>
+                                </div>
+                                <div class="col col-sm-12 col-lg-6 d-inline-block mb-2" *ngIf="follow.fiebre">
+                                    <label for="valorFiebre" class="labelForm">Temperatura del paciente*</label>
+                                    <input type="text" name="valorFiebre" #valorFiebre="ngModel" [(ngModel)]="follow.valorFiebre" class="form-control inputForm" [ngClass]="{'is-invalid': valorFiebre.invalid && valorFiebre.touched}" pattern="[0-9.,]+" placeholder="Ingrese el valor de la temperatura del paciente"
+                                        maxlength="5" required>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="tos" #tos="ngModel" [(ngModel)]="follow.tos" class="form-check-input" id="tos" style="margin-top: 6px;">
+                                    <label for="tos">¿El paciente tiene tos?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="cefalea" #cefalea="ngModel" [(ngModel)]="follow.cefalea" class="form-check-input" id="cefalea" style="margin-top: 6px;">
+                                    <label for="cefalea">¿El paciente tiene cefalea?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="dificultadRespiratoria" #dificultadRespiratoria="ngModel" [(ngModel)]="follow.dificultadRespiratoria" class="form-check-input" id="dificultadRespiratoria" style="margin-top: 6px;">
+                                    <label for="dificultadRespiratoria">¿El paciente tiene dificultad respiratoria?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="odinofagia" #odinofagia="ngModel" [(ngModel)]="follow.odinofagia" class="form-check-input" id="odinofagia" style="margin-top: 6px;">
+                                    <label for="odinofagia">¿El paciente tiene odinofagia?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="fatiga" #fatiga="ngModel" [(ngModel)]="follow.fatiga" class="form-check-input" id="fatiga" style="margin-top: 6px;">
+                                    <label for="fatiga">¿El paciente tiene fatiga?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="vivo" #vivo="ngModel" [(ngModel)]="follow.vivo" class="form-check-input" id="vivo" style="margin-top: 6px;">
+                                    <label for="vivo">¿El paciente se encuentra vivo?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="otroSintoma" #otroSintoma="ngModel" [(ngModel)]="follow.otroSintoma" class="form-check-input" id="otroSintoma" style="margin-top: 6px;">
+                                    <label for="otroSintoma">¿El paciente tiene otro sintoma?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block mb-2" *ngIf="follow.otroSintoma">
+                                    <label for="valorOtroSintoma" class="labelForm">Otros sintomas*</label>
+                                    <textarea name="valorOtroSintoma" class="form-control inputForm" [ngClass]="{'is-invalid': valorOtroSintoma.invalid && valorOtroSintoma.touched}" #valorOtroSintoma="ngModel" [(ngModel)]="follow.valorOtroSintoma" (ngModelChange)="follow.otroSintoma=upperCase($event)"
+                                        rows="2" placeholder="Ingrese los otros síntomas que presenta el paciente" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 d-block" *ngIf="follow.asintomatico">
+                                    <label for="estadoPaciente" class="labelForm">Estado del paciente*</label>
+                                    <select style="background-position-x: 98%" name="estadoPaciente" class="form-control inputForm" [ngClass]="{'is-invalid': estadoPaciente.invalid && estadoPaciente.touched}" #estadoPaciente="ngModel" [(ngModel)]="follow.estadoPaciente" required disabled>
+										<option *ngFor="let estado of estadosPaciente" value="{{ estado.id }}">{{ estado.name }}</option>
+									</select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 d-block">
+                                    <label for="estadoFinal" class="labelForm">Estado final del paciente*</label>
+                                    <select style="background-position-x: 98%" name="estadoFinal" class="form-control inputForm" [ngClass]="{'is-invalid': estadoFinal.invalid && estadoFinal.touched}" #estadoFinal="ngModel" [(ngModel)]="follow.estadoFinal" required>
+										<option *ngFor="let estado of estadosFinal" value="{{ estado.id }}">{{ estado.name }}</option>
+									</select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="follow.tipoSeguimiento">
+                            <div class="col col-sm-12 d-block">
+                                <label for="observaciones" class="labelForm">Observaciones*</label>
+                                <textarea name="observaciones" class="form-control inputForm" [ngClass]="{'is-invalid': observaciones.invalid || (follow.tipoSeguimiento==2 && !follow.observaciones) && observaciones.touched }" #observaciones="ngModel" [(ngModel)]="follow.observaciones"
+                                    (ngModelChange)="follow.observaciones=upperCase($event)" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 3rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="followForm.invalid || (follow.tipoSeguimiento==2 && !follow.observaciones)">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                        <div class="alert alert-danger " role="alert">
+                            {{ responseMessage }}
+                        </div>
+                    </div>
+                    <div class="deleteLoader" *ngIf="preloaderStatus ">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@ export class Sample {
 		public fechaResultado: number,
 		public resultado: number,
 		public archivo: string,
-		public grcases_id: number,
+		public patient_id: number,
 		public created_by: number,
 	){}
 }

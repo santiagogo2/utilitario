@@ -1,34 +1,49 @@
 <div class="row" *ngIf="patient">
-	<div class="col-sm-12">
-		<div class="card border-0">
-			<div class="card-body cardContainer">
-				<div class="formContainer">
-					<form #caracterizationForm="ngForm" class="form-container" (ngSubmit)="onSubmit(caracterizationForm)" style="text-align: left;">
-						<app-paciente (sendPatient)="recievePatient($event)" (sendError)="recieveError($event)" [(patient)]="patient"></app-paciente>
-                        <div class="form-group">
-							<div class="col col-sm-12 d-inline-block align-top">
-								<label for=" tipoC" class="labelForm">Tipo de caso*</label>
-								<select style="background-position-x: 93%" name="tipoC" id="tipoC" class="form-control inputForm" [ngClass]="{'is-invalid': tipoC.invalid && tipoC.touched}" #tipoC="ngModel" [(ngModel)]="tipoCaso" required>
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" href="javascript:history.back()">Regresar</a>
+                    </div>
+                    <form #caracterizationForm="ngForm" class="form-container" (ngSubmit)="onSubmit(caracterizationForm)" style="text-align: left;">
+                        <app-paciente (sendPatient)="recievePatient($event)" (sendError)="recieveError($event)" (sendPatientForm)="setPatientForm($event)" (updateFlag)="updateFlag($event)" (sendCase)="recieveCase($event)" (loaded)="loaded($event)"></app-paciente>
+                        <div class="form-group" *ngIf="patientForm && patientForm.valid">
+                            <div class="col col-sm-12 d-inline-block align-top">
+                                <label for=" tipoC" class="labelForm">Tipo de caso*</label>
+                                <select style="background-position-x: 93%" name="tipoC" class="form-control inputForm" [ngClass]="{ 'is-invalid': tipoC.invalid && tipoC.touched} " #tipoC="ngModel" [(ngModel)]="tipoCaso" required>
 									<option *ngFor="let tipo of tipoCasos" value="{{ tipo.id }}">{{ tipo.name }}</option>
 								</select>
-							</div>
+                            </div>
                         </div>
-						<div class="form-group" style="margin-top: 3rem">
+                        <hr *ngIf="loadedInfo">
+                        <hr *ngIf="loadedInfo">
+                        <app-caso (sendCaseForm)="setCaseForm($event)" [caso]="caso" *ngIf="tipoCaso==1"></app-caso>
+                        <div class="form-group" *ngIf="tipoCaso==1">
+                            <div class="col col-sm-12 d-inline-block align-top">
+                                <label for="contacto" class="labelForm">Asociar como contacto*</label>
+                                <select style="background-position-x: 93%" name="contacto" class="form-control inputForm" [ngClass]="{ 'is-invalid': contacto.invalid && contacto.touched} " #contacto="ngModel" [(ngModel)]="esContacto" required>
+									<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <app-contacto (sendContactForm)="setContactForm($event)" [documento]="patientForm.controls.documento.value" *ngIf="tipoCaso==2 || esContacto==1"></app-contacto>
+                        <div class="form-group" style="margin-top: 3rem" *ngIf="loadedInfo">
                             <div class="col col-sm-12 buttonSubmit">
-                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="caracterizationForm.invalid">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="caracterizationForm.invalid || !patientForm || patientForm.invalid || ((tipoCaso==2 || esContacto==1) && (!contactForm ||contactForm.invalid)) || (tipoCaso==1 && (!caseForm ||caseForm.invalid))">
                             </div>
                         </div>
                         <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger " role="alert">
                                 {{ responseMessage }}
                             </div>
                         </div>
-                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                        <div class="deleteLoader" *ngIf="preloaderStatus ">
                             <div class="loader"></div>
                         </div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

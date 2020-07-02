@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 // Services
 import { SampleService, UserService } from 'src/app/services/service.index';
@@ -16,13 +16,18 @@ import { Sample } from 'src/app/models/model.index';
 	]
 })
 export class ListarTomaMuestrasComponent implements OnInit {
-	@Input() public caseId: number;
+	@Input() public patientId: number;
 	@Input() public disableButton: number;
+	@Output() public setTitle: EventEmitter<any> = new EventEmitter;
 	public status: string;
 	public responseMessage: string;
 	public actualPage: number;
 	public itemsPerPage: number;
 	public adminFlag: boolean;
+	public chain: string;
+	public searchLoaderStatus: boolean;
+	public searchResponseMessage: string;
+	public isDate: boolean;
 
 	public token: string;
 	public identity: any;
@@ -31,7 +36,7 @@ export class ListarTomaMuestrasComponent implements OnInit {
 	constructor(
 		private _sampleService: SampleService,
 		private _userService: UserService,
-	) {		
+	) {
 		let samplesPage = +localStorage.getItem( 'samplesPage' );
 		this.actualPage = samplesPage ? samplesPage : 1;
 		this.itemsPerPage = 40;
@@ -41,8 +46,9 @@ export class ListarTomaMuestrasComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if( this.caseId ){
-			this.getSamplesByGrCase();
+		if( this.patientId ){
+			this.samples = undefined;
+			this.getSamplesByPatient();
 		} else {
 			this.samplesList();
 		}
@@ -50,13 +56,17 @@ export class ListarTomaMuestrasComponent implements OnInit {
 	}
 
 	samplesList(){
+		this.searchLoaderStatus = true;
+		this.searchResponseMessage = undefined;
 		this._sampleService.samplesList( this.token ).subscribe(
 			res => {
+				this.searchLoaderStatus= false;
 				if( res.status == 'success' ){
 					this.samples = res.samples;
 				}
 			},
 			error => {
+				this.searchLoaderStatus= false;
  				this.status = 'error';
 				this.responseMessage = error.error.message;
 				console.log( <any>error );
@@ -64,16 +74,19 @@ export class ListarTomaMuestrasComponent implements OnInit {
 		);
 	}
 
-	getSamplesByGrCase(){
-		this._sampleService.getSamplesByGrCase( this.caseId, this.token ).subscribe(
+	getSamplesByPatient(){
+		this._sampleService.getSamplesByPatient( this.patientId, this.token ).subscribe(
 			res => {
 				if( res.status == 'success' ){
 					this.samples = res.samples;
+					this.setTitle.emit(true);
+					console.log(res);
 				}
 			},
 			error => {
  				this.status = 'error';
 				this.responseMessage = error.error.message;
+				this.setTitle.emit(false);
 				console.log( <any>error );
 			}
 		);
@@ -106,7 +119,27 @@ export class ListarTomaMuestrasComponent implements OnInit {
 				console.log(<any>error);
 			}
 		);
-    }
+	}
+	
+	searchText(){
+		this.searchResponseMessage = undefined;
+		this.searchLoaderStatus = true;
+
+		this._sampleService.getSamplesByChain( this.chain, this.token ).subscribe(
+			res => {
+				this.searchLoaderStatus = false;
+				if( res.status == 'success' ){
+					this.samples = res.samples;
+					console.log(this.samples);
+				}
+			},
+			error => {
+				this.searchLoaderStatus = false;
+				this.searchResponseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		)
+	}
 
     pageChange(event){
 		localStorage.setItem('samplesPage', event);

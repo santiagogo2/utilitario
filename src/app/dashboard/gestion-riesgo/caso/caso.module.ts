@@ -2,35 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from '../../../components/components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 // Components
-import { EditarCasoComponent } from './editar-caso/editar-caso.component';
-import { ListarCasoComponent } from './listar-caso/listar-caso.component';
-import { RegistrarCasoComponent } from './registrar-caso/registrar-caso.component';
-import { TomaMuestrasModule } from '../toma-muestras/toma-muestras.module';
+import { CasoComponent } from './caso.component';
 
 @NgModule({
 	declarations:[
-		EditarCasoComponent,
-		ListarCasoComponent,
-		RegistrarCasoComponent,
+		CasoComponent,
 	],
 	imports:[
 		CommonModule,
 		ComponentsModule,
 		FontAwesomeModule,
 		FormsModule,
-		NgxPaginationModule,
+		ReactiveFormsModule,
 		RouterModule,
-		TomaMuestrasModule,
 	],
 	exports:[
-		EditarCasoComponent,
-		ListarCasoComponent,
-		RegistrarCasoComponent,
+		CasoComponent,
 	]
 })
 export class CasoModule{}

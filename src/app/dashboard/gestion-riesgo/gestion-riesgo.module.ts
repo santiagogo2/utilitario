@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 // Modules
-import { CasoModule } from './caso/caso.module';
 import { CaracterizacionModule } from './caracterizacion/caracterizacion.module';
+import { SeguimientoModule } from './seguimiento/seguimiento.module';
 import { TomaMuestrasModule } from './toma-muestras/toma-muestras.module';
 
 // Routes
@@ -20,14 +20,14 @@ import { GestionRiesgoComponent } from './gestion-riesgo.component';
         GestionRiesgoComponent,
     ],
     imports:[
-		// CasoModule,
         CommonModule,
 		ComponentsModule,
         FormsModule,
 		RouterModule,
+		
+		CaracterizacionModule,
+		SeguimientoModule,
 		TomaMuestrasModule,
-
-        CaracterizacionModule,
 		
 		GESTION_RIESGO_ROUTES,
     ],

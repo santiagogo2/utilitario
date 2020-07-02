@@ -19,6 +19,11 @@ h4 {
     font-weight: bold !important;
 }
 
+.h5Title {
+    text-align: center;
+    color: #092B4E;
+}
+
 .link {
     color: #007bff !important;
     text-decoration: none !important;
@@ -28,6 +33,10 @@ h4 {
 
 .link:hover {
     text-decoration: underline !important;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 
@@ -251,14 +260,24 @@ header .nav-item:hover {
     box-shadow: 0 0 0 200px #924E4E inset;
 }
 
+.circleImageContainer:hover .color-ecc350 {
+    box-shadow: 0 0 0 200px #ECC350 inset;
+}
+
 .labelForm {
     font-size: 0.8rem;
     margin-bottom: 0.2rem;
+    text-align: left;
 }
 
 .inputForm {
     padding: 0.3rem 0.5rem;
     font-size: 0.85rem !important;
+}
+
+.system-message {
+    color: #002142;
+    font-weight: bold;
 }
 
 .separator {

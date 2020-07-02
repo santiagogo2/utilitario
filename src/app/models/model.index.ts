@@ -21,6 +21,7 @@
 		// Gestión del Riesgo Models
 		export { Caso } from './dashboard/gestion-riesgo/case';
 		export { Contact } from './dashboard/gestion-riesgo/contact';
+		export { Follow } from './dashboard/gestion-riesgo/follow';
 		export { Sample } from './dashboard/gestion-riesgo/sample';
 		export { Patient } from './dashboard/gestion-riesgo/patient';
 		// Admin

@@ -120,8 +120,7 @@ export var global = {
 	],
 	tomaMuestras: [
 		{ id: 1, name: 'SI' },
-		{ id: 2, name: 'NO' },
-		{ id: 3, name: 'PENDIENTE' },
+		{ id: 2, name: 'PENDIENTE' },
 	],
 	resultados: [
 		{ id: 1, name: 'POSITIVO' },
@@ -149,5 +148,23 @@ export var global = {
 		{ id: 1, name: 'COLOMBIANO' },
 		{ id: 2, name: 'VENEZOLANO' },
 		{ id: 3, name: 'PERUANO' },
+	],
+	profesionales: [
+		{ id: 1, name: 'PEPITO PEREZ UNO' },
+		{ id: 2, name: 'PEPITO PEREZ DOS' },
+		{ id: 3, name: 'PEPITO PEREZ TRES' },
+	],
+	auxiliares: [
+		{ id: 1, name: 'PEPITO PEREZ UNO' },
+		{ id: 2, name: 'PEPITO PEREZ DOS' },
+		{ id: 3, name: 'PEPITO PEREZ TRES' },
+	],
+	tiposSeguimiento: [
+		{ id: 1, name: 'EFECTIVO' },
+		{ id: 2, name: 'FALLIDO' },
+	],
+	estadoPaciente: [
+		{ id: 1, name: 'SANO' },
+		{ id: 2, name: 'ENFERMO' },
 	]
 }

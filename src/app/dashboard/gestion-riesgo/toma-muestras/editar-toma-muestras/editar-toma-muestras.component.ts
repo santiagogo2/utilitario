@@ -4,17 +4,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert';
 
 // Services
-import { global, SampleService, UserService, CaseService } from 'src/app/services/service.index';
+import { global, SampleService, UserService, PatientService } from 'src/app/services/service.index';
 
 // Models
-import { Sample } from 'src/app/models/model.index';
+import { Sample, Patient } from 'src/app/models/model.index';
 
 @Component({
 	selector: 'app-editar-toma-muestras',
 	templateUrl: '../registrar-toma-muestras/registrar-toma-muestras.component.html',
 	styles: [],
 	providers: [
-		CaseService,
+		PatientService,
 		SampleService,
 		UserService,
 	]
@@ -31,17 +31,18 @@ export class EditarTomaMuestrasComponent implements OnInit {
 	public searchResponseMessage: string;
 	public searchPreloaderStatus: boolean;
 	public previusDocument: string;
+	public patientId: number;
 
 	public token: string;
 	public identity: any;
 	public sample: any;
-	public cases: any;
+	public patient: Patient;
 
 	public tomaMuestras: Array<any>;
 	public resultados: Array<any>;
 
 	constructor(
-		private _caseService: CaseService,
+		private _patientService: PatientService,
 		private _sampleService: SampleService,
 		private _userService: UserService,
 		private _router: Router,
@@ -61,7 +62,9 @@ export class EditarTomaMuestrasComponent implements OnInit {
 			this.status = undefined;
 			this.responseMessage = undefined;
 			this.sample = undefined;
-			this.cases = [];
+			this.patient = undefined;
+			this.searchText = undefined;
+			this.patientId = undefined;
 
 			let id = +params['id'];
 
@@ -73,7 +76,7 @@ export class EditarTomaMuestrasComponent implements OnInit {
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
-		delete this.sample.grcases;
+		delete this.sample.patient;
 
 		this._sampleService.updateSample( this.sample, this.token ).subscribe(
 			res => {
@@ -105,7 +108,9 @@ export class EditarTomaMuestrasComponent implements OnInit {
 				if( res.status == 'success' ){
 					this.sample = res.sample;
 					this.showFile = this.sample.archivo ? true:false;
-					this.cases.push(this.sample.grcases);
+					this.searchText = this.sample.patient.documento;
+					this.patient = this.sample.patient;
+					this.patientId = this.patient.id;
 				}
 			},
 			error => {
@@ -116,15 +121,15 @@ export class EditarTomaMuestrasComponent implements OnInit {
 		);
 	}
 
-	searchCases(){
+	searchPatient(){
 		this.searchPreloaderStatus = true;
 		this.searchResponseMessage = undefined;
-		this.cases = undefined;
+		this.patient = undefined;
 		
-		this._caseService.searchCases( this.searchText, this.token ).subscribe(
+		this._patientService.getPatientByDocument( this.searchText, this.token ).subscribe(
 			res => {
 				this.searchPreloaderStatus = false;
-				this.cases = res.grcases;
+				this.patient = res.patient;
 			},
 			error => {
 				this.searchPreloaderStatus = false;

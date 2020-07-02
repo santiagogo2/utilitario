@@ -1,0 +1,134 @@
+<div class="loaderBall" *ngIf="!loadedInfo">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<form [formGroup]="caseForm" *ngIf="loadedInfo">
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="clasificacionCaso" class="labelForm">Clasificación del caso*</label>
+            <select style="background-position-x: 93%" formControlName="clasificacionCaso" name="clasificacionCaso" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.clasificacionCaso.invalid && caseForm.controls.clasificacionCaso.touched}"
+                required>
+				<option *ngFor="let clasificacion of clasificaciones" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="numeroRadicado" class="labelForm">Número de Radicado*</label>
+            <input type="text" formControlName="numeroRadicado" name="numeroRadicado" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.numeroRadicado.touched && caseForm.controls.numeroRadicado.invalid}" required maxlength="10" placeholder="Ingrese el número del contrato">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="fechaNotificacion" class="labelForm">Fecha de notificación*</label>
+            <input type="date" formControlName="fechaNotificacion" name="fechaNotificacion" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fechaNotificacion.touched && caseForm.controls.fechaNotificacion.invalid}" max="{{ actualDate }}"
+                required>
+        </div>
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="fechaRecepcion" class="labelForm">Fecha de recepción*</label>
+            <input type="date" formControlName="fechaRecepcion" name="fechaRecepcion" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fechaRecepcion.touched && caseForm.controls.fechaRecepcion.invalid}" max="{{ actualDate }}" required>
+        </div>
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="upgd" class="labelForm">UPGD notificadora*</label>
+            <select style="background-position-x: 93%" formControlName="upgd" name="upgd" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.upgd.invalid && caseForm.controls.upgd.touched}" required>
+				<option *ngFor="let upgd of upgds" value="{{ upgd.id }}">{{ upgd.name }}</option>
+			</select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+            <label for="fechaAsignacionCaso" class="labelForm">Fecha de asignación del caso*</label>
+            <input type="date" formControlName="fechaAsignacionCaso" name="fechaAsignacionCaso" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fechaAsignacionCaso.touched && caseForm.controls.fechaAsignacionCaso.invalid}" max="{{ actualDate }}"
+                required>
+        </div>
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+            <label for="fechaConsultaPersona" class="labelForm">Fecha de consulta de la persona*</label>
+            <input type="date" formControlName="fechaConsultaPersona" name="fechaConsultaPersona" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fechaConsultaPersona.touched && caseForm.controls.fechaConsultaPersona.invalid}" max="{{ actualDate }}"
+                required>
+        </div>
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+            <label for="fechaHospitalizacion" class="labelForm">Fecha de hospitalización*</label>
+            <input type="date" formControlName="fechaHospitalizacion" name="fechaHospitalizacion" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fechaHospitalizacion.touched && caseForm.controls.fechaHospitalizacion.invalid}" max="{{ actualDate }}"
+                required>
+        </div>
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+            <label for="fechaAsignacion" class="labelForm">Fecha de asignación*</label>
+            <input type="date" formControlName="fechaAsignacion" name="fechaAsignacion" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fechaAsignacion.touched && caseForm.controls.fechaAsignacion.invalid}" max="{{ actualDate }}" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="asignacionProfesional" class="labelForm">Profesional al cual se le asigna el caso*</label>
+            <select style="background-position-x: 93%" formControlName="asignacionProfesional" name="asignacionProfesional" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.asignacionProfesional.invalid && caseForm.controls.asignacionProfesional.touched}"
+                required>
+				<option *ngFor="let profesional of profesionales" value="{{ profesional.id }}">{{ profesional.name }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="asignacionAuxiliar" class="labelForm">Auxiliar a la cual se le asigna el caso*</label>
+            <select style="background-position-x: 93%" formControlName="asignacionAuxiliar" name="asignacionAuxiliar" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.asignacionAuxiliar.invalid && caseForm.controls.asignacionAuxiliar.touched}"
+                required>
+				<option *ngFor="let auxiliar of auxiliares" value="{{ auxiliar.id }}">{{ auxiliar.name }}</option>
+			</select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="searchIEC" class="labelForm">¿Se realiza IEC?*</label>
+            <select style="background-position-x: 93%" formControlName="searchIEC" name="searchIEC" id="searchIEC" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.searchIEC.invalid && caseForm.controls.searchIEC.touched}" required>
+				<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="caseForm.controls.searchIEC.value == 1">
+            <label for="fechaIEC" class="labelForm">Fecha IEC*</label>
+            <input type="date" formControlName="fechaIEC" name="fechaIEC" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fechaIEC.touched && caseForm.controls.fechaIEC.invalid}" max="{{ actualDate }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="antecedenteViaje" class="labelForm">Antecedente de viaje*</label>
+            <select style="background-position-x: 93%" formControlName="antecedenteViaje" name="antecedenteViaje" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.antecedenteViaje.invalid && caseForm.controls.antecedenteViaje.touched}" required>
+				<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="caseForm.controls.antecedenteViaje.value==1">
+            <label for="lugarViaje" class="labelForm">Lugar a donde viajó*</label>
+            <input type="text" formControlName="lugarViaje" name="lugarViaje" class="form-control inputForm" [ngClass]="{ 'is-invalid': caseForm.controls.lugarViaje.touched && caseForm.controls.lugarViaje.invalid}" maxlength="100">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="fuenteContagio" class="labelForm">Fuente de contagio*</label>
+            <select style="background-position-x: 93%" formControlName="fuenteContagio" name="fuenteContagio" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.fuenteContagio.invalid && caseForm.controls.fuenteContagio.touched}" required>
+				<option *ngFor="let fuente of fuenteContagios" value="{{ fuente.id }}">{{ fuente.name }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="fechaInicioSintomas" class="labelForm">Fecha de incio de síntomas*</label>
+            <input type="date" formControlName="fechaInicioSintomas" name="fechaInicioSintomas" class="form-control inputForm" [ngClass]="{ 'is-invalid': caseForm.controls.fechaInicioSintomas.touched && caseForm.controls.fechaInicioSintomas.invalid}" max="{{ actualDate }}"
+                required>
+        </div>
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="fechaDiagnostico" class="labelForm">Fecha de incio de diagnóstico*</label>
+            <input type="date" formControlName="fechaDiagnostico" name="fechaDiagnostico" class="form-control inputForm" [ngClass]="{ 'is-invalid': caseForm.controls.fechaDiagnostico.touched && caseForm.controls.fechaDiagnostico.invalid}" max="{{ actualDate }}" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="estadoPersona" class="labelForm">Estado de la persona*</label>
+            <select style="background-position-x: 93%" formControlName="estadoPersona" name="estadoPersona" id="estadoPersona" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.estadoPersona.invalid && caseForm.controls.estadoPersona.touched}"
+                required>
+				<option *ngFor="let estado of estados" value="{{ estado.id }}">{{ estado.value }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+            <label for="estadoFinal" class="labelForm">Estado final*</label>
+            <select style="background-position-x: 93%" formControlName="estadoFinal" name="estadoFinal" id="estadoFinal" class="form-control inputForm" [ngClass]="{'is-invalid': caseForm.controls.estadoFinal.invalid && caseForm.controls.estadoFinal.touched}" required>
+				<option *ngFor="let estado of estadosFinal" value="{{ estado.id }}">{{ estado.name }}</option>
+			</select>
+        </div>
+    </div>
+</form>

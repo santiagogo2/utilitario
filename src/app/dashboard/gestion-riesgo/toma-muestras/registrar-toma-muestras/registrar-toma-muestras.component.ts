@@ -3,17 +3,17 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert';
 
 // Services
-import { global, SampleService, UserService, CaseService } from 'src/app/services/service.index';
+import { global, PatientService, SampleService, UserService } from 'src/app/services/service.index';
 
 // Models
-import { Sample, Caso } from 'src/app/models/model.index';
+import { Sample, Patient } from 'src/app/models/model.index';
 
 @Component({
 	selector: 'app-registrar-toma-muestras',
 	templateUrl: './registrar-toma-muestras.component.html',
 	styles: [],
 	providers: [
-		CaseService,
+		PatientService,
 		SampleService,
 		UserService,
 	]
@@ -30,17 +30,18 @@ export class RegistrarTomaMuestrasComponent implements OnInit {
 	public searchResponseMessage: string;
 	public searchPreloaderStatus: boolean;
 	public previusDocument: string;
+	public patientId: number;
 
 	public token: string;
 	public identity: any;
 	public sample: Sample;
-	public cases: Caso[];
+	public patient: Patient;
 
 	public tomaMuestras: Array<any>;
 	public resultados: Array<any>;
 
 	constructor(
-		private _caseService: CaseService,
+		private _patientService: PatientService,
 		private _sampleService: SampleService,
 		private _userService: UserService,
 	) {
@@ -104,15 +105,16 @@ export class RegistrarTomaMuestrasComponent implements OnInit {
 		);
 	}
 
-	searchCases(){
+	searchPatient(){
 		this.searchPreloaderStatus = true;
 		this.searchResponseMessage = undefined;
-		this.cases = undefined;
+		this.patient = undefined;
 		
-		this._caseService.searchCases( this.searchText, this.token ).subscribe(
+		this._patientService.getPatientByDocument( this.searchText, this.token ).subscribe(
 			res => {
 				this.searchPreloaderStatus = false;
-				this.cases = res.grcases;
+				this.patient = res.patient;
+				this.sample.patient_id = this.patient.id;
 			},
 			error => {
 				this.searchPreloaderStatus = false;

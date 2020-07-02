@@ -30,6 +30,24 @@ export class ContactService {
         return this._http.get( this.url + 'contact/' + id, {headers:headers});
 	}
 
+    getContactByCasoIndice( id, token ): Observable<any>{
+        let headers = new HttpHeaders().set('Authorization', token);
+
+        return this._http.get( this.url + 'contact/search/caso-indice/' + id, {headers:headers});
+	}
+
+	getMyIndiceCases( id, token ): Observable<any>{
+        let headers = new HttpHeaders().set('Authorization', token);
+
+        return this._http.get( this.url + 'contact/find/my-indices/' + id, {headers:headers});
+	}
+
+	getMyContacts( id, token ): Observable<any>{
+        let headers = new HttpHeaders().set('Authorization', token);
+
+        return this._http.get( this.url + 'contact/find/my-contacts/' + id, {headers:headers});
+	}
+
     newContact( contact: Contact, token ): Observable<any>{
         let json = JSON.stringify( contact );
         let params = "json="+json;

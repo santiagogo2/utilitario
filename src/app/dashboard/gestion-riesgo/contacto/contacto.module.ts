@@ -4,26 +4,24 @@ import { ComponentsModule } from '../../../components/components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PipesModule } from '../../../pipes/pipes.module';
+import { ContactoComponent } from './contacto.component';
 
 // Components
-import { PacienteComponent } from './paciente.component';
 
 @NgModule({
 	declarations:[
-		PacienteComponent,
+		ContactoComponent
 	],
 	imports:[
 		CommonModule,
 		ComponentsModule,
 		FontAwesomeModule,
 		FormsModule,
-		PipesModule,
 		ReactiveFormsModule,
 		RouterModule,
 	],
 	exports:[
-		PacienteComponent,
+		ContactoComponent,
 	]
 })
-export class PacienteModule{}
+export class ContactoModule{}

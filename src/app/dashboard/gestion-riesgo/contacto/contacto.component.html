@@ -1,0 +1,43 @@
+<form [formGroup]="contactForm">
+    <div class="form-group">
+        <div class="col col-sm-9 col-lg-5 d-inline-block align-top">
+            <label for=" parametro" class="labelForm">Ingrese el parametro de búsqueda del paciente índice*</label>
+            <input type="text" formControlName="parametro" name="parametro" class="form-control inputForm" [ngClass]="{ 'is-invalid': contactForm.controls.parametro.touched && contactForm.controls.parametro.invalid}" maxlength='15' required>
+        </div>
+        <div class="col col-sm-3 col-lg-2 d-inline-block align-bottom">
+            <a class="btn btn-info btn-sm col-sm-12 enlarge" style="color: white; border-radius: 0;" *ngIf="contactForm.controls.parametro.valid" (click)="searchPatient()">Buscar</a>
+        </div>
+        <div class="col col-sm-12 col-lg-5 d-inline-block align-top" *ngIf="patients">
+            <label for="pacienteIndice" class="labelForm">Paciente Índice*</label>
+            <select style="background-position-x: 93%" formControlName="pacienteIndice" name="pacienteIndice" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.pacienteIndice.invalid && contactForm.controls.pacienteIndice.touched}" required>
+				<option *ngFor="let patient of patients" value="{{ patient.id }}">{{ patient.documento + ' - ' + patient.primerNombre + ' ' +patient.primerApellido }}</option>
+			</select>
+        </div>
+        <div class="col-sm-12 col-lg-5 d-lg-inline-block align-bottom" *ngIf="patientPreloaderStatus">
+            <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+        </div>
+        <div class="col-sm-12 col-lg-5 d-lg-inline-block align-bottom" *ngIf="patienSearchResponseMessage">
+            <small class="invalid-feedback d-block">{{ patienSearchResponseMessage }}</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="tipoContacto" class="labelForm">Tipo de contacto*</label>
+            <select style="background-position-x: 93%" formControlName="tipoContacto" name="tipoContacto" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.tipoContacto.invalid && contactForm.controls.tipoContacto.touched}" required>
+				<option *ngFor="let tipo of tipoContactos" value="{{ tipo.id }}">{{ tipo.name }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="vinculo" class="labelForm">Vinculo*</label>
+            <select style="background-position-x: 93%" formControlName="vinculo" name="vinculo" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.vinculo.invalid && contactForm.controls.vinculo.touched}" required>
+				<option *ngFor="let vinculo of vinculos" value="{{ vinculo.id }}">{{ vinculo.name }}</option>
+			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="brote" class="labelForm">¿Es un brote?*</label>
+            <select style="background-position-x: 93%" formControlName="brote" name="brote" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.brote.invalid && contactForm.controls.brote.touched}" required>
+				<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
+			</select>
+        </div>
+    </div>
+</form>

@@ -2,26 +2,31 @@ import { Routes, RouterModule } from "@angular/router";
 
 // Components
 import { GestionRiesgoComponent } from './gestion-riesgo.component';
-import { ListarCasoComponent } from './caso/listar-caso/listar-caso.component';
-import { RegistrarCasoComponent } from './caso/registrar-caso/registrar-caso.component';
-import { EditarCasoComponent } from './caso/editar-caso/editar-caso.component';
+import { RegistrarCaracterizacionComponent } from './caracterizacion/registrar-caracterizacion/registrar-caracterizacion.component';
 
 import { ListarTomaMuestrasComponent } from './toma-muestras/listar-toma-muestras/listar-toma-muestras.component';
 import { RegistrarTomaMuestrasComponent } from './toma-muestras/registrar-toma-muestras/registrar-toma-muestras.component';
 import { EditarTomaMuestrasComponent } from './toma-muestras/editar-toma-muestras/editar-toma-muestras.component';
 
+import { SeguimientoComponent } from './seguimiento/seguimiento.component';
+import { BuscarUsuarioComponent } from './seguimiento/buscar-usuario/buscar-usuario.component';
+import { RegistrarSeguimientoComponent } from './seguimiento/registrar-seguimiento/registrar-seguimiento.component';
+import { ListarSeguimientoComponent } from './seguimiento/listar-seguimiento/listar-seguimiento.component';
+import { EditarSeguimientoComponent } from './seguimiento/editar-seguimiento/editar-seguimiento.component';
 
-import { RegistrarCaracterizacionComponent } from './caracterizacion/registrar-caracterizacion/registrar-caracterizacion.component';
 // Guards
 import { GestionRiesgoCasoListGuard, GestionRiesgoCasoRegisterGuard, GestionRiesgoCasoEditGuard } from '../../guards/guard.index';
 
 const gestionRiesgoRoutes: Routes = [
-	// { path: 'casos', redirectTo: 'casos/listar', pathMatch: 'full' },
-	// { path: 'casos/listar', component: ListarCasoComponent, data: { titulo: 'Listar Casos' }, canActivate: [ GestionRiesgoCasoListGuard ] },
-	// { path: 'casos/registrar', component: RegistrarCasoComponent, data: { titulo: 'Registrar Casos' }, canActivate: [ GestionRiesgoCasoRegisterGuard ] },
-	// { path: 'casos/editar/:id', component: EditarCasoComponent, data: { titulo: 'Editar Casos' }, canActivate: [ GestionRiesgoCasoEditGuard ] },
+	{ path: 'seguimientos', component: SeguimientoComponent, data: { titulo: 'Seguimientos' }},
+	{ path: 'caracterizacion-pacientes', component: RegistrarCaracterizacionComponent, data: { titulo: 'Caracterización de pacientes '} },
+	{ path: 'seguimientos/buscar-usuario', component: BuscarUsuarioComponent, data: { titulo: 'Buscar Usuario' } },
+	{ path: 'seguimientos/registrar', component: RegistrarSeguimientoComponent, data: { titulo: 'Registrar Seguimiento' } },
+	{ path: 'seguimientos/registrar/:patientId', component: RegistrarSeguimientoComponent, data: { titulo: 'Registrar Seguimiento' } },
+	{ path: 'seguimientos/editar/:id', component: EditarSeguimientoComponent, data: { titulo: 'Editar Seguimiento' } },
+	{ path: 'seguimientos/listar', component: ListarSeguimientoComponent, data: { titulo: 'Listar Seguimientos Realizados' } },
+	{ path: 'seguimientos/listar/:document', component: ListarSeguimientoComponent, data: { titulo: 'Listar Seguimientos Realizados' } },
 	
-	{ path: 'prueba', component: RegistrarCaracterizacionComponent, data: { titulo: 'Listar Casos' } },
 	{ path: 'toma-muestras', redirectTo: 'toma-muestras/listar', pathMatch: 'full' },
 	{ path: 'toma-muestras/listar', component: ListarTomaMuestrasComponent, data: { titulo: 'Listar Muestras' }, canActivate: [] },
 	{ path: 'toma-muestras/registrar', component: RegistrarTomaMuestrasComponent, data: { titulo: 'Registrar Muestras' }, canActivate: [] },

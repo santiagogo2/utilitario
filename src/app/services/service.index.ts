@@ -26,6 +26,7 @@ export { RoleService } from './admin/role.service';
 	export { ContactService } from './dashboard/gestion-riesgo/contact.service';
 	export { SampleService } from './dashboard/gestion-riesgo/sample.service';
 	export { PatientService } from './dashboard/gestion-riesgo/patient.service';
+	export { FollowService } from './dashboard/gestion-riesgo/follow.service';
 	// Admin
 	export { LocationService } from './admin/gestion-riesgo/location.service';
 	export { UpgdService } from './admin/gestion-riesgo/upgd.service';

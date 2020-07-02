@@ -28,10 +28,10 @@ export class SampleService {
 		return this._http.get(this.url + 'sample/' + id, {headers:headers});
 	}
 
-	getSamplesByGrCase(caseId, token): Observable<any>{
+	getSamplesByPatient(patientId, token): Observable<any>{
 		let headers = new HttpHeaders().set('Authorization', token);
 
-		return this._http.get(this.url + 'sample/search/case/' + caseId, {headers:headers});
+		return this._http.get(this.url + 'sample/search/case/' + patientId, {headers:headers});
 	}
 
 	getSampleByDocument(document, token): Observable<any>{
@@ -40,10 +40,10 @@ export class SampleService {
 		return this._http.get(this.url + 'sample/search/document/' + document, {headers:headers});
 	}
 
-	getSampleByFilingNumber(filingNumber, token): Observable<any>{
+	getSamplesByChain(chain, token): Observable<any>{
 		let headers = new HttpHeaders().set('Authorization', token);
 
-		return this._http.get(this.url + 'sample/search/filing-number/' + filingNumber, {headers:headers});
+		return this._http.get(this.url + 'sample/search/chain/' + chain, {headers:headers});
 	}
 
 	newSample(sample: Sample, token): Observable<any>{
