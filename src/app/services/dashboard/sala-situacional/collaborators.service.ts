@@ -28,6 +28,11 @@ export class CollaboratorsService {
 		return this._http.get(this.url + 'collaborator/document/' + document, {headers:headers});
 	}
 
+	getCollaboratorsByChain( chain, token ): Observable<any>{
+		let headers = new HttpHeaders().set('Authorization', token);
+		return this._http.get(this.url + 'collaborator/search/chain/' + chain, {headers:headers});
+	}
+
 	newRegister(collaborator, token): Observable<any>{
 		let json = JSON.stringify(collaborator);
 		let params = 'json=' + json;

@@ -2,6 +2,7 @@ export var global = {
 
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
+	urlDinamica: 'http://172.17.2.81/api-rest-dinamica/public/api/',
 	estados: [
 		{id: 1, value: 'CUARENTENA'},
 		{id: 2, value: 'HOSPITALIZADO'},
@@ -57,6 +58,15 @@ export var global = {
 		{ id: 1, name: 'AÑOS' },
 		{ id: 2, name: 'MESES' },
 		{ id: 3, name: 'DÍAS' },
+	],
+	gruposEdad: [
+		{ id: 1, name: 'MENORES DE 1 AÑO - LACTANTES' },
+		{ id: 2, name: '1 AÑO - LACTANTES' },
+		{ id: 3, name: '2 A 4 AÑOS - PRESCOLARES' },
+		{ id: 4, name: '5 A 19 AÑOS - ESCOLARES' },
+		{ id: 5, name: '20 A 39 AÑOS - ADULTOS JÓVENES' },
+		{ id: 6, name: '40 A 59 AÑOS - ADULTOS' },
+		{ id: 7, name: 'MAYORES DE 60 AÑOS - ADULTOS MAYORES' },
 	],
 	fuenteContagio: [
 		{ id: 1, name: 'RELACIONADO' },

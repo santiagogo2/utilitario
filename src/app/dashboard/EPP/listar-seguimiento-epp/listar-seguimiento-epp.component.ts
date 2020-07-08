@@ -52,7 +52,6 @@ export class ListarSeguimientoEppComponent implements OnInit {
 			res => {
 				if( res.status == 'success' ){
 					this.epptracking = res.epptracking;
-					// this.exportAsXLSX(this.epptracking);
 				}
 			},
 			error => {
@@ -75,6 +74,7 @@ export class ListarSeguimientoEppComponent implements OnInit {
 				if( res.status == 'success' ){
 					this.status = res.status;
 					this.responseMessage = res.message;
+					this.epptracking = undefined;
 					this.eppTrackingList();
 				}
 			},

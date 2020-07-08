@@ -19,6 +19,9 @@ export class ListarColaboradoresComponent implements OnInit {
 	public preloaderStatus: boolean;
 	public actualPage: number;
 	public itemsPerPage: number;
+	public chain: string;
+	public searchResponseMessage: string;
+	public searchLoaderStatus: boolean;
 
 	public collaborators: Collaborators[];
 	public token: string;
@@ -38,17 +41,41 @@ export class ListarColaboradoresComponent implements OnInit {
 		this.getCollaborators();
 	}
 
-	getCollaborators(){		
+	getCollaborators(){	
+		this.searchLoaderStatus = true;
+		this.searchResponseMessage = undefined;
+
 		this._collaboratorService.getCollaborators(this.token).subscribe(
 			response => {
+				this.searchLoaderStatus = false;
 				if(response.status == 'success'){
 					this.collaborators = response.collaborators;
 				}
 			},
 			error => {
+				this.searchLoaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(<any> error);
+			}
+		);
+	}
+
+	searchText(){
+		this.searchLoaderStatus = true;
+		this.searchResponseMessage = undefined;
+
+		this._collaboratorService.getCollaboratorsByChain( this.chain, this.token ).subscribe(
+			res => {
+				this.searchLoaderStatus = false;
+				if( res.status == 'success' ){
+					this.collaborators = res.collaborators;
+				}
+			},
+			error => {
+				this.searchLoaderStatus = false;
+				this.searchResponseMessage = error.error.message;
+				console.log(<any>error);
 			}
 		);
 	}

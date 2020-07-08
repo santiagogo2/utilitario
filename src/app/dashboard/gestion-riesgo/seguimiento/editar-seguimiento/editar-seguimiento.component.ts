@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert';
 
 // Services
-import { global, PatientService, UserService, FollowService } from 'src/app/services/service.index';
+import { ContactService, global, PatientService, UserService, FollowService } from 'src/app/services/service.index';
 
 // Models
 import { Follow, Patient } from 'src/app/models/model.index';
@@ -13,6 +13,7 @@ import { Follow, Patient } from 'src/app/models/model.index';
 	templateUrl: '../registrar-seguimiento/registrar-seguimiento.component.html',
 	styles: [],
 	providers:[
+		ContactService,
 		FollowService,
 		PatientService,
 		UserService,
@@ -29,6 +30,7 @@ export class EditarSeguimientoComponent implements OnInit {
 	public currentTime: string;
 	public alertCurrentFollowMessage: string;
 	public load: boolean;
+	public openIndices: boolean;
 	
 	public token: string;
 	public follow: any;
@@ -43,6 +45,7 @@ export class EditarSeguimientoComponent implements OnInit {
 	public today = new Date();
 
 	constructor(
+		private _contactService: ContactService,
 		private _followService: FollowService,
 		private _patientService: PatientService,
 		private _userService: UserService,
@@ -55,7 +58,6 @@ export class EditarSeguimientoComponent implements OnInit {
 		this.load = false;
 		
 		this.token = this._userService.getToken();
-		this.follow = new Follow(null,null,null,null,this.actualDate,this.currentTime,null,false,null,false,false,false,false,false,false,false,null,null,null);
 
 		this.tiposSeguimiento = global.tiposSeguimiento;
 		this.respuestas = global.respuestas;
@@ -70,6 +72,7 @@ export class EditarSeguimientoComponent implements OnInit {
 			this.patientId = undefined;
 			this.patients = undefined;
 			this.selectedPatient = undefined;
+			this.openIndices = undefined;
 
 			let id = params['id'];
 			this.getFollow(id);
@@ -81,10 +84,12 @@ export class EditarSeguimientoComponent implements OnInit {
 			res => {
 				if( res.status == 'success' ){
 					this.follow = res.follow;
+					if(!this.follow.estadoFinal) this.follow.estadoFinal = 1;
 					this.load = true;
 					this.patientId = this.follow.patient.id;
 					this.chain = this.follow.patient.documento;
 					this.selectedPatient = this.follow.patient;
+					this.getMyOpenIndiceCases(this.selectedPatient.id);
 				}
 			},
 			error => {
@@ -125,6 +130,21 @@ export class EditarSeguimientoComponent implements OnInit {
 
 				swal('Error', this.responseMessage, 'error');
 				console.log(<any>error);
+			}
+		);
+	}
+
+	getMyOpenIndiceCases(id){		
+		this._contactService.getMyIndiceCases( id, this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					if( res.contacts.length > 0 ){
+						this.openIndices = true;
+					}
+				}
+			},
+			error => {
+				this.openIndices = true;
 			}
 		);
 	}

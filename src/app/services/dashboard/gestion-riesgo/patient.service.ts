@@ -36,10 +36,22 @@ export class PatientService {
         return this._http.get( this.url + 'patient/search/document/' + document, {headers:headers});
     }
 
+    getPatientForListByChain( chain, token ): Observable<any>{
+        let headers = new HttpHeaders().set('Authorization', token);
+
+        return this._http.get( this.url + 'patient/search/list/chain/' + chain, {headers:headers});
+    }
+
     getPatientByChain( chain, token ): Observable<any>{
         let headers = new HttpHeaders().set('Authorization', token);
 
         return this._http.get( this.url + 'patient/search/chain/' + chain, {headers:headers});
+    }
+
+    getMyPatients( token ): Observable<any>{
+        let headers = new HttpHeaders().set('Authorization', token);
+
+        return this._http.get( this.url + 'patient/search/my/patients', {headers:headers});
     }
 
     newPatient( patient: Patient, token ): Observable<any>{

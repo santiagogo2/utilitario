@@ -22,10 +22,18 @@ export { ReporstGuard } from './shared/reports.guard';
 	// Gestion del Riesgo Guards
 	export { GestionRiesgoGuard } from './dashboard/gestion-riesgo/gestion-riesgo.guard';
 	export { GestionRiesgoAdminGuard } from './dashboard/gestion-riesgo/gestion-riesgo-admin.guard';
-		// Casos
-		export { GestionRiesgoCasoEditGuard } from './dashboard/gestion-riesgo/caso/gestion-riesgo-caso-edit.guard';
-		export { GestionRiesgoCasoListGuard } from './dashboard/gestion-riesgo/caso/gestion-riesgo-caso-list.guard';
-		export { GestionRiesgoCasoRegisterGuard } from './dashboard/gestion-riesgo/caso/gestion-riesgo-caso-register.guard';
+		// Caracterización de pacientes
+		export { GestionRiesgoCaracterizacionListGuard } from './dashboard/gestion-riesgo/caracterizacion/gestion-riesgo-caracterizacion-list.guard';
+		export { GestionRiesgoCaracterizacionRegisterGuard } from './dashboard/gestion-riesgo/caracterizacion/gestion-riesgo-caracterizacion-register.guard';
+		// Toma de muestras
+		export { GestionRiesgoTomaMuestrasEditGuard } from './dashboard/gestion-riesgo/toma-muestras/gestion-riesgo-toma-muestras-edit.guard';
+		export { GestionRiesgoTomaMuestrasListGuard } from './dashboard/gestion-riesgo/toma-muestras/gestion-riesgo-toma-muestras-list.guard';
+		export { GestionRiesgoTomaMuestrasRegisterGuard } from './dashboard/gestion-riesgo/toma-muestras/gestion-riesgo-toma-muestras-register.guard';
+		// Seguimientos
+		export { GestionRiesgoSeguimientoGuard } from './dashboard/gestion-riesgo/seguimientos/gestion-riesgo-seguimiento.guard';
+		export { GestionRiesgoSeguimientoEditGuard } from './dashboard/gestion-riesgo/seguimientos/gestion-riesgo-seguimiento-edit.guard';
+		export { GestionRiesgoSeguimientoListGuard } from './dashboard/gestion-riesgo/seguimientos/gestion-riesgo-seguimiento-list.guard';
+		export { GestionRiesgoSeguimientoRegisterGuard } from './dashboard/gestion-riesgo/seguimientos/gestion-riesgo-seguimiento-register.guard';
 	// EPP Guards
 	export { EppGuard } from './dashboard/epp/epp.guard';
 	export { EppAdminGuard } from './dashboard/epp/epp-admin.guard';

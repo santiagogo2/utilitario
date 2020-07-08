@@ -80,7 +80,6 @@ export class ListarTomaMuestrasComponent implements OnInit {
 				if( res.status == 'success' ){
 					this.samples = res.samples;
 					this.setTitle.emit(true);
-					console.log(res);
 				}
 			},
 			error => {

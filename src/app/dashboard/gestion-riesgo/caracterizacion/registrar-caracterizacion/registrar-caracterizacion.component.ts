@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import swal from 'sweetalert';
 
@@ -27,6 +28,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 	public idPatient: string;
 	public esContacto: number;
 	public loadedInfo: boolean;
+	public documento: number;
 
 	public token: string;
 	public patient: Patient;
@@ -44,12 +46,13 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		private _contactService: ContactService,
 		private _patientService: PatientService,
 		private _userService: UserService,
+		private _router: Router,
 	) {
 		this.buttonText = 'Registrar';
 		this.esContacto = 2;
 
 		this.token = this._userService.getToken();
-		this.patient = new Patient(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+		this.patient = new Patient(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
 		this.caso = undefined;
 
 		this.tipoCasos = global.tipoCasos;
@@ -57,17 +60,20 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		let documento = +localStorage.getItem( 'editPatientDocument' );
+		this.documento = documento ? documento:undefined;
 	}
 
 	onSubmit(form){
 		// Paciente
 		let formValue = this.patientForm.value;
 		let patient: Patient = new Patient(null,formValue.documento,formValue.tipoDocumento,formValue.primerNombre,formValue.segundoNombre,
-										   formValue.primerApellido,formValue.segundoApellido, formValue.edad, formValue.unidadMedida,
-										   formValue.sexo, formValue.pertenenciaEtnica, formValue.grupoPoblacional, formValue.direccion,
-										   formValue.barrio, formValue.upz, formValue.nacionalidad, formValue.telefono, formValue.insurer,
+										   formValue.primerApellido,formValue.segundoApellido, formValue.edad, formValue.unidadMedida, formValue.grupoEdad,
+										   formValue.sexo, formValue.pertenenciaEtnica, formValue.grupoEtnico, formValue.grupoPoblacional, formValue.semanasGestacion,
+										   formValue.direccion, formValue.barrio, formValue.upz, formValue.nacionalidad, formValue.telefono, formValue.insurer,
 										   formValue.ocupacion);
 
+		patient.documento = this.documento ? this.documento:patient.documento;
 		if(this.idPatient){
 			patient.id = +this.idPatient;
 			this.updatePatient(patient);
@@ -128,6 +134,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 						swal('Registro creado correctamente', this.responseMessage, 'success');
 						this.patientForm.reset();
 						this.caseForm.reset();
+						this.buttonText = 'Registrar';
 						this.tipoCaso = undefined;
 					}
 				}
@@ -158,6 +165,10 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 				if( res.status == 'success' ){
 					console.log('Actualizó un paciente');
 					this.responseMessage = res.message;
+					if( this.documento && !this.caso ) {
+						swal('Paciente Actualizado', this.responseMessage, 'success');
+						this._router.navigate(['/gestion-riesgo/listar-pacientes']);
+					}
 					if(this.tipoCaso == 1 && this.caso) this.updateCase(patient.id);
 					else if(this.tipoCaso == 1) this.newCase(patient.id);					
 					else if(this.tipoCaso == 2) this.newContact(patient.id);
@@ -199,8 +210,12 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 						this.newContact(patientId);
 					} else {
 						swal('Registro creado correctamente', this.responseMessage, 'success');
+						if( this.documento ) {
+							this._router.navigate(['/gestion-riesgo/listar-pacientes']);
+						}
 						this.patientForm.reset();
 						this.caseForm.reset();
+						this.buttonText = 'Registrar';
 						this.tipoCaso = undefined;
 					}
 				}
@@ -239,6 +254,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 					this.patientForm.reset();
 					if(this.caseForm) this.caseForm.reset();
 					this.contactForm.reset();
+					this.buttonText = 'Registrar';
 					this.tipoCaso = undefined;
 					this.esContacto = undefined;
 				}
@@ -285,6 +301,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		if( this.caseForm ) this.caseForm.reset();
 		this.caso = undefined;
 		this.tipoCaso = undefined;
+		this.buttonText = 'Actualizar';
 	}
 
 	loaded(flag){

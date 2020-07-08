@@ -40,7 +40,7 @@ export class UpgdEditComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.upgd = undefined;
 
-		let id = localStorage.getItem( 'updgEditId' );
+		let id = localStorage.getItem( 'upgdEditId' );
 
 		this._upgdService.getUpgd( id, this.token ).subscribe(
 			res => {

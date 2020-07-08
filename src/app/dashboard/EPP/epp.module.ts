@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
@@ -26,6 +27,7 @@ import { RegistrarSeguimientoEppComponent } from './registrar-seguimiento-epp/re
     imports:[
         CommonModule,
         ComponentsModule,
+        FontAwesomeModule,
         FormsModule,
         NgxPaginationModule,
 		RouterModule,

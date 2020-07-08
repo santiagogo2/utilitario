@@ -3,13 +3,13 @@ import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 
 // Services
-import { UserService } from '../../../services/service.index';
+import { UserService } from '../../../../services/service.index';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class GestionRiesgoGuard implements CanActivate {
+export class GestionRiesgoSeguimientoListGuard implements CanActivate {
 	constructor(
 		private _userService: UserService,
 		private _router: Router,
@@ -26,7 +26,7 @@ export class GestionRiesgoGuard implements CanActivate {
 		   identity.role == 'USER_GESTION_RIESGO_LIDER_ROLE'){
 			return true;
 		} else {
-			this._router.navigate(['/inicio']);
+			this._router.navigate(['/gestion-riesgo/seguimientos']);
 			return false;
 		}
 	}  

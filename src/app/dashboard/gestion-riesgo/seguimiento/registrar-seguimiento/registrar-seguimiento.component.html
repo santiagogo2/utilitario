@@ -142,9 +142,10 @@
                             <div class="form-group">
                                 <div class="col col-sm-12 d-block">
                                     <label for="estadoFinal" class="labelForm">Estado final del paciente*</label>
-                                    <select style="background-position-x: 98%" name="estadoFinal" class="form-control inputForm" [ngClass]="{'is-invalid': estadoFinal.invalid && estadoFinal.touched}" #estadoFinal="ngModel" [(ngModel)]="follow.estadoFinal" required>
+                                    <select style="background-position-x: 98%" name="estadoFinal" class="form-control inputForm" [ngClass]="{'is-invalid': estadoFinal.invalid && estadoFinal.touched}" #estadoFinal="ngModel" [(ngModel)]="follow.estadoFinal" required [disabled]="openIndices">
 										<option *ngFor="let estado of estadosFinal" value="{{ estado.id }}">{{ estado.name }}</option>
 									</select>
+                                    <small class="invalid-feedback d-block" *ngIf="openIndices">No puede cambiar el estado del paciente hasta que todos los casos indices estén cerrados.</small>
                                 </div>
                             </div>
                         </div>
@@ -160,6 +161,7 @@
                                 <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="followForm.invalid || (follow.tipoSeguimiento==2 && !follow.observaciones)">
                             </div>
                         </div>
+                        <app-listar-toma-muestras patientId="{{selectedPatient.id}}" disableButton="true"></app-listar-toma-muestras>
                     </form>
                     <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
                         <div class="alert alert-danger " role="alert">

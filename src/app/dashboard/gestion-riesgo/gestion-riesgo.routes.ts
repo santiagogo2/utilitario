@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 // Components
 import { GestionRiesgoComponent } from './gestion-riesgo.component';
 import { RegistrarCaracterizacionComponent } from './caracterizacion/registrar-caracterizacion/registrar-caracterizacion.component';
+import { ListarCaracterizacionComponent } from './caracterizacion/listar-caracterizacion/listar-caracterizacion.component';
 
 import { ListarTomaMuestrasComponent } from './toma-muestras/listar-toma-muestras/listar-toma-muestras.component';
 import { RegistrarTomaMuestrasComponent } from './toma-muestras/registrar-toma-muestras/registrar-toma-muestras.component';
@@ -15,22 +16,26 @@ import { ListarSeguimientoComponent } from './seguimiento/listar-seguimiento/lis
 import { EditarSeguimientoComponent } from './seguimiento/editar-seguimiento/editar-seguimiento.component';
 
 // Guards
-import { GestionRiesgoCasoListGuard, GestionRiesgoCasoRegisterGuard, GestionRiesgoCasoEditGuard } from '../../guards/guard.index';
+import { GestionRiesgoCaracterizacionListGuard, GestionRiesgoCaracterizacionRegisterGuard,
+		 GestionRiesgoTomaMuestrasEditGuard, GestionRiesgoTomaMuestrasListGuard, GestionRiesgoTomaMuestrasRegisterGuard,
+		 GestionRiesgoSeguimientoGuard, GestionRiesgoSeguimientoEditGuard, GestionRiesgoSeguimientoListGuard, GestionRiesgoSeguimientoRegisterGuard } from '../../guards/guard.index';
 
 const gestionRiesgoRoutes: Routes = [
-	{ path: 'seguimientos', component: SeguimientoComponent, data: { titulo: 'Seguimientos' }},
-	{ path: 'caracterizacion-pacientes', component: RegistrarCaracterizacionComponent, data: { titulo: 'Caracterización de pacientes '} },
-	{ path: 'seguimientos/buscar-usuario', component: BuscarUsuarioComponent, data: { titulo: 'Buscar Usuario' } },
-	{ path: 'seguimientos/registrar', component: RegistrarSeguimientoComponent, data: { titulo: 'Registrar Seguimiento' } },
-	{ path: 'seguimientos/registrar/:patientId', component: RegistrarSeguimientoComponent, data: { titulo: 'Registrar Seguimiento' } },
-	{ path: 'seguimientos/editar/:id', component: EditarSeguimientoComponent, data: { titulo: 'Editar Seguimiento' } },
-	{ path: 'seguimientos/listar', component: ListarSeguimientoComponent, data: { titulo: 'Listar Seguimientos Realizados' } },
-	{ path: 'seguimientos/listar/:document', component: ListarSeguimientoComponent, data: { titulo: 'Listar Seguimientos Realizados' } },
+	{ path: 'caracterizacion-pacientes', component: RegistrarCaracterizacionComponent, data: { titulo: 'Caracterización de pacientes '}, canActivate: [GestionRiesgoCaracterizacionRegisterGuard] },
+	{ path: 'listar-pacientes', component: ListarCaracterizacionComponent, data: { titulo: 'Listar Pacientes'}, canActivate: [GestionRiesgoCaracterizacionListGuard] },
+	
+	{ path: 'seguimientos', component: SeguimientoComponent, data: { titulo: 'Seguimientos' }, canActivate: [GestionRiesgoSeguimientoGuard]},
+	{ path: 'seguimientos/buscar-usuario', component: BuscarUsuarioComponent, data: { titulo: 'Buscar Usuario' }, canActivate: [GestionRiesgoSeguimientoRegisterGuard] },
+	{ path: 'seguimientos/registrar', component: RegistrarSeguimientoComponent, data: { titulo: 'Registrar Seguimiento' }, canActivate: [GestionRiesgoSeguimientoRegisterGuard] },
+	{ path: 'seguimientos/registrar/:patientId', component: RegistrarSeguimientoComponent, data: { titulo: 'Registrar Seguimiento' }, canActivate: [GestionRiesgoSeguimientoRegisterGuard] },
+	{ path: 'seguimientos/editar/:id', component: EditarSeguimientoComponent, data: { titulo: 'Editar Seguimiento' }, canActivate: [GestionRiesgoSeguimientoEditGuard] },
+	{ path: 'seguimientos/listar', component: ListarSeguimientoComponent, data: { titulo: 'Listar Seguimientos Realizados' }, canActivate: [GestionRiesgoSeguimientoListGuard] },
+	{ path: 'seguimientos/listar/:document', component: ListarSeguimientoComponent, data: { titulo: 'Listar Seguimientos Realizados' }, canActivate: [GestionRiesgoSeguimientoListGuard] },
 	
 	{ path: 'toma-muestras', redirectTo: 'toma-muestras/listar', pathMatch: 'full' },
-	{ path: 'toma-muestras/listar', component: ListarTomaMuestrasComponent, data: { titulo: 'Listar Muestras' }, canActivate: [] },
-	{ path: 'toma-muestras/registrar', component: RegistrarTomaMuestrasComponent, data: { titulo: 'Registrar Muestras' }, canActivate: [] },
-	{ path: 'toma-muestras/editar/:id', component: EditarTomaMuestrasComponent, data: { titulo: 'Editar Muestras' }, canActivate: [] },
+	{ path: 'toma-muestras/listar', component: ListarTomaMuestrasComponent, data: { titulo: 'Listar Muestras' }, canActivate: [GestionRiesgoTomaMuestrasListGuard] },
+	{ path: 'toma-muestras/registrar', component: RegistrarTomaMuestrasComponent, data: { titulo: 'Registrar Muestras' }, canActivate: [GestionRiesgoTomaMuestrasRegisterGuard] },
+	{ path: 'toma-muestras/editar/:id', component: EditarTomaMuestrasComponent, data: { titulo: 'Editar Muestras' }, canActivate: [GestionRiesgoTomaMuestrasEditGuard] },
 
 	{ path: '', component: GestionRiesgoComponent, data: { titulo: 'Gestión del Riesgo' } },
 ]

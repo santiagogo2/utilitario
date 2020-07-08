@@ -29,12 +29,6 @@ export class CaseService {
 
         return this._http.get( this.url + 'case/' + id, {headers:headers});
 	}
-	
-	searchCases( chain, token ): Observable<any>{		
-        let headers = new HttpHeaders().set('Authorization', token);
-
-        return this._http.get( this.url + 'case/search/cases/' + chain, {headers:headers});
-	}
 
     newCase( caso: Caso, token ): Observable<any>{
         let json = JSON.stringify( caso );

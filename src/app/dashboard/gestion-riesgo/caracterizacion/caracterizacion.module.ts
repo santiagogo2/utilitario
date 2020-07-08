@@ -4,6 +4,7 @@ import { ComponentsModule } from '../../../components/components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 
 // Modules
@@ -13,10 +14,12 @@ import { PacienteModule } from '../paciente/paciente.module';
 
 // Components
 import { RegistrarCaracterizacionComponent } from './registrar-caracterizacion/registrar-caracterizacion.component';
+import { ListarCaracterizacionComponent } from './listar-caracterizacion/listar-caracterizacion.component';
 
 @NgModule({
 	declarations:[
-		RegistrarCaracterizacionComponent
+		RegistrarCaracterizacionComponent,
+		ListarCaracterizacionComponent
 	],
 	imports:[
 		CommonModule,
@@ -24,6 +27,7 @@ import { RegistrarCaracterizacionComponent } from './registrar-caracterizacion/r
 		FontAwesomeModule,
 		FormsModule,
 		NgxPaginationModule,
+		PipesModule,
 		RouterModule,
 		
 		CasoModule,

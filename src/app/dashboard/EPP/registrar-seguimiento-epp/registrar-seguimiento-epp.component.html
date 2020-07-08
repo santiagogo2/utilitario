@@ -29,15 +29,25 @@
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="fecha.invalid && fecha.touched">Debe ingresar una fecha. La fecha es obligatoria</small>
                             </div>
                             <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
-                                <label for="documento" class="labelForm">Documento*</label>
-                                <input type="text" name="documento" class="form-control inputForm" [ngClass]="{'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="eppTracking.documento" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Ingrese el número de documento del colaborador">
-                                <small class="invalid-feedback d-block font-weight-bold"  *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>
+                                <form #searchForm="ngForm" (ngSubmit)="searchThirdUser()">
+                                    <div class="col col-sm-12 col-lg-9 d-inline-block pl-0 align-top">
+                                        <label for="documento" class="labelForm">Documento*</label>
+                                        <input type="text" name="documento" class="form-control inputForm" [ngClass]="{'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="eppTracking.documento" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Ingrese el número de documento del colaborador">
+                                    </div>
+                                    <div class="col col-sm-12 col-lg-3 d-inline-block pr-0 align-bottom">
+                                        <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                                    </div>
+                                    <small class="invalid-feedback d-block font-weight-bold"  *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>   
+                                     
+                                </form>
                             </div>
+                            <small class="invalid-feedback d-block font-weight-bold col col-sm-12"  *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
                         </div>
                         <div class="form-group">
-                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                            <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="searchPreloaderStatus"><fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon></div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="!searchPreloaderStatus">
                                 <label for="nombre" class="labelForm">Nombre completo*</label>
-                                <input type="text" name="nombre" class="form-control inputForm" [ngClass]="{'is-invalid': nombre.touched && nombre.invalid}" #nombre="ngModel" [(ngModel)]="eppTracking.nombre" (ngModelChange)="eppTracking.nombre=upperCase($event)" required pattern="[a-zA-ZÀ-ÿ ]+" maxlength="200" placeholder="Ingrese el nombre completo del colaborador">
+                                <input type="text" name="nombre" class="form-control inputForm" [ngClass]="{'is-invalid': nombre.touched && nombre.invalid}" #nombre="ngModel" [(ngModel)]="eppTracking.nombre" (ngModelChange)="eppTracking.nombre=upperCase($event)" required pattern="[a-zA-ZÀ-ÿ ]+" maxlength="200" placeholder="Ingrese el nombre completo del colaborador">                                
                                 <small class="invalid-feedback d-block font-weight-bold"  *ngIf="nombre.invalid && nombre.touched">Debe ingresar el nombre completo del colaborador. Solo se admiten letras. El campop es obligatorio</small>
                             </div>
                             <div class="col col-sm-12 col-lg-6 d-inline-block align-top">

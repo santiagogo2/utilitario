@@ -28,6 +28,7 @@ export class PacienteComponent implements OnInit {
 	@Output() public updateFlag: EventEmitter<any> = new EventEmitter();
 	@Output() public sendCase: EventEmitter<any> = new EventEmitter();
 	@Output() public loaded: EventEmitter<any> = new EventEmitter();
+	@Input() public documento: number;
 
 	public faSpinner = faSpinner;
 	public upzPreloaderStatus: boolean;
@@ -48,6 +49,7 @@ export class PacienteComponent implements OnInit {
 	public tipoDocumentos: Array<any>;
 	public nacionalidades: Array<any>;
 	public unidadesMedida: Array<any>;
+	public gruposEdad: Array<any>;
 	public sexos: Array<any>;
 	public pertenenciasEtnicas: Array<any>;
 	public gruposPoblacionales: Array<any>;
@@ -68,6 +70,7 @@ export class PacienteComponent implements OnInit {
 		this.tipoDocumentos = global.tipoDocumento;
 		this.nacionalidades = global.nacionalidades;
 		this.unidadesMedida = global.unidadMedida;
+		this.gruposEdad = global.gruposEdad;
 		this.sexos = global.sexo;
 		this.pertenenciasEtnicas = global.pertenenciaEtnica;
 		this.gruposPoblacionales = global.grupoPoblacional;
@@ -84,11 +87,14 @@ export class PacienteComponent implements OnInit {
 			segundoApellido: new FormControl( null, [ Validators.pattern('[a-zA-ZÀ-ÿ ]+') ]),
 			edad: new FormControl( null, [ Validators.required, Validators.pattern('[0-9]+') ]),
 			unidadMedida: new FormControl( 1, [ Validators.required ]),
+			grupoEdad: new FormControl( null, [ Validators.required ]),
 			sexo: new FormControl( null, [ Validators.required ]),
 			nacionalidad: new FormControl( 1, [ Validators.required ]),
 			ocupacion: new FormControl( null, [ Validators.required ]),
 			pertenenciaEtnica: new FormControl( null, [ Validators.required ]),
+			grupoEtnico: new FormControl( null ),
 			grupoPoblacional: new FormControl( null, [ Validators.required ]),
+			semanasGestacion: new FormControl( null ),
 			direccion: new FormControl( null, [ Validators.required ]),
 			barrio: new FormControl( null, [ Validators.required ]),
 			location: new FormControl( null, [ Validators.required ]),
@@ -103,9 +109,16 @@ export class PacienteComponent implements OnInit {
 		Promise.all([this.insurersList(), this.locationsList()])
 			   .then( resp => {
 			   		this.insurers = resp[0];
-					   this.localidades = resp[1];
-					   this.loadedInfo = true;
-					   this.loaded.emit(this.loadedInfo);
+					this.localidades = resp[1];
+					if( this.documento ){
+						this.patientForm.patchValue({
+							documento: this.documento
+						});
+						this.patientForm.controls.documento.disable();
+						this.searchPatient();
+					}
+					this.loadedInfo = true;
+					this.loaded.emit(this.loadedInfo);
 			   })
 			   .catch( error => {
 			   		this.sendError.emit(error);
@@ -131,9 +144,46 @@ export class PacienteComponent implements OnInit {
 		this.patientForm.get('barrio').valueChanges.subscribe( value => {
 			this.patientForm.get('barrio').patchValue(this.upperCase(value), {emitEvent:false});
 		});
+		this.patientForm.get('grupoEtnico').valueChanges.subscribe( value => {
+			this.patientForm.get('grupoEtnico').patchValue(this.upperCase(value), {emitEvent:false});
+		});
+		this.patientForm.get('edad').valueChanges.subscribe( value => {
+			let unidadMedida = this.patientForm.value.unidadMedida;
+			let age = this.transformAge(value, unidadMedida);
+
+			this.patientForm.patchValue({
+				grupoEdad: this.setGrupoEdad(age),
+			});
+		});
+		this.patientForm.get('unidadMedida').valueChanges.subscribe( value => {
+			let age = this.patientForm.value.edad;
+			if(!age) return;
+			age = this.transformAge(age, value);
+
+			this.patientForm.patchValue({
+				grupoEdad: this.setGrupoEdad(age),
+			});
+		});
 		this.patientForm.valueChanges.subscribe( value => {
 			this.sendPatientForm.emit(this.patientForm);
+			if(!value.documento) {
+				this.indices = undefined;
+				this.contacts = undefined;
+			}
 		});
+		this.patientForm.get('pertenenciaEtnica').valueChanges.subscribe( value => {
+			if (value == 1) this.switchRequired('grupoEtnico', Validators.required);
+			else this.switchRequired('grupoEtnico', null);
+		});
+		this.patientForm.get('grupoPoblacional').valueChanges.subscribe( value => {
+			if (value == 3) this.switchRequired('semanasGestacion', Validators.required);
+			else this.switchRequired('semanasGestacion', null);
+		});
+	}
+	
+	switchRequired(campo, requerido){
+		this.patientForm.get(campo).setValidators(requerido);
+		this.patientForm.get(campo).updateValueAndValidity({emitEvent:false, onlySelf:true});
 	}
 
 	getUpzs(){
@@ -164,10 +214,15 @@ export class PacienteComponent implements OnInit {
 
 	searchPatient(){
 		let patient: any;
+		let documento = this.patientForm.get('documento').value;
+
 		this.patientPreloaderStatus = true;
 		this.patienSearchResponseMessage = undefined;
-		let documento = this.patientForm.get('documento').value
+		this.indices = undefined;
+		this.contacts = undefined;
+
 		this.patientForm.reset();
+		this.patientForm.patchValue({documento:documento});
 
 		this._patientService.getPatientByDocument( documento, this.token ).subscribe(
 			res => {
@@ -202,11 +257,14 @@ export class PacienteComponent implements OnInit {
 			segundoApellido: patient.segundoApellido,
 			edad: patient.edad,
 			unidadMedida: patient.unidadMedida,
+			grupoEdad: patient.grupoEdad,
 			sexo: patient.sexo,
 			nacionalidad: patient.nacionalidad,
 			ocupacion: patient.ocupacion,
 			pertenenciaEtnica: patient.pertenenciaEtnica,
+			grupoEtnico: patient.grupoEtnico,
 			grupoPoblacional: patient.grupoPoblacional,
+			semanasGestacion: patient.semanasGestacion,
 			direccion: patient.direccion,
 			barrio: patient.barrio,
 			location: location_id,
@@ -220,7 +278,7 @@ export class PacienteComponent implements OnInit {
 		this._contactService.getMyIndiceCases( id, this.token ).subscribe(
 			res => {
 				if( res.status == 'success' ){
-					this.indices = res.contacts;
+					this.indices = res.contacts.length > 0 ? res.contacts:undefined;
 				}
 			}
 		);
@@ -230,7 +288,7 @@ export class PacienteComponent implements OnInit {
 		this._contactService.getMyContacts( id, this.token ).subscribe(
 			res => {
 				if( res.status == 'success' ){
-					this.contacts = res.contacts;
+					this.contacts = res.contacts.length > 0 ? res.contacts:undefined;
 				}
 			}
 		);
@@ -239,6 +297,23 @@ export class PacienteComponent implements OnInit {
 	upperCase($event){
 		if($event) return $event.toUpperCase();
 		else return null;
+	}
+
+	setGrupoEdad(edad){
+		if( edad < 1 ) return 1;
+		if( edad >= 1 && edad < 2 ) return 2;
+		if( edad >= 2 && edad < 5 ) return 3;
+		if( edad >= 5 && edad < 20 ) return 4;
+		if( edad >= 20 && edad < 40 ) return 5;
+		if( edad >= 40 && edad < 60  ) return 6;
+		if( edad >= 60  ) return 7;
+		return null;
+	}
+
+	transformAge(age, unidadMedida){
+		age = unidadMedida == 2 ? age/12:age;
+		age = unidadMedida == 3 ? age/365:age;
+		return age;
 	}
 
 	//==========================================================================

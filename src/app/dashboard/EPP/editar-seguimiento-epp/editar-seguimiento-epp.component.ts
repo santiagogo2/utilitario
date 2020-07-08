@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert';
 
 // Services
-import { EppTrackingService, global, ProfileService, UnitService, UserService } from 'src/app/services/service.index';
+import { DinamicaService, EppTrackingService, global, ProfileService, UnitService, UserService } from 'src/app/services/service.index';
 
 // Models
 import { EppTracking } from 'src/app/models/model.index';
@@ -13,6 +14,7 @@ import { EppTracking } from 'src/app/models/model.index';
 	templateUrl: '../registrar-seguimiento-epp/registrar-seguimiento-epp.component.html',
 	styles: [],
 	providers: [
+		DinamicaService,
 		EppTrackingService,
 		ProfileService,
 		UnitService,
@@ -23,6 +25,9 @@ export class EditarSeguimientoEppComponent implements OnInit {
 	public status: string;
 	public responseMessage: string;
 	public preloaderStatus: boolean;
+	public searchResponseMessage: string;
+	public searchPreloaderStatus: boolean;
+	public faSpinner = faSpinner;
 	public buttonText: string;
 	public actualDate: string;
 
@@ -35,6 +40,7 @@ export class EditarSeguimientoEppComponent implements OnInit {
 	public epps: Array<any>;
 
 	constructor(
+		private _dinamicaService: DinamicaService,
 		private _eppTrackingService: EppTrackingService,
 		private _profileService: ProfileService,
 		private _unitService: UnitService,
@@ -102,6 +108,26 @@ export class EditarSeguimientoEppComponent implements OnInit {
 
 				swal('Error', this.responseMessage, 'error');
 				console.log(<any>error);
+			}
+		);
+	}
+
+	searchThirdUser(){
+		this.searchPreloaderStatus = true;
+		this.searchResponseMessage = undefined;
+
+		this._dinamicaService.getByTernumdoc( this.eppTracking.documento ).subscribe(
+			res => {
+				this.searchPreloaderStatus = false;
+				if( res.status == 'success' ){
+					this.eppTracking.nombre = res.third.TERNOMCOM;
+				}
+			},
+			error => {
+				this.eppTracking.nombre = null;
+				this.searchPreloaderStatus = false;
+				this.searchResponseMessage = error.error.message;
+				console.log(<any> error);
 			}
 		);
 	}
