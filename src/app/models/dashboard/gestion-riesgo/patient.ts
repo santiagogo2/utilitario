@@ -20,7 +20,9 @@ export class Patient {
 		public UPZ_id: number,
 		public nacionalidad: string,
 		public telefono: number,
+		public otroTelefono: number,
 		public insurers_id: number,
 		public ocupacion: number,
+		public tipoRegimen: number,
 	){}
 }

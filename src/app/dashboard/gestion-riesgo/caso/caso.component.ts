@@ -25,9 +25,12 @@ export class CasoComponent implements OnInit {
 
 	public auxiliares: Array<any>;
 	public clasificaciones: Array<any>;
+	public condicionesIEC: Array<any>;
 	public estados: Array<any>;
 	public estadosFinal: Array<any>;
+	public eventos: Array<any>;
 	public fuenteContagios: Array<any>;
+	public fuentesNotificacion: Array<any>;
 	public profesionales: Array<any>;
 	public respuestas: Array<any>;
 	public upgds: any;
@@ -42,9 +45,12 @@ export class CasoComponent implements OnInit {
 		
 		this.auxiliares = global.auxiliares;
 		this.clasificaciones = global.clasificacionCaso;
+		this.condicionesIEC = global.condicionesIEC;
 		this.estados = global.estados;
 		this.estadosFinal = global.estadosFinal;
+		this.eventos = global.eventos;
 		this.fuenteContagios = global.fuenteContagio;
+		this.fuentesNotificacion = global.fuentesNotificacion;
 		this.profesionales = global.profesionales;
 		this.respuestas = global.respuestas;
 	}
@@ -52,18 +58,22 @@ export class CasoComponent implements OnInit {
 	ngOnInit(): void {
 		this.caseForm = new FormGroup({
 			clasificacionCaso: new FormControl( null, [Validators.required] ),
+			fechaRadicado: new FormControl( null, [Validators.required] ),
 			numeroRadicado: new FormControl( null, [Validators.required, Validators.pattern('[0-9]+')] ),
 			fechaNotificacion: new FormControl( null, [Validators.required] ),
-			fechaRecepcion: new FormControl( null, [Validators.required] ),
 			upgd: new FormControl( null, [Validators.required] ),
-			fechaAsignacionCaso: new FormControl( null, [Validators.required] ),
+			fuenteNotificacion: new FormControl( null, [Validators.required] ),
 			fechaConsultaPersona: new FormControl( null, [Validators.required] ),
-			fechaHospitalizacion: new FormControl( null, [Validators.required] ),
-			fechaAsignacion: new FormControl( null, [Validators.required] ),
+			evento: new FormControl( 2, [Validators.required] ),
+			fechaHospitalizacion: new FormControl( null ),
 			asignacionProfesional: new FormControl( null, [Validators.required] ),
+			fechaProfesional: new FormControl( null, [Validators.required] ),
 			asignacionAuxiliar: new FormControl( null, [Validators.required] ),
+			fechaAuxiliar: new FormControl( null, [Validators.required] ),
 			searchIEC: new FormControl( null, [Validators.required] ),
 			fechaIEC: new FormControl( null ),
+			condicionIEC: new FormControl( null ),
+			observacionIEC: new FormControl( null ),
 			antecedenteViaje: new FormControl( null, [Validators.required] ),
 			lugarViaje: new FormControl( null ),
 			fuenteContagio: new FormControl( null, [Validators.required] ),
@@ -95,13 +105,29 @@ export class CasoComponent implements OnInit {
 		this.caseForm.get('lugarViaje').valueChanges.subscribe( value => {
 			this.caseForm.get('lugarViaje').patchValue(this.upperCase(value), {emitEvent:false});
 		});
+		this.caseForm.get('observacionIEC').valueChanges.subscribe( value => {
+			this.caseForm.get('observacionIEC').patchValue(this.upperCase(value), {emitEvent:false});
+		});
 		this.caseForm.get('searchIEC').valueChanges.subscribe( value => {
-			if (value == 1) this.switchRequired('fechaIEC', Validators.required);
-			else this.switchRequired('fechaIEC', null);
+			if (value == 1){
+				this.switchRequired('fechaIEC', Validators.required);
+				this.switchRequired('condicionIEC', Validators.required);
+			} else {
+				this.switchRequired('fechaIEC', null);
+				this.switchRequired('condicionIEC', null);
+			}
+		});
+		this.caseForm.get('condicionIEC').valueChanges.subscribe( value => {
+			if (value == 2) this.switchRequired('observacionIEC', Validators.required);
+			else this.switchRequired('observacionIEC', null);
 		});
 		this.caseForm.get('antecedenteViaje').valueChanges.subscribe( value => {
 			if (value == 1) this.switchRequired('lugarViaje', Validators.required);
 			else this.switchRequired('lugarViaje', null);
+		});
+		this.caseForm.get('evento').valueChanges.subscribe( value => {
+			if (value == 3) this.switchRequired('fechaHospitalizacion', Validators.required);
+			else this.switchRequired('fechaHospitalizacion', null);
 		});
 		this.caseForm.valueChanges.subscribe( value => {
 			this.sendCaseForm.emit(this.caseForm);
@@ -110,24 +136,29 @@ export class CasoComponent implements OnInit {
 	
 	switchRequired(campo, requerido){
 		this.caseForm.get(campo).setValidators(requerido);
+		if( !requerido ) this.caseForm.get(campo).setValue(null);
 		this.caseForm.get(campo).updateValueAndValidity({emitEvent:false, onlySelf:true});
 	}
 
 	setCaseValues(){
 		this.caseForm.setValue({
 			clasificacionCaso: this.caso.clasificacionCaso,
+			fechaRadicado: this.caso.fechaRadicado,
 			numeroRadicado: this.caso.numeroRadicado,
 			fechaNotificacion: this.caso.fechaNotificacion,
-			fechaRecepcion: this.caso.fechaRecepcion,
 			upgd: this.caso.UPGD_id,
-			fechaAsignacionCaso: this.caso.fechaAsignacion,
+			fuenteNotificacion: this.caso.fuenteNotificacion,
 			fechaConsultaPersona: this.caso.fechaConsultaPersona,
+			evento: this.caso.evento,
 			fechaHospitalizacion: this.caso.fechaHospitalizacion,
-			fechaAsignacion: this.caso.fechaAsignacion,
 			asignacionProfesional: this.caso.asignacionProfesional,
+			fechaProfesional: this.caso.fechaProfesional,
 			asignacionAuxiliar: this.caso.asignacionAuxiliar,
+			fechaAuxiliar: this.caso.fechaAuxiliar,
 			searchIEC: this.caso.IEC,
 			fechaIEC: this.caso.fechaIEC,
+			observacionIEC: this.caso.observacionIEC,
+			condicionIEC: this.caso.condicionIEC,
 			antecedenteViaje: this.caso.antecedenteViaje,
 			lugarViaje: this.caso.lugarViaje,
 			fuenteContagio: this.caso.fuenteContagio,

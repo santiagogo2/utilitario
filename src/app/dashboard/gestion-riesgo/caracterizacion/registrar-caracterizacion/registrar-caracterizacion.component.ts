@@ -52,7 +52,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		this.esContacto = 2;
 
 		this.token = this._userService.getToken();
-		this.patient = new Patient(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+		this.patient = new Patient(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
 		this.caso = undefined;
 
 		this.tipoCasos = global.tipoCasos;
@@ -68,10 +68,11 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		// Paciente
 		let formValue = this.patientForm.value;
 		let patient: Patient = new Patient(null,formValue.documento,formValue.tipoDocumento,formValue.primerNombre,formValue.segundoNombre,
-										   formValue.primerApellido,formValue.segundoApellido, formValue.edad, formValue.unidadMedida, formValue.grupoEdad,
-										   formValue.sexo, formValue.pertenenciaEtnica, formValue.grupoEtnico, formValue.grupoPoblacional, formValue.semanasGestacion,
-										   formValue.direccion, formValue.barrio, formValue.upz, formValue.nacionalidad, formValue.telefono, formValue.insurer,
-										   formValue.ocupacion);
+										   formValue.primerApellido,formValue.segundoApellido, formValue.edad, formValue.unidadMedida,
+										   formValue.grupoEdad, formValue.sexo, formValue.pertenenciaEtnica, formValue.grupoEtnico,
+										   formValue.grupoPoblacional, formValue.semanasGestacion, formValue.direccion, formValue.barrio,
+										   formValue.upz, formValue.nacionalidad, formValue.telefono, formValue.otroTelefono, formValue.insurer,
+										   formValue.ocupacion, formValue.tipoRegimen);
 
 		patient.documento = this.documento ? this.documento:patient.documento;
 		if(this.idPatient){
@@ -116,10 +117,11 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		this.status = undefined;
 		this.preloaderStatus = true;
 		let caseValue = this.caseForm.value;
-		let caso: Caso = new Caso(null, patientId, caseValue.clasificacionCaso, caseValue.numeroRadicado, caseValue.fechaNotificacion, caseValue.fechaRecepcion,
-			caseValue.upgd, caseValue.fechaAsignacionCaso, caseValue.fechaConsultaPersona, caseValue.fechaHospitalizacion,
-			caseValue.fechaAsignacion, caseValue.asignacionProfesional, caseValue.asignacionAuxiliar, caseValue.searchIEC,
-			caseValue.fechaIEC, caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.fechaInicioSintomas,
+		let caso: Caso = new Caso(null, patientId, caseValue.clasificacionCaso, caseValue.fechaRadicado, caseValue.numeroRadicado,
+			caseValue.fechaNotificacion, caseValue.upgd, caseValue.fuenteNotificacion, caseValue.fechaConsultaPersona, caseValue.evento,
+			caseValue.fechaHospitalizacion, caseValue.asignacionProfesional, caseValue.fechaProfesional, caseValue.asignacionAuxiliar,
+			caseValue.fechaAuxiliar, caseValue.searchIEC, caseValue.fechaIEC, caseValue.condicionIEC, caseValue.observacionIEC,
+			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.fechaInicioSintomas,
 			caseValue.fechaDiagnostico, caseValue.estadoPersona, caseValue.estadoFinal);
 
 		this._caseService.newCase( caso, this.token ).subscribe(
@@ -194,10 +196,11 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		this.preloaderStatus = true;
 		// Caso	
 		let caseValue = this.caseForm.value;					   
-		this.caso = new Caso(this.caso.id, patientId, caseValue.clasificacionCaso, caseValue.numeroRadicado, caseValue.fechaNotificacion, caseValue.fechaRecepcion,
-			caseValue.upgd, caseValue.fechaAsignacionCaso, caseValue.fechaConsultaPersona, caseValue.fechaHospitalizacion,
-			caseValue.fechaAsignacion, caseValue.asignacionProfesional, caseValue.asignacionAuxiliar, caseValue.searchIEC,
-			caseValue.fechaIEC, caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.fechaInicioSintomas,
+		this.caso = new Caso(this.caso.id, patientId, caseValue.clasificacionCaso, caseValue.fechaRadicado, caseValue.numeroRadicado,
+			caseValue.fechaNotificacion, caseValue.upgd, caseValue.fuenteNotificacion, caseValue.fechaConsultaPersona, caseValue.evento,
+			caseValue.fechaHospitalizacion, caseValue.asignacionProfesional, caseValue.fechaProfesional, caseValue.asignacionAuxiliar,
+			caseValue.fechaAuxiliar, caseValue.searchIEC, caseValue.fechaIEC, caseValue.condicionIEC, caseValue.observacionIEC,
+			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.fechaInicioSintomas,
 			caseValue.fechaDiagnostico, caseValue.estadoPersona, caseValue.estadoFinal);
 			
 		this._caseService.updateCase( this.caso, this.token ).subscribe(
@@ -240,8 +243,8 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		this.preloaderStatus = true;
 		let contactValue = this.contactForm.value;
 		
-		let contact: Contact = new Contact(null,patientId,contactValue.pacienteIndice,contactValue.tipoContacto,contactValue.vinculo,
-										  contactValue.brote);
+		let contact: Contact = new Contact(null,patientId,contactValue.pacienteIndice, contactValue.ultimoContacto, contactValue.tipoContacto,
+										  contactValue.vinculo, contactValue.brote, contactValue.tipoBrote);
 		this.status = undefined;
 
 		this._contactService.newContact( contact, this.token ).subscribe(
@@ -283,6 +286,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 	}
 	recieveCase(caso){
 		this.caso = caso;
+		console.log(this.caso);
 		this.tipoCaso = 1;
 	}
 

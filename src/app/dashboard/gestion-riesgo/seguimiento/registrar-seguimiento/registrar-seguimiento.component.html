@@ -71,14 +71,20 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col col-sm-12 d-block">
+                            <div class="col col-sm-12 d-inline-block" [ngClass]="{'col-lg-6': follow.tipoSeguimiento == 1}">
                                 <label for="tipoSeguimiento" class="labelForm">Tipo de seguimiento*</label>
-                                <select style="background-position-x: 98%" name="tipoSeguimiento" class="form-control inputForm" [ngClass]="{'is-invalid': tipoSeguimiento.invalid && tipoSeguimiento.touched}" #tipoSeguimiento="ngModel" [(ngModel)]="follow.tipoSeguimiento" required>
+                                <select style="background-position-x: 98%" name="tipoSeguimiento" class="form-control inputForm" [ngClass]="{'is-invalid': tipoSeguimiento.invalid && tipoSeguimiento.touched}" #tipoSeguimiento="ngModel" [(ngModel)]="follow.tipoSeguimiento" required (ngModelChange)="setNull()">
 									<option *ngFor="let tipo of tiposSeguimiento" value="{{ tipo.id }}">{{ tipo.name }}</option>
 								</select>
                             </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block" *ngIf="follow.tipoSeguimiento == 1">
+                                <label for="condicion" class="labelForm">Condición*</label>
+                                <select style="background-position-x: 98%" name="condicion" class="form-control inputForm" [ngClass]="{'is-invalid': condicion.invalid && condicion.touched}" #condicion="ngModel" [(ngModel)]="follow.condicion" required (ngModelChange)="setNull()">
+                                    <option *ngFor="let condicion of condiciones" value="{{ condicion.id }}">{{ condicion.name }}</option>
+                                </select>
+                            </div>
                         </div>
-                        <div *ngIf="follow.tipoSeguimiento == 1">
+                        <div *ngIf="follow.tipoSeguimiento == 1 && follow.condicion != 3">
                             <div class="form-group">
                                 <div class="col col-sm-12 d-block">
                                     <label for="asintomatico" class="labelForm">El paciente es asintomático*</label>
@@ -114,12 +120,16 @@
                                     <label for="odinofagia">¿El paciente tiene odinofagia?</label>
                                 </div>
                                 <div class="col col-sm-12 d-block" style="margin-left: 30px;">
-                                    <input type="checkbox" name="fatiga" #fatiga="ngModel" [(ngModel)]="follow.fatiga" class="form-check-input" id="fatiga" style="margin-top: 6px;">
-                                    <label for="fatiga">¿El paciente tiene fatiga?</label>
+                                    <input type="checkbox" name="diarrea" #diarrea="ngModel" [(ngModel)]="follow.diarrea" class="form-check-input" id="diarrea" style="margin-top: 6px;">
+                                    <label for="diarrea">¿El paciente tiene diarrea?</label>
                                 </div>
                                 <div class="col col-sm-12 d-block" style="margin-left: 30px;">
-                                    <input type="checkbox" name="vivo" #vivo="ngModel" [(ngModel)]="follow.vivo" class="form-check-input" id="vivo" style="margin-top: 6px;">
-                                    <label for="vivo">¿El paciente se encuentra vivo?</label>
+                                    <input type="checkbox" name="vomito" #vomito="ngModel" [(ngModel)]="follow.vomito" class="form-check-input" id="vomito" style="margin-top: 6px;">
+                                    <label for="vomito">¿El paciente tiene vómito?</label>
+                                </div>
+                                <div class="col col-sm-12 d-block" style="margin-left: 30px;">
+                                    <input type="checkbox" name="fatiga" #fatiga="ngModel" [(ngModel)]="follow.fatiga" class="form-check-input" id="fatiga" style="margin-top: 6px;">
+                                    <label for="fatiga">¿El paciente tiene fatiga?</label>
                                 </div>
                                 <div class="col col-sm-12 d-block" style="margin-left: 30px;">
                                     <input type="checkbox" name="otroSintoma" #otroSintoma="ngModel" [(ngModel)]="follow.otroSintoma" class="form-check-input" id="otroSintoma" style="margin-top: 6px;">

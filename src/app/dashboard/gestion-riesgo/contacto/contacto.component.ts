@@ -36,6 +36,8 @@ export class ContactoComponent implements OnInit {
 
 	public respuestas: Array<any>;
 	public tipoContactos: Array<any>;
+	public tiposBrote: Array<any>;
+	public ultimosContactos: Array<any>;
 	public vinculos: Array<any>;
 
 	constructor(
@@ -47,6 +49,8 @@ export class ContactoComponent implements OnInit {
 
 		this.respuestas = global.respuestas;
 		this.tipoContactos = global.tipoContactos;
+		this.tiposBrote = global.tiposBrote;
+		this.ultimosContactos = global.ultimosContactos;
 		this.vinculos = global.vinculos;
 	}
 
@@ -54,17 +58,29 @@ export class ContactoComponent implements OnInit {
 		this.contactForm = new FormGroup({
 			parametro: new FormControl( null, [Validators.required, Validators.pattern('[0-9]+')] ),
 			pacienteIndice: new FormControl( null, [Validators.required] ),
+			ultimoContacto: new FormControl( null, [Validators.required] ),
 			tipoContacto: new FormControl( null, [Validators.required] ),
 			vinculo: new FormControl( null, [Validators.required] ),
 			brote: new FormControl( null, [Validators.required] ),
+			tipoBrote: new FormControl( null ),
 		});
 		this.setObservables();
 	}
 
 	setObservables(){
+		this.contactForm.get('brote').valueChanges.subscribe( value => {
+			if (value == 1) this.switchRequired('tipoBrote', Validators.required);
+			else this.switchRequired('tipoBrote', null);
+		});
 		this.contactForm.valueChanges.subscribe( value => {
 			this.sendContactForm.emit(this.contactForm);
 		});
+	}
+	
+	switchRequired(campo, requerido){
+		this.contactForm.get(campo).setValidators(requerido);
+		if( !requerido ) this.contactForm.get(campo).setValue(null);
+		this.contactForm.get(campo).updateValueAndValidity({emitEvent:false, onlySelf:true});
 	}
 
 	searchPatient(){

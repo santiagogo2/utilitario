@@ -38,6 +38,7 @@ export class EditarSeguimientoComponent implements OnInit {
 	public patientSelectedId: number;
 	public selectedPatient: any;
 
+	public condiciones: Array<any>;
 	public tiposSeguimiento: Array<any>;
 	public respuestas: Array<any>;
 	public estadosFinal: Array<any>;
@@ -59,6 +60,7 @@ export class EditarSeguimientoComponent implements OnInit {
 		
 		this.token = this._userService.getToken();
 
+		this.condiciones = global.condiciones;
 		this.tiposSeguimiento = global.tiposSeguimiento;
 		this.respuestas = global.respuestas;
 		this.estadosFinal = global.estadosFinal;
@@ -149,8 +151,44 @@ export class EditarSeguimientoComponent implements OnInit {
 		);
 	}
 
+	setNull(){
+		if( this.follow.tipoSeguimiento == 2 ){
+			this.follow.condicion = null;
+			this.follow.asintomatico = null;
+			this.follow.estadoPaciente = null;
+			this.follow.estadoFinal = null;
+			this.setSymptomsNull();
+			return;
+		}
+		if( this.follow.condicion == 3 ){
+			this.follow.asintomatico = null;
+			this.follow.estadoPaciente = null;
+			this.follow.estadoFinal = null;
+			this.setSymptomsNull();
+			return;
+		}
+		
+	}
+
 	cambiarEstado(){
 		this.follow.estadoPaciente = this.follow.asintomatico == 1 ? 1:2;
+		if( this.follow.asintomatico == 1 ){
+			this.setSymptomsNull();
+		}
+	}
+
+	setSymptomsNull(){
+		this.follow.fiebre = null;
+		this.follow.valorFiebre = null;
+		this.follow.tos = null;
+		this.follow.cefalea = null;
+		this.follow.dificultadRespiratoria = null;
+		this.follow.odinofagia = null;
+		this.follow.diarrea = null;
+		this.follow.vomito = null;
+		this.follow.fatiga = null;
+		this.follow.otroSintoma = null;
+		this.follow.valorOtroSintoma = null;
 	}
 
 	setMaxDate(){

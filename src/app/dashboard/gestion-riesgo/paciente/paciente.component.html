@@ -59,13 +59,13 @@
 				<option *ngFor="let unidad of unidadesMedida" value="{{ unidad.id }}">{{ unidad.name }}</option>
 			</select>
         </div>
-        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+        <div class="col col-sm-12 col-lg-5 d-inline-block align-top">
             <label for="grupoEdad" class="labelForm">Grupo de Edad*</label>
             <select style="background-position-x: 93%" formControlName="grupoEdad" name="grupoEdad" class="form-control inputForm" [ngClass]="{'is-invalid': patientForm.controls.grupoEdad.invalid && patientForm.controls.grupoEdad.touched}" required disabled>
                 <option *ngFor="let grupo of gruposEdad" value="{{ grupo.id }}">{{ grupo.name }}</option>
             </select>
         </div>
-        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+        <div class="col col-sm-12 col-lg-2 d-inline-block align-top">
             <label for="sexo" class="labelForm">Sexo*</label>
             <select style="background-position-x: 93%" formControlName="sexo" name="sexo" class="form-control inputForm" [ngClass]="{'is-invalid': patientForm.controls.sexo.invalid && patientForm.controls.sexo.touched}" required>
 				<option *ngFor="let sexo of sexos" value="{{ sexo.id }}">{{ sexo.value }}</option>
@@ -107,7 +107,7 @@
         </div>
         <div class="col col-sm-12 col-lg-3 d-inline-block align-top" *ngIf="patientForm.controls.grupoPoblacional.value==3">
             <label for="semanasGestacion" class="labelForm">Semanas de Gestación*</label>
-            <input type="text" formControlName="semanasGestacion" name="semanasGestacion" class="form-control inputForm" [ngClass]="{'is-invalid': patientForm.controls.semanasGestacion.touched && patientForm.controls.semanasGestacion.invalid}" maxlength="2" placeholder="Ingrese las semanas totales de gestación">
+            <input type="text" formControlName="semanasGestacion" name="semanasGestacion" class="form-control inputForm" [ngClass]="{'is-invalid': patientForm.controls.semanasGestacion.touched && patientForm.controls.semanasGestacion.invalid}" pattern="[0-9]+" maxlength="2" placeholder="Ingrese las semanas totales de gestación">
         </div>
     </div>
     <div class="form-group">
@@ -139,15 +139,25 @@
         <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="upzSearchResponseMessage"><small class="invalid-feedback d-block">{{ upzSearchResponseMessage }}</small></div>
     </div>
     <div class="form-group">
-        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
-            <label for="telefono" class="labelForm">Telefono*</label>
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+            <label for="telefono" class="labelForm">Teléfono*</label>
             <input type="text" formControlName="telefono" name="telefono" class="form-control inputForm" [ngClass]="{ 'is-invalid': patientForm.controls.telefono.touched && patientForm.controls.telefono.invalid}" maxlength="10" pattern="[0-9]+" required>
         </div>
-        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+            <label for="otroTelefono" class="labelForm">Otro Teléfono</label>
+            <input type="text" formControlName="otroTelefono" name="otroTelefono" class="form-control inputForm" [ngClass]="{ 'is-invalid': patientForm.controls.otroTelefono.touched && patientForm.controls.otroTelefono.invalid}" maxlength="10" pattern="[0-9]+">
+        </div>
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
             <label for="insurer" class="labelForm">Aseguradora*</label>
             <select style="background-position-x: 93%" formControlName="insurer" name="insurer" id="insurer" class="form-control inputForm" [ngClass]="{'is-invalid': patientForm.controls.insurer.invalid && patientForm.controls.insurer.touched}" required>
 				<option *ngFor="let insurer of insurers" value="{{ insurer.id }}">{{ insurer.name }}</option>
 			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+            <label for="tipoRegimen" class="labelForm">Tipo de Régimen*</label>
+            <select style="background-position-x: 93%" formControlName="tipoRegimen" name="tipoRegimen" id="tipoRegimen" class="form-control inputForm" [ngClass]="{'is-invalid': patientForm.controls.tipoRegimen.invalid && patientForm.controls.tipoRegimen.touched}" required>
+                <option *ngFor="let tipo of tiposRegimen" value="{{ tipo.id }}">{{ tipo.name }}</option>
+            </select>
         </div>
     </div>
 </form>

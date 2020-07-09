@@ -49,10 +49,10 @@ export var global = {
 
 	clasificacionCaso: [
 		{ id: 1, name: 'POSITIVO' },
-		{ id: 2, name: 'CONTACTOS SEGUIMIENTO' },
-		{ id: 3, name: 'SOSPECHOSOS' },
-		{ id: 4, name: 'BROTE' },
-		{ id: 5, name: 'DESPLEGABLE' },
+		{ id: 2, name: 'SEGUIMIENTO DE CONTACTOS' },
+		{ id: 3, name: 'PROBABLE' },
+		{ id: 4, name: 'DESCARTADO' },
+		{ id: 5, name: 'BROTE' },
 	],
 	unidadMedida: [
 		{ id: 1, name: 'AÑOS' },
@@ -109,7 +109,7 @@ export var global = {
 		{ id: 6, name: 'OTRO' },
 	],
 	vinculos: [
-		{ id: 1, name: 'CASO' },
+		{ id: 1, name: 'CASO INDICE' },
 		{ id: 2, name: 'PADRE' },
 		{ id: 3, name: 'MADRE' },
 		{ id: 4, name: 'HERMAN@' },
@@ -176,5 +176,47 @@ export var global = {
 	estadoPaciente: [
 		{ id: 1, name: 'SANO' },
 		{ id: 2, name: 'ENFERMO' },
-	]
+	],
+	eventos: [
+		{ id: 1, name: '345 - Vigilancia Centinela Enfermedad Similiar a influenza ESI - IRAG' },
+		{ id: 2, name: '346 - Infección Respiratoria Aguda por Virus Nuevo' },
+		{ id: 3, name: '348 - Infección Respiratoria Aguda Grave - IRAG - Inusitada' },
+	],
+	fuentesNotificacion: [
+		{ id: 1, name: 'NR - Notificación Rutinaria' },
+		{ id: 2, name: 'BAI - Busqueda Activa Institucional' },
+		{ id: 3, name: 'VI - Vigilancia Intensificada' },
+		{ id: 4, name: 'Busqueda Activa Comunitaria' },
+	],
+	condicionesIEC: [
+		{ id: 1, name: 'EFECTIVA' },
+		{ id: 2, name: 'FALLIDA' },
+		{ id: 3, name: 'INTERLOCAL NORTE' },
+		{ id: 4, name: 'INTERLOCAL CENTRO ORIENTE' },
+		{ id: 5, name: 'INTERLOCAL SUROCCIDENTE' },
+		{ id: 6, name: 'OTRA CIUDAD' },
+	],
+	tiposRegimen: [
+		{ id: 1, name: 'C: CONTRIBUTIVO' },
+		{ id: 2, name: 'E: ESPECIAL' },
+		{ id: 3, name: 'S: SUBSIDIADO' },
+		{ id: 4, name: 'P: EXCEPCIÓN' },
+		{ id: 5, name: 'N: NO ASEGURADO' },
+		{ id: 6, name: 'I: INDETERMINADO/PENDIENTE' },
+	],
+	tiposBrote: [
+		{ id: 1, name: 'BROTE FAMILIA' },
+		{ id: 2, name: 'BROTE RELACIONADO CON IPS' },
+		{ id: 3, name: 'BROTE INSTITUCIONAL' },
+	],
+	ultimosContactos: [
+		{ id: 1, name: '7 DÍAS O MENOS' },
+		{ id: 2, name: 'ENTRE 8 Y 14 DÍAS' },
+		{ id: 3, name: '15 DÍAS O MAS' },
+	],
+	condiciones: [
+		{ id: 1, name: 'DOMICILIO' },
+		{ id: 2, name: 'HOSPITALIZADO' },
+		{ id: 3, name: 'FALLECIDO' },
+	],
 }

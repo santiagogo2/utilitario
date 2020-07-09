@@ -46,14 +46,15 @@ export class PacienteComponent implements OnInit {
 	public indices: any;
 	public contacts: any;
 
-	public tipoDocumentos: Array<any>;
-	public nacionalidades: Array<any>;
-	public unidadesMedida: Array<any>;
 	public gruposEdad: Array<any>;
-	public sexos: Array<any>;
-	public pertenenciasEtnicas: Array<any>;
 	public gruposPoblacionales: Array<any>;
+	public nacionalidades: Array<any>;
 	public ocupaciones: Array<any>;
+	public pertenenciasEtnicas: Array<any>;
+	public sexos: Array<any>;
+	public tipoDocumentos: Array<any>;
+	public tiposRegimen: Array<any>;
+	public unidadesMedida: Array<any>;
 
 	constructor(
 		private _contactService: ContactService,
@@ -67,14 +68,15 @@ export class PacienteComponent implements OnInit {
 
 		this.token = this._userService.getToken();
 		
-		this.tipoDocumentos = global.tipoDocumento;
-		this.nacionalidades = global.nacionalidades;
-		this.unidadesMedida = global.unidadMedida;
 		this.gruposEdad = global.gruposEdad;
-		this.sexos = global.sexo;
-		this.pertenenciasEtnicas = global.pertenenciaEtnica;
 		this.gruposPoblacionales = global.grupoPoblacional;
+		this.nacionalidades = global.nacionalidades;
 		this.ocupaciones = global.ocupaciones;
+		this.pertenenciasEtnicas = global.pertenenciaEtnica;
+		this.sexos = global.sexo;
+		this.tipoDocumentos = global.tipoDocumento;
+		this.tiposRegimen = global.tiposRegimen;
+		this.unidadesMedida = global.unidadMedida;
 	}
 
 	ngOnInit(): void {
@@ -100,7 +102,9 @@ export class PacienteComponent implements OnInit {
 			location: new FormControl( null, [ Validators.required ]),
 			upz: new FormControl( null, [ Validators.required ]),
 			telefono: new FormControl( null, [ Validators.required, Validators.pattern('[0-9]+') ]),
+			otroTelefono: new FormControl( null, [ Validators.pattern('[0-9]+') ]),
 			insurer: new FormControl( null, [ Validators.required ]),
+			tipoRegimen: new FormControl( null, [ Validators.required ]),
 		});
 
 		this.changesString();
@@ -183,6 +187,7 @@ export class PacienteComponent implements OnInit {
 	
 	switchRequired(campo, requerido){
 		this.patientForm.get(campo).setValidators(requerido);
+		if( !requerido ) this.patientForm.get(campo).setValue(null);
 		this.patientForm.get(campo).updateValueAndValidity({emitEvent:false, onlySelf:true});
 	}
 
@@ -270,7 +275,9 @@ export class PacienteComponent implements OnInit {
 			location: location_id,
 			upz: patient.UPZ_id,
 			telefono: patient.telefono,
+			otroTelefono: patient.otroTelefono,
 			insurer: patient.insurers_id,
+			tipoRegimen: patient.tipoRegimen,
 		});
 	}
 

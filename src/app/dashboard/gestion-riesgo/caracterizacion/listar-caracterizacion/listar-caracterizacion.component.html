@@ -81,10 +81,10 @@
                                     <th>Documento</th>
                                     <th>Nombre Completo</th>
                                     <th>Clasificacion</th>
-                                    <th>Fecha Recepción</th>
+                                    <th>Fecha Notificación</th>
+                                    <th>Profesional Asignado</th>
                                     <th>Fecha Asignación</th>
                                     <th>Estado</th>
-                                    <th>Profesional Asignado</th>
                                     <th width="15%">Acción</th>
                                 </tr>
                             </thead>
@@ -95,10 +95,10 @@
                                     <td>{{ patient.primerNombre + ' ' + (patient.segundoNombre | isnull) + ' ' + patient.primerApellido + ' ' + (patient.segundoApellido | isnull) }}</td>
                                     <td colspan="5" *ngIf="!patient.caso">-</td>
                                     <td *ngIf="patient.caso">{{ patient.caso.clasificacionCaso | global:'clasificacionCaso' }}</td>
-                                    <td *ngIf="patient.caso">{{ patient.caso.fechaRecepcion }}</td>
-                                    <td *ngIf="patient.caso">{{ patient.caso.fechaAsignacionCaso }}</td>
-                                    <td *ngIf="patient.caso">{{ patient.caso.estadoFinal | global:'estadosFinal' }}</td>
+                                    <td *ngIf="patient.caso">{{ patient.caso.fechaNotificacion }}</td>
                                     <td *ngIf="patient.caso">{{ patient.caso.asignacionProfesional | global:'profesionales' }}</td>
+                                    <td *ngIf="patient.caso">{{ patient.caso.fechaProfesional }}</td>
+                                    <td *ngIf="patient.caso">{{ patient.caso.estadoFinal | global:'estadosFinal' }}</td>
                                     <td style="padding: 0.55rem">
                                         <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" (click)="setLocalStorageToRedirect(patient.documento)" *ngIf="patient.created_by==identity.sub || adminFlag">Editar</button>
                                         <button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+patient.id" *ngIf="adminFlag">Borrar</button>

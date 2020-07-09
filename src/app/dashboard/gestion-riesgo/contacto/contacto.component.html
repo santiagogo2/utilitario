@@ -22,6 +22,12 @@
     </div>
     <div class="form-group">
         <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+            <label for="ultimoContacto" class="labelForm">Último contacto con caso índice*</label>
+            <select style="background-position-x: 93%" formControlName="ultimoContacto" name="ultimoContacto" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.ultimoContacto.invalid && contactForm.controls.ultimoContacto.touched}" required>
+                <option *ngFor="let contacto of ultimosContactos" value="{{ contacto.id }}">{{ contacto.name }}</option>
+            </select>
+        </div>
+        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
             <label for="tipoContacto" class="labelForm">Tipo de contacto*</label>
             <select style="background-position-x: 93%" formControlName="tipoContacto" name="tipoContacto" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.tipoContacto.invalid && contactForm.controls.tipoContacto.touched}" required>
 				<option *ngFor="let tipo of tipoContactos" value="{{ tipo.id }}">{{ tipo.name }}</option>
@@ -33,11 +39,17 @@
 				<option *ngFor="let vinculo of vinculos" value="{{ vinculo.id }}">{{ vinculo.name }}</option>
 			</select>
         </div>
-        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+        <div class="col col-sm-12 d-inline-block align-top" [ngClass]="{'col-lg-6': contactForm.value.brote == 1}">
             <label for="brote" class="labelForm">¿Es un brote?*</label>
             <select style="background-position-x: 93%" formControlName="brote" name="brote" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.brote.invalid && contactForm.controls.brote.touched}" required>
 				<option *ngFor="let respuesta of respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 			</select>
+        </div>
+        <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="contactForm.value.brote == 1">
+            <label for="tipoBrote" class="labelForm">Tipo de Brote*</label>
+            <select style="background-position-x: 93%" formControlName="tipoBrote" name="tipoBrote" class="form-control inputForm" [ngClass]="{'is-invalid': contactForm.controls.tipoBrote.invalid && contactForm.controls.tipoBrote.touched}" required>
+                <option *ngFor="let tipo of tiposBrote" value="{{ tipo.id }}">{{ tipo.name }}</option>
+            </select>
         </div>
     </div>
 </form>
