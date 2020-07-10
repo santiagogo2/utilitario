@@ -1,4 +1,4 @@
-<div class="loaderBall" *ngIf="!patients && !responseMessage">
+<div class="loaderBall" *ngIf="!patients && !users && !responseMessage">
     <div class="ball-pulse-rise">
         <div></div>
         <div></div>
@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="row" *ngIf="patients">
+<div class="row" *ngIf="patients && users">
     <div class="col-sm-12">
         <div class="card border-0">
             <div class="card-body cardContainer">
@@ -96,7 +96,7 @@
                                     <td colspan="5" *ngIf="!patient.caso">-</td>
                                     <td *ngIf="patient.caso">{{ patient.caso.clasificacionCaso | global:'clasificacionCaso' }}</td>
                                     <td *ngIf="patient.caso">{{ patient.caso.fechaNotificacion }}</td>
-                                    <td *ngIf="patient.caso">{{ patient.caso.asignacionProfesional | global:'profesionales' }}</td>
+                                    <td *ngIf="patient.caso">{{ setProfesional( patient.caso.asignacionProfesional ) }}</td>
                                     <td *ngIf="patient.caso">{{ patient.caso.fechaProfesional }}</td>
                                     <td *ngIf="patient.caso">{{ patient.caso.estadoFinal | global:'estadosFinal' }}</td>
                                     <td style="padding: 0.55rem">

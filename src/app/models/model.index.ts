@@ -25,6 +25,7 @@
 		export { Sample } from './dashboard/gestion-riesgo/sample';
 		export { Patient } from './dashboard/gestion-riesgo/patient';
 		// Admin
+		export { Activity } from './admin/gestion-riesgo/activity';
 		export { Upgd } from './admin/gestion-riesgo/upgd';
 		export { Location } from './admin/gestion-riesgo/location';
 		export { Upz } from './admin/gestion-riesgo/upz';

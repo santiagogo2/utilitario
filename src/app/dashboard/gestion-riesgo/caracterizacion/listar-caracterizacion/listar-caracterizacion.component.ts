@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { PatientService, UserService } from '../../../../services/service.index';
 
 // Models
-import { Patient } from '../../../../models/model.index';
+import { Patient, User } from '../../../../models/model.index';
 
 @Component({
 	selector: 'app-listar-caracterizacion',
@@ -30,6 +30,7 @@ export class ListarCaracterizacionComponent implements OnInit {
 	public token: string;
 	public identity: any;
 	public patients: any;
+	public users: User[];
 
 	constructor(
 		private _patientService: PatientService,
@@ -50,6 +51,7 @@ export class ListarCaracterizacionComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.patients = undefined;
 		this.adminFlag = (this.identity.role=='ADMIN_ROLE' || this.identity.role=='ADMIN_GESTION_RIESGO_ROLE') ? true:false;
+		this.usersList();
 		this.patientsList();
 	}
 
@@ -73,6 +75,22 @@ export class ListarCaracterizacionComponent implements OnInit {
 		);
 	}
 
+	usersList(){
+		this._userService.userList( this.token ).subscribe(
+			res => {
+				if( res.status == 'success' ){
+					this.users = res.users;
+				}
+			},
+			error => {
+				this.searchLoaderStatus = false;
+				this.status = error.error.status;
+				this.responseMessage = error.error.message;
+				console.log( <any> error );
+			}
+		);
+	}
+
 	patientsList(){
 		this.searchLoaderStatus = true;
 		this.searchResponseMessage = undefined;
@@ -85,7 +103,6 @@ export class ListarCaracterizacionComponent implements OnInit {
 				}
 			},
 			error => {
-				this.searchLoaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log( <any> error );
@@ -117,6 +134,15 @@ export class ListarCaracterizacionComponent implements OnInit {
 	isIndice(caso){
 		if(caso) return 'SI';
 		return 'NO';
+	}
+
+	setProfesional(profesionalId){
+		console.log(profesionalId);
+		for(let i = 0; i < this.users.length; i++){
+			if( this.users[i].id == profesionalId ){
+				return this.users[i].name + ' ' + this.users[i].surname;
+			}
+		}
 	}
 
 	setLocalStorageToRedirect(documento){

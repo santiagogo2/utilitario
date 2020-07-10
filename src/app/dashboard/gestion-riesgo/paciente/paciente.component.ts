@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 // Services
-import { global, InsurerService, LocationService, PatientService, UpzService, UserService, ContactService } from '../../../services/service.index';
+import { ActivityService, global, InsurerService, LocationService, PatientService, UpzService, UserService, ContactService } from '../../../services/service.index';
 
 // Models
 import { Upz, Patient } from '../../../models/model.index';
@@ -13,6 +13,7 @@ import { Upz, Patient } from '../../../models/model.index';
 	templateUrl: './paciente.component.html',
 	styles: [],
 	providers: [
+		ActivityService,
 		ContactService,
 		InsurerService,
 		LocationService,
@@ -40,6 +41,7 @@ export class PacienteComponent implements OnInit {
 
 	public patientForm: FormGroup;
 	public token: string;
+	public activities: any;
 	public upzs: any;
 	public localidades: any;
 	public insurers: any;
@@ -49,7 +51,6 @@ export class PacienteComponent implements OnInit {
 	public gruposEdad: Array<any>;
 	public gruposPoblacionales: Array<any>;
 	public nacionalidades: Array<any>;
-	public ocupaciones: Array<any>;
 	public pertenenciasEtnicas: Array<any>;
 	public sexos: Array<any>;
 	public tipoDocumentos: Array<any>;
@@ -57,6 +58,7 @@ export class PacienteComponent implements OnInit {
 	public unidadesMedida: Array<any>;
 
 	constructor(
+		private _activityService: ActivityService,
 		private _contactService: ContactService,
 		private _insurerService: InsurerService,
 		private _locationService: LocationService,
@@ -71,7 +73,6 @@ export class PacienteComponent implements OnInit {
 		this.gruposEdad = global.gruposEdad;
 		this.gruposPoblacionales = global.grupoPoblacional;
 		this.nacionalidades = global.nacionalidades;
-		this.ocupaciones = global.ocupaciones;
 		this.pertenenciasEtnicas = global.pertenenciaEtnica;
 		this.sexos = global.sexo;
 		this.tipoDocumentos = global.tipoDocumento;
@@ -110,10 +111,11 @@ export class PacienteComponent implements OnInit {
 		this.changesString();
 
 		// Get all Promises
-		Promise.all([this.insurersList(), this.locationsList()])
+		Promise.all([this.insurersList(), this.locationsList(), this.activitiesList()])
 			   .then( resp => {
 			   		this.insurers = resp[0];
 					this.localidades = resp[1];
+					this.activities = resp[2];
 					if( this.documento ){
 						this.patientForm.patchValue({
 							documento: this.documento
@@ -326,6 +328,21 @@ export class PacienteComponent implements OnInit {
 	//==========================================================================
 	//================================Promises==================================
 	//==========================================================================
+	activitiesList(){
+		return new Promise((resolve, reject) => {
+			this._activityService.activitiesList( this.token ).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.activities );
+					}
+				},
+				error => {
+					reject( error );
+					console.log( <any>error );
+				}
+			);
+		});
+	}
 	insurersList(){
 		return new Promise((resolve, reject) => {
 			this._insurerService.insurerList( this.token ).subscribe(

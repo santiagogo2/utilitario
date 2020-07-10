@@ -82,7 +82,7 @@
         <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
             <label for="ocupacion" class="labelForm">Ocupación*</label>
             <select style="background-position-x: 93%" formControlName="ocupacion" name="ocupacion" class="form-control inputForm" [ngClass]="{'is-invalid': patientForm.controls.ocupacion.invalid && patientForm.controls.ocupacion.touched}" required>
-				<option *ngFor="let ocupacion of ocupaciones" value="{{ ocupacion.id }}">{{ ocupacion.name }}</option>
+				<option *ngFor="let activity of activities" value="{{ activity.id }}">{{ activity.name + ' - ' + activity.code }}</option>
 			</select>
         </div>
     </div>

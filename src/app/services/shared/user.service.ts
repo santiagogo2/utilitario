@@ -42,6 +42,11 @@ export class UserService{
 		return this._http.get(this.url + 'user/chain/' + chain, {headers:headers});
 	}
 
+	getUserByRole( role, token): Observable<any>{
+		let headers = new HttpHeaders().set('Authorization', token);
+		return this._http.get(this.url + 'user/search/role/' + role, {headers:headers});
+	}
+
 	newUser(user, token):Observable<any>{
 		let json = JSON.stringify(user);
 		let params = "json="+json;

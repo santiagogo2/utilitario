@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { global, UserService, UpgdService } from 'src/app/services/service.index';
-import { Caso } from 'src/app/models/model.index';
+import { Caso, User } from 'src/app/models/model.index';
 
 @Component({
 	selector: 'app-caso',
@@ -22,8 +22,11 @@ export class CasoComponent implements OnInit {
 
 	public token: string;
 	public caseForm: FormGroup;
+	
+	public auxiliares: any;
+	public upgds: any;
+	public profesionales: any;
 
-	public auxiliares: Array<any>;
 	public clasificaciones: Array<any>;
 	public condicionesIEC: Array<any>;
 	public estados: Array<any>;
@@ -31,9 +34,7 @@ export class CasoComponent implements OnInit {
 	public eventos: Array<any>;
 	public fuenteContagios: Array<any>;
 	public fuentesNotificacion: Array<any>;
-	public profesionales: Array<any>;
 	public respuestas: Array<any>;
-	public upgds: any;
 
 	constructor(
 		private _upgdService: UpgdService,
@@ -43,7 +44,6 @@ export class CasoComponent implements OnInit {
 		this.token = this._userService.getToken();
 		this.actualDate = this.setMaxDate();
 		
-		this.auxiliares = global.auxiliares;
 		this.clasificaciones = global.clasificacionCaso;
 		this.condicionesIEC = global.condicionesIEC;
 		this.estados = global.estados;
@@ -51,7 +51,6 @@ export class CasoComponent implements OnInit {
 		this.eventos = global.eventos;
 		this.fuenteContagios = global.fuenteContagio;
 		this.fuentesNotificacion = global.fuentesNotificacion;
-		this.profesionales = global.profesionales;
 		this.respuestas = global.respuestas;
 	}
 
@@ -89,9 +88,11 @@ export class CasoComponent implements OnInit {
 	}
 
 	getAllPromises(){
-		Promise.all([this.upgdList()])
+		Promise.all([this.upgdList(), this.getUsersByRole('USER_GESTION_RIESGO_PROFESIONAL_ROLE'), this.getUsersByRole('USER_GESTION_RIESGO_TECNICO_ROLE')])
 			   .then( resp => {
 				   this.upgds = resp[0];
+				   this.profesionales = resp[1];
+				   this.auxiliares = resp[2];
 				   this.loadedInfo = true;
 				   if(this.caso) this.setCaseValues();
 			   })
@@ -207,5 +208,23 @@ export class CasoComponent implements OnInit {
 				}
 			);
 		});
+
+		
+	}
+
+	getUsersByRole(role){
+		return new Promise((resolve, reject) => {
+			this._userService.getUserByRole(role, this.token).subscribe(
+				res => {
+					if( res.status == 'success' ){
+						resolve( res.users );
+					}
+				},
+				error => {
+					reject( error.error.message );
+					console.log(<any>error);
+				}
+			)
+		})
 	}
 }

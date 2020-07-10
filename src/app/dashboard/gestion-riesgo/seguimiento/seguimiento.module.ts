@@ -14,10 +14,11 @@ import { RegistrarSeguimientoComponent } from './registrar-seguimiento/registrar
 import { SeguimientoComponent } from './seguimiento.component';
 import { ListarSeguimientoComponent } from './listar-seguimiento/listar-seguimiento.component';
 import { EditarSeguimientoComponent } from './editar-seguimiento/editar-seguimiento.component';
+import { MisSeguimientosComponent } from './mis-seguimientos/mis-seguimientos.component';
 
 @NgModule({
 	declarations:[		
-		BuscarUsuarioComponent, RegistrarSeguimientoComponent, SeguimientoComponent, ListarSeguimientoComponent, EditarSeguimientoComponent,
+		BuscarUsuarioComponent, RegistrarSeguimientoComponent, SeguimientoComponent, ListarSeguimientoComponent, EditarSeguimientoComponent, MisSeguimientosComponent,
 	],
 	imports:[
 		CommonModule,
