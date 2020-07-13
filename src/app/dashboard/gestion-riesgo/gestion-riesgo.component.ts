@@ -13,6 +13,7 @@ export class GestionRiesgoComponent implements OnInit {
 
 	public uci: any[] = [
 		{ titulo: 'Caracterización de Pacientes', url: 'caracterizacion-pacientes', class: 'imageContainer color-green', imageUrl: 'assets/images/gestionRiesgo/casos.png' },
+		{ titulo: 'Registro Masivo', url: 'subir-pacientes', class: 'imageContainer color-violet', imageUrl: 'assets/images/gestionRiesgo/subirPacientes.png' },
 		{ titulo: 'Toma de Muestras', url: 'toma-muestras/listar', class: 'imageContainer color-red', imageUrl: 'assets/images/gestionRiesgo/tomaMuestras.png' },
 		{ titulo: 'Seguimientos', url: 'seguimientos', class: 'imageContainer color-ecc350', imageUrl: 'assets/images/gestionRiesgo/seguimientos.png' },
 	]

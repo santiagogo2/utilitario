@@ -459,6 +459,12 @@ header .nav-item:hover {
     text-align: center;
 }
 
+.thead_styles_errors {
+    background-color: #f8D7DA;
+    color: #721C24;
+    text-align: center;
+}
+
 .thead_styles th {
     font-weight: 500;
     font-size: 0.9rem;

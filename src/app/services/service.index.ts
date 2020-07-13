@@ -41,3 +41,4 @@ export { RoleService } from './admin/role.service';
 export { ExportService } from './shared/export.service';
 export { global } from './shared/global.service';
 export { UserService } from './shared/user.service';
+export { MassiveService } from './shared/massive.service';

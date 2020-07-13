@@ -121,8 +121,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 			caseValue.fechaNotificacion, caseValue.upgd, caseValue.fuenteNotificacion, caseValue.fechaConsultaPersona, caseValue.evento,
 			caseValue.fechaHospitalizacion, caseValue.asignacionProfesional, caseValue.fechaProfesional, caseValue.asignacionAuxiliar,
 			caseValue.fechaAuxiliar, caseValue.searchIEC, caseValue.fechaIEC, caseValue.condicionIEC, caseValue.observacionIEC,
-			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.fechaInicioSintomas,
-			caseValue.fechaDiagnostico, caseValue.estadoPersona, caseValue.estadoFinal);
+			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.estadoPersona, caseValue.estadoFinal);
 
 		this._caseService.newCase( caso, this.token ).subscribe(
 			res => {
@@ -200,8 +199,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 			caseValue.fechaNotificacion, caseValue.upgd, caseValue.fuenteNotificacion, caseValue.fechaConsultaPersona, caseValue.evento,
 			caseValue.fechaHospitalizacion, caseValue.asignacionProfesional, caseValue.fechaProfesional, caseValue.asignacionAuxiliar,
 			caseValue.fechaAuxiliar, caseValue.searchIEC, caseValue.fechaIEC, caseValue.condicionIEC, caseValue.observacionIEC,
-			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.fechaInicioSintomas,
-			caseValue.fechaDiagnostico, caseValue.estadoPersona, caseValue.estadoFinal);
+			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.estadoPersona, caseValue.estadoFinal);
 			
 		this._caseService.updateCase( this.caso, this.token ).subscribe(
 			res => {
@@ -286,7 +284,6 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 	}
 	recieveCase(caso){
 		this.caso = caso;
-		console.log(this.caso);
 		this.tipoCaso = 1;
 	}
 
@@ -305,7 +302,7 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 		if( this.caseForm ) this.caseForm.reset();
 		this.caso = undefined;
 		this.tipoCaso = undefined;
-		this.buttonText = 'Actualizar';
+		this.buttonText = update ? 'Actualizar':'Registrar';
 	}
 
 	loaded(flag){

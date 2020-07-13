@@ -76,8 +76,6 @@ export class CasoComponent implements OnInit {
 			antecedenteViaje: new FormControl( null, [Validators.required] ),
 			lugarViaje: new FormControl( null ),
 			fuenteContagio: new FormControl( null, [Validators.required] ),
-			fechaInicioSintomas: new FormControl( null, [Validators.required] ),
-			fechaDiagnostico: new FormControl( null, [Validators.required] ),
 			estadoPersona: new FormControl( null, [Validators.required] ),
 			estadoFinal: new FormControl( null, [Validators.required] ),
 		});
@@ -163,8 +161,6 @@ export class CasoComponent implements OnInit {
 			antecedenteViaje: this.caso.antecedenteViaje,
 			lugarViaje: this.caso.lugarViaje,
 			fuenteContagio: this.caso.fuenteContagio,
-			fechaInicioSintomas: this.caso.fechaInicioSintomas,
-			fechaDiagnostico: this.caso.fechaDiagnostico,
 			estadoPersona: this.caso.estadoPersona,
 			estadoFinal: this.caso.estadoFinal,
 		});

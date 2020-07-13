@@ -15,11 +15,13 @@ import { PacienteModule } from '../paciente/paciente.module';
 // Components
 import { RegistrarCaracterizacionComponent } from './registrar-caracterizacion/registrar-caracterizacion.component';
 import { ListarCaracterizacionComponent } from './listar-caracterizacion/listar-caracterizacion.component';
+import { MasivaCaracterizacionComponent } from './masiva-caracterizacion/masiva-caracterizacion.component';
 
 @NgModule({
 	declarations:[
 		RegistrarCaracterizacionComponent,
-		ListarCaracterizacionComponent
+		ListarCaracterizacionComponent,
+		MasivaCaracterizacionComponent
 	],
 	imports:[
 		CommonModule,

@@ -8,6 +8,7 @@ import { ListarCaracterizacionComponent } from './caracterizacion/listar-caracte
 import { ListarTomaMuestrasComponent } from './toma-muestras/listar-toma-muestras/listar-toma-muestras.component';
 import { RegistrarTomaMuestrasComponent } from './toma-muestras/registrar-toma-muestras/registrar-toma-muestras.component';
 import { EditarTomaMuestrasComponent } from './toma-muestras/editar-toma-muestras/editar-toma-muestras.component';
+import { MasivaCaracterizacionComponent } from './caracterizacion/masiva-caracterizacion/masiva-caracterizacion.component';
 
 import { SeguimientoComponent } from './seguimiento/seguimiento.component';
 import { BuscarUsuarioComponent } from './seguimiento/buscar-usuario/buscar-usuario.component';
@@ -21,7 +22,8 @@ import { GestionRiesgoCaracterizacionListGuard, GestionRiesgoCaracterizacionRegi
 		 GestionRiesgoSeguimientoGuard, GestionRiesgoSeguimientoEditGuard, GestionRiesgoSeguimientoListGuard, GestionRiesgoSeguimientoRegisterGuard } from '../../guards/guard.index';
 
 const gestionRiesgoRoutes: Routes = [
-	{ path: 'caracterizacion-pacientes', component: RegistrarCaracterizacionComponent, data: { titulo: 'Caracterización de pacientes '}, canActivate: [GestionRiesgoCaracterizacionRegisterGuard] },
+	{ path: 'caracterizacion-pacientes', component: RegistrarCaracterizacionComponent, data: { titulo: 'Caracterización de pacientes'}, canActivate: [GestionRiesgoCaracterizacionRegisterGuard] },
+	{ path: 'subir-pacientes', component: MasivaCaracterizacionComponent, data: { titulo: 'Registro Masivo'}, canActivate: [GestionRiesgoCaracterizacionRegisterGuard] },
 	{ path: 'listar-pacientes', component: ListarCaracterizacionComponent, data: { titulo: 'Listar Pacientes'}, canActivate: [GestionRiesgoCaracterizacionListGuard] },
 	
 	{ path: 'seguimientos', component: SeguimientoComponent, data: { titulo: 'Seguimientos' }, canActivate: [GestionRiesgoSeguimientoGuard]},

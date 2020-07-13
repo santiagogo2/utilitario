@@ -22,8 +22,6 @@ export class Caso {
         public antecedenteViaje: number,
         public lugarViaje: string,
         public fuenteContagio: string,
-        public fechaInicioSintomas: string,
-        public fechaDiagnostico: string,
         public estadoPersona: number,
         public estadoFinal: number,
     ){}
