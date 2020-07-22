@@ -41,3 +41,6 @@ export { ReporstGuard } from './shared/reports.guard';
 		export { EppSeguimientoEditGuard } from './dashboard/epp/seguimiento/epp-seguimiento-edit.guard';
 		export { EppSeguimientoListGuard } from './dashboard/epp/seguimiento/epp-seguimiento-list.guard';
 		export { EppSeguimientoRegisterGuard } from './dashboard/epp/seguimiento/epp-seguimiento-register.guard';
+
+	// Capacitacion Guards
+	export { CapacitacionGuard } from './dashboard/capacitacion/capacitacion.guard';

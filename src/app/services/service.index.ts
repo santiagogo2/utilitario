@@ -37,6 +37,9 @@ export { RoleService } from './admin/role.service';
 	export { EppTrackingService } from './dashboard/epp/eppTracking.service';
 	export { DinamicaService } from './dashboard/epp/dinamica.service';
 
+	// Capacitación Services
+	export { TrainingService } from './dashboard/capacitacion/training.service';
+
 // Shared Services
 export { ExportService } from './shared/export.service';
 export { global } from './shared/global.service';

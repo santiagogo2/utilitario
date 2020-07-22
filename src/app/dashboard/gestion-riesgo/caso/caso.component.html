@@ -144,4 +144,13 @@
 			</select>
         </div>
     </div>
+    <div class="form-group">
+        <div class="col col-sm-12 align-top">
+            <label for="document" class="labelForm">Archivo comprimido</label>
+            <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="caseForm.value.archivo && showFile">{{'Descargar archivo: ' + caseForm.value.archivo }}</div>
+            <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="caseForm.value.archivo && showFile">Editar</div>
+            <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".pdf,.zip,.rar" maxSize="100" url="case/upload-file" localStorageText="caseLoadedDocument" *ngIf="!showFile"></app-load-document>
+            <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
+        </div>
+    </div>
 </form>

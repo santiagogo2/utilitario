@@ -121,12 +121,14 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 			caseValue.fechaNotificacion, caseValue.upgd, caseValue.fuenteNotificacion, caseValue.fechaConsultaPersona, caseValue.evento,
 			caseValue.fechaHospitalizacion, caseValue.asignacionProfesional, caseValue.fechaProfesional, caseValue.asignacionAuxiliar,
 			caseValue.fechaAuxiliar, caseValue.searchIEC, caseValue.fechaIEC, caseValue.condicionIEC, caseValue.observacionIEC,
-			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.estadoPersona, caseValue.estadoFinal);
+			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.estadoPersona, caseValue.estadoFinal,
+			caseValue.archivo);
 
 		this._caseService.newCase( caso, this.token ).subscribe(
 			res => {
 				this.preloaderStatus = false;
 				if( res.status == 'success' ){
+					localStorage.removeItem('caseLoadedDocument');
 					console.log('Nuevo caso creado');
 					this.responseMessage += ' ' + res.message;
 					if( this.esContacto == 1 ){
@@ -199,12 +201,14 @@ export class RegistrarCaracterizacionComponent implements OnInit {
 			caseValue.fechaNotificacion, caseValue.upgd, caseValue.fuenteNotificacion, caseValue.fechaConsultaPersona, caseValue.evento,
 			caseValue.fechaHospitalizacion, caseValue.asignacionProfesional, caseValue.fechaProfesional, caseValue.asignacionAuxiliar,
 			caseValue.fechaAuxiliar, caseValue.searchIEC, caseValue.fechaIEC, caseValue.condicionIEC, caseValue.observacionIEC,
-			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.estadoPersona, caseValue.estadoFinal);
-			
+			caseValue.antecedenteViaje, caseValue.lugarViaje, caseValue.fuenteContagio, caseValue.estadoPersona, caseValue.estadoFinal,
+			caseValue.archivo);
+	
 		this._caseService.updateCase( this.caso, this.token ).subscribe(
 			res => {
 				this.preloaderStatus = false;
 				if( res.status == 'success' ){
+					localStorage.removeItem('caseLoadedDocument');
 					console.log('Actualizó caso');
 					this.responseMessage += ' ' + res.message;
 					if( this.esContacto == 1 ){

@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
 	public homeLinks: any[] = [
 		{ titulo: 'Contratación', url: '/contratacion', class: 'imageContainer color-violet', imageUrl: 'assets/images/contratacion.png' },
-		{ titulo: 'EPP', url: '/epp/seguimiento/listar', class: 'imageContainer color-pink', imageUrl: 'assets/images/EPP.png' },
+		{ titulo: 'EPP', url: '/epp', class: 'imageContainer color-pink', imageUrl: 'assets/images/EPP.png' },
 		{ titulo: 'Gestión del Riesgo', url: '/gestion-riesgo', class: 'imageContainer color-soft-brown', imageUrl: 'assets/images/gestionRiesgo.png' },
 		{ titulo: 'Sala Situacional', url: '/sala-situacional', class: 'imageContainer', imageUrl: 'assets/images/salaSituacional.png' },
 		{ titulo: 'UCI', url: '/uci', class: 'imageContainer color-dark-pink', imageUrl: 'assets/images/UCI.png' },

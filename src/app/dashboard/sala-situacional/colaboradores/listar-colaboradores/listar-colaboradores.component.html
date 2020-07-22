@@ -11,8 +11,13 @@
     <div class="col-sm-12">
         <div class="card border-0">
             <div class="card-body cardContainer">
-                <div class="registerCollaboratorButton">
-                    <button class="btn btn-info" [routerLink]="['/sala-situacional/colaboradores/registrar']">Crear nuevo registro</button>
+                <div class="col col-sm-12 p-0 text-right">
+                    <div class="registerCollaboratorButton d-inline-block mr-2">
+                        <button class="btn btn-warning" (click)="exportAsXLSX()">Generar Reporte</button>
+                    </div>
+                    <div class="registerCollaboratorButton d-inline-block">
+                        <button class="btn btn-info" [routerLink]="['/epp/seguimiento/registrar']">Crear nuevo registro</button>
+                    </div>
                 </div>
 
                 <div id="accordion">

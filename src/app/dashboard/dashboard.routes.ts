@@ -8,7 +8,7 @@ import { DashboardComponent } from './dashboard.component';
 // Guards
 import { 
 	ContratacionGuard, IdentityGuard, ReporstGuard, SalaSituacionalGuard,
-	UciGuard, GestionRiesgoGuard, EppGuard,
+	UciGuard, GestionRiesgoGuard, EppGuard, CapacitacionGuard,
 } from '../guards/guard.index';
 
 const dashboardRoutes: Routes = [
@@ -38,14 +38,20 @@ const dashboardRoutes: Routes = [
 	{
 		path: 'gestion-riesgo',
 		component: DashboardComponent,
-		canActivate: [IdentityGuard, GestionRiesgoGuard ],
+		canActivate: [ IdentityGuard, GestionRiesgoGuard ],
 		loadChildren: () => import('./gestion-riesgo/gestion-riesgo.module').then(m => m.GestionRiesgoModule),
 	},
 	{
 		path: 'epp',
 		component: DashboardComponent,
-		canActivate: [IdentityGuard, EppGuard ],
+		canActivate: [ IdentityGuard, EppGuard ],
 		loadChildren: () => import('./epp/epp.module').then(m => m.EppModule),
+	},
+	{
+		path: 'capacitaciones',
+		component: DashboardComponent,
+		canActivate: [ IdentityGuard, CapacitacionGuard ],
+		loadChildren: () => import('./capacitacion/capacitacion.module').then(m => m.CapacitacionModule),
 	}
 ];
 

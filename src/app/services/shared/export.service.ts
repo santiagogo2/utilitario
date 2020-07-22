@@ -17,7 +17,17 @@ export class ExportService{
 		let headers = [];
 		for (var key in worksheet){
 			let flag = key.split('1');
-			if(flag.length === 2 ) headers.push(key);
+			if(flag.length == 2 && flag[1] == ''){
+				let validator = true;
+				let str: any = flag[0];
+				for( let j = 0; j < str.length; j++ ){
+					if(!isNaN( str[j] )) {
+						validator = false;
+						break;
+					}
+				}
+				if( validator ) headers.push(key);
+			}
 		}
 		let i = 0;
 		for(var key in objectNames){

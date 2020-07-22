@@ -28,6 +28,7 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	public responseMessage: string;
 	public preloaderStatus: boolean;
 	public buttonTitle: string;
+	public showErrors: boolean;
 
 	public areas:any;
 	public arls: any;
@@ -56,6 +57,7 @@ export class RegistrarColaboradoresComponent implements OnInit {
 		private _router: Router
 	) {
 		this.buttonTitle = 'Registrar';
+		this.showErrors = false;
 		
 		this.estados = global.estados;
 		this.manejos = global.manejos;
@@ -89,9 +91,9 @@ export class RegistrarColaboradoresComponent implements OnInit {
 					this.arls = responses[3];
 					this.insurers = responses[4];
 					
-					this.collaborator = new Collaborators(null,null,null,null,null,null,null,null,null,null,null,null,null,
-														  null,null,null,null,null,null,null,null,null,null,null,null,null,
-														  null,null,null,null,null,null,null,null,null,null,null,null,null,
+					this.collaborator = new Collaborators(null,null,null,1,null,null,null,null,1,null,null,null,
+														  1,null,null,null,null,null,null,null,null,null,null,null,null,
+														  null,null,null,null,null,null,null,null,1,null,null,null,null,
 														  null,null,null,null,null);
 				})
 				.catch( error => {
@@ -107,8 +109,13 @@ export class RegistrarColaboradoresComponent implements OnInit {
 	}
 
 	onSubmit(collaboratorsForm){
+		this.showErrors = false;
 		if( collaboratorsForm.invalid ){
-			console.log(collaboratorsForm);
+			this.showErrors = true;
+			return;
+		} else if( this.collaborator.edad < 18 ){
+			this.collaborator.edad = null;
+			this.showErrors = true;
 			return;
 		}
 
@@ -170,7 +177,6 @@ export class RegistrarColaboradoresComponent implements OnInit {
 			map( (evento: ActivationEnd) => evento.snapshot.data )
 		);
 	}
-
 
 	//===================================================================================================
 	//=============================================Promesas=============================================

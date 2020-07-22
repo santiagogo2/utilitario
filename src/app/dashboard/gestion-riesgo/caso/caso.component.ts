@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { global, UserService, UpgdService } from 'src/app/services/service.index';
+import { global, UserService, UpgdService, CaseService } from 'src/app/services/service.index';
 import { Caso, User } from 'src/app/models/model.index';
 
 @Component({
@@ -8,6 +8,7 @@ import { Caso, User } from 'src/app/models/model.index';
 	templateUrl: './caso.component.html',
 	styles: [],
 	providers: [
+		CaseService,
 		UpgdService,
 		UserService,
 	]
@@ -19,6 +20,8 @@ export class CasoComponent implements OnInit {
 	public responseMessage: string;
 	public actualDate: string;
 	public loadedInfo: boolean;
+	public previusDocument: string;
+	public showFile: boolean;
 
 	public token: string;
 	public caseForm: FormGroup;
@@ -37,6 +40,7 @@ export class CasoComponent implements OnInit {
 	public respuestas: Array<any>;
 
 	constructor(
+		private _caseService: CaseService,
 		private _upgdService: UpgdService,
 		private _userService: UserService,
 	) {
@@ -78,6 +82,7 @@ export class CasoComponent implements OnInit {
 			fuenteContagio: new FormControl( null, [Validators.required] ),
 			estadoPersona: new FormControl( null, [Validators.required] ),
 			estadoFinal: new FormControl( null, [Validators.required] ),
+			archivo: new FormControl( null ),
 		});
 
 		this.getAllPromises();
@@ -140,6 +145,7 @@ export class CasoComponent implements OnInit {
 	}
 
 	setCaseValues(){
+		this.showFile = this.caso.archivo ? true:false;
 		this.caseForm.setValue({
 			clasificacionCaso: this.caso.clasificacionCaso,
 			fechaRadicado: this.caso.fechaRadicado,
@@ -163,6 +169,7 @@ export class CasoComponent implements OnInit {
 			fuenteContagio: this.caso.fuenteContagio,
 			estadoPersona: this.caso.estadoPersona,
 			estadoFinal: this.caso.estadoFinal,
+			archivo: this.caso.archivo,
 		});
 	}
 
@@ -185,6 +192,48 @@ export class CasoComponent implements OnInit {
 	upperCase($event){
 		if($event) return $event.toUpperCase();
 		else return null;
+	}
+
+	downloadFile(){
+		this.status = undefined;
+		this.responseMessage = undefined;
+		let url = global.url;
+		let archivo = this.caseForm.value.archivo;
+		
+		this._caseService.downloadCaseDocument(archivo, this.token).subscribe(
+			res => {
+				window.open(url+'case/get-file/'+archivo);
+			},
+			error => {
+				this.status = 'error';
+				this.responseMessage = error.error.message;
+				console.log(<any>error);
+			}
+		);
+	}
+
+	setFileName(filename){
+		this.caseForm.patchValue({
+			archivo: filename,
+		})
+	}
+
+	editFile(estado){
+		if(estado == 'cancelar'){
+			this.caseForm.patchValue({
+				archivo: this.previusDocument
+			});
+			this.previusDocument = null;
+			this.showFile = true;
+		}
+		if(estado == 'editar'){
+			this.previusDocument = this.caseForm.value.archivo;
+			this.showFile = false;
+		}
+	}
+
+	deleteFile(caseLoadedDocument){
+		this._caseService.deleteFile( caseLoadedDocument, this.token ).subscribe();
 	}
 
 	//==========================================================================

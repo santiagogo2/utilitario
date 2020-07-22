@@ -28,6 +28,7 @@ export class EditarColaboradoresComponent implements OnInit {
 	public responseMessage: string;
 	public preloaderStatus: boolean;
 	public buttonTitle: string;
+	public showErrors: boolean;
 
 	public areas: any;
 	public arls: any;
@@ -57,6 +58,7 @@ export class EditarColaboradoresComponent implements OnInit {
 		private _route: ActivatedRoute
 	) {
 		this.buttonTitle = 'Actualizar';
+		this.showErrors = false;
 		
 		this.estados = global.estados;
 		this.manejos = global.manejos;
@@ -108,6 +110,15 @@ export class EditarColaboradoresComponent implements OnInit {
 	}
 
 	onSubmit(editCollaboratorsForm){
+		this.showErrors = false;
+		if( editCollaboratorsForm.invalid ){
+			this.showErrors = true;
+			return;
+		} else if( this.collaborator.edad < 18 ){
+			this.collaborator.edad = null;
+			this.showErrors = true;
+			return;
+		}
 
 		this._collaboratorService.updateRegister(this.collaborator, this.token).subscribe(
 			response => {
@@ -160,7 +171,6 @@ export class EditarColaboradoresComponent implements OnInit {
 			map( (evento: ActivationEnd) => evento.snapshot.data )
 		);
 	}
-
 
 	//===================================================================================================
 	//=============================================Promesas==============================================

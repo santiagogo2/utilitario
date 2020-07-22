@@ -24,5 +24,6 @@ export class Caso {
         public fuenteContagio: string,
         public estadoPersona: number,
         public estadoFinal: number,
+        public archivo: string,
     ){}
 }

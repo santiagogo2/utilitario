@@ -93,9 +93,8 @@ export class LoginComponent implements OnInit {
 			if(logout == 1){
 				let document = localStorage.getItem('loadedDocument');
 				if( document ) this._sampleService.deleteFile( document, this._userService.getToken() ).subscribe();
-				document = localStorage.getItem('loadedIECDocument');
-				console.log(document);
-				// if( document ) this._caseService.deleteFile( document, this._userService.getToken() ).subscribe();
+				document = localStorage.getItem('caseLoadedDocument');
+				if( document ) this._caseService.deleteFile( document, this._userService.getToken() ).subscribe();
 				localStorage.clear();
 				this.token = null;
 				this.identity = null;

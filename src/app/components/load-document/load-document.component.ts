@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { global, UserService } from 'src/app/services/service.index';
-// import { SampleService } from '../../services/dashboard/gestion-riesgo/sample.service';
 
 @Component({
 	selector: 'app-load-document',
@@ -21,7 +20,6 @@ export class LoadDocumentComponent implements OnInit {
 	public token: string;
 	
 	constructor(
-		// private _sampleService: SampleService,
 		private _userService: UserService,
 	) {
 		this.token = this._userService.token;

@@ -54,4 +54,19 @@ export class CaseService {
 
         return this._http.delete( this.url + 'case/' + id, {headers:headers});
     }
+
+	//==========================================================================
+	//=============================Cases Documents==============================
+	//==========================================================================
+	downloadCaseDocument(filename, token):Observable<any>{
+		let headers = new HttpHeaders().set('Authorization', token);
+
+		return this._http.get(this.url+ 'case/get-file/' + `${filename}`, { responseType: 'blob', headers:headers });
+	}
+
+	deleteFile(filename, token): Observable<any>{
+		let headers = new HttpHeaders().set('Authorization', token);
+		
+		return this._http.delete(this.url + 'case/delete-file/' + filename, {headers:headers});
+	}
 }

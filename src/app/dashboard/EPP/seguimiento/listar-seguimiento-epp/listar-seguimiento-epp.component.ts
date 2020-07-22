@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 // Services
-import { EppTrackingService, ExportService, UserService, global } from '../../../services/service.index';
+import { EppTrackingService, ExportService, UserService, global } from 'src/app/services/service.index';
 
 // Models
-import { EppTracking } from '../../../models/model.index';
+import { EppTracking } from 'src/app/models/model.index';
 
 @Component({
 	selector: 'app-listar-seguimiento-epp',

@@ -143,7 +143,6 @@ export class EditarTomaMuestrasComponent implements OnInit {
 		this.status = undefined;
 		this.responseMessage = undefined;
 		let url = global.url;
-		console.log('entre');
 		
 		this._sampleService.downloadSampleDocument(this.sample.archivo, this.token).subscribe(
 			res => {

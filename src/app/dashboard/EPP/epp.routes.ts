@@ -2,9 +2,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Components
 import { EppComponent } from './epp.component';
-import { EditarSeguimientoEppComponent } from './editar-seguimiento-epp/editar-seguimiento-epp.component';
-import { ListarSeguimientoEppComponent } from './listar-seguimiento-epp/listar-seguimiento-epp.component';
-import { RegistrarSeguimientoEppComponent } from './registrar-seguimiento-epp/registrar-seguimiento-epp.component';
+import { EditarSeguimientoEppComponent } from './seguimiento/editar-seguimiento-epp/editar-seguimiento-epp.component';
+import { ListarSeguimientoEppComponent } from './seguimiento/listar-seguimiento-epp/listar-seguimiento-epp.component';
+import { RegistrarSeguimientoEppComponent } from './seguimiento/registrar-seguimiento-epp/registrar-seguimiento-epp.component';
+import { EppInformesComponent } from './epp-informes/epp-informes.component';
 
 // Guards
 import { EppSeguimientoEditGuard, EppSeguimientoListGuard, EppSeguimientoRegisterGuard } from '../../guards/guard.index';
@@ -15,6 +16,8 @@ const eppRoutes: Routes = [
 	{ path: 'seguimiento/registrar', component: RegistrarSeguimientoEppComponent, data: { titulo: 'Registrar seguimiento EPP' }, canActivate: [ EppSeguimientoRegisterGuard ] },
 	{ path: 'seguimiento/editar/:id', component: EditarSeguimientoEppComponent, data: { titulo: 'Editar seguimiento EPP' }, canActivate: [ EppSeguimientoEditGuard ] },
 	
-	{ path: '', component: ListarSeguimientoEppComponent, data: { titulo: 'Listar seguimiento EPP' } },
+	{ path: 'informes', component: EppInformesComponent, data: { titulo: 'Informes EPP' }, canActivate: [ EppSeguimientoEditGuard ] },
+	
+	{ path: '', component: EppComponent, data: { titulo: 'EPP' } },
 ]
 export const EPP_ROUTES = RouterModule.forChild( eppRoutes );

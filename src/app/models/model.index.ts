@@ -33,6 +33,9 @@
 		// EPP Models
 		export { EppTracking } from './dashboard/epp/eppTracking';
 
+		// Capacitación Models
+		export { Training } from './dashboard/capacitacion/training';
+
 // Admin Models
 export { Role } from './admin/role';
 
