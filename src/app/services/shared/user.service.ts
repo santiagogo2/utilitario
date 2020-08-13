@@ -4,7 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../shared/global.service';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class UserService{
 	public url: string;
 	public token: string;
@@ -92,5 +94,15 @@ export class UserService{
 		}
 
 		return this.token;
+	}
+
+	getPermissions(){
+		let permissions = JSON.parse( localStorage.getItem('userOperations') );
+
+		if(permissions && permissions != undefined){
+			return permissions;
+		} else{
+			return null;
+		}
 	}
 }

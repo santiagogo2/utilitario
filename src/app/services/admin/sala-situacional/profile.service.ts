@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../../shared/global.service';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class ProfileService{
 	public url: string; 
 

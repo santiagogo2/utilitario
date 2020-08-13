@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { CaseService, SampleService, UserService } from '../services/service.index';
+import { CaseService, RoleOperationService, SampleService, UserService } from '../services/service.index';
 import { User } from '../models/model.index';
 
 @Component({
@@ -9,9 +9,10 @@ import { User } from '../models/model.index';
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css'],
 	providers: [
-		UserService,
 		CaseService,
+		RoleOperationService,
 		SampleService,
+		UserService,
 	]
 })
 export class LoginComponent implements OnInit {
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
 
 	constructor(
 		private _caseService: CaseService,
+		private _roleOperationService: RoleOperationService,
 		private _sampleService: SampleService,
 		private _userService: UserService,
 		private _router: Router,
@@ -62,6 +64,12 @@ export class LoginComponent implements OnInit {
 								localStorage.setItem('utilitarioIdentity', JSON.stringify(this.identity));
 								let expirationtime = (12*60*60*1000) + new Date().getTime();
 								localStorage.setItem('utilitarioExpiration', expirationtime.toString());
+
+								this._roleOperationService.getOperationsByRole( response.signup.role_id, this.token ).subscribe(
+									res => {
+										localStorage.setItem( 'userOperations', JSON.stringify( res.rolesoperations ) );
+									}
+								);
 
 								loginForm.reset();
 								this._router.navigate(['/inicio']);

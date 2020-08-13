@@ -216,4 +216,9 @@ export var global = {
 		{ id: 2, name: 'HOSPITALIZADO' },
 		{ id: 3, name: 'FALLECIDO' },
 	],
+	temas: [
+		{ id: 1, name: 'TEMA 1' },
+		{ id: 2, name: 'TEMA 2' },
+		{ id: 3, name: 'TEMA 3' },
+	],
 }

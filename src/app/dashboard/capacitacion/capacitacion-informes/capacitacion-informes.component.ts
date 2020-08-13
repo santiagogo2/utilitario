@@ -1,49 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-
-// Services
-import { global, UserService, EppTrackingService, ProfileService, UnitService } from 'src/app/services/service.index';
-
-// Models
-import { EppTracking, Profile, Unit } from 'src/app/models/model.index';
+import { Profile, Unit, Training } from 'src/app/models/model.index';
+import { global, UserService, TrainingService, UnitService, ProfileService } from 'src/app/services/service.index';
 
 @Component({
-	selector: 'app-epp-informes',
-	templateUrl: './epp-informes.component.html',
-	styles: [],
-	providers:[
-		EppTrackingService,
-		ProfileService,
-		UnitService,
-		UserService,
-	]
+	selector: 'app-capacitacion-informes',
+	templateUrl: './capacitacion-informes.component.html',
+	styles: []
 })
-export class EppInformesComponent implements OnInit {
+export class CapacitacionInformesComponent implements OnInit {
 	public responseMessage: string;
 	public preloaderStatus: boolean;
 	public token: string;
 	public infoLoaded: boolean;
 
-	public eppTracking: EppTracking[];
+	public training: Training[];
 	public profiles: Profile[];
 	public units: Unit[];
 	public services: any;
-	public epps: any;
+	public themes: any;
 
-	public eppProfile: any;
-	public eppService: any;
-	public eppType: any;
-	public eppUnit: any;
+	public trainingProfile: any;
+	public trainingService: any;
+	public trainingTheme: any;
+	public trainingUnit: any;
 
 	constructor(
-		private _eppService: EppTrackingService,
+		private _trainingService: TrainingService,
 		private _profileService: ProfileService,
 		private _unitService: UnitService,
 		private _userService: UserService,
-	) {
+	) {		
 		this.token = this._userService.getToken();
 
 		this.services = global.services;
-		this.epps = global.epps;
+		this.themes = global.temas;
 	}
 
 	ngOnInit(): void {
@@ -61,12 +51,12 @@ export class EppInformesComponent implements OnInit {
 	}
 			
 	setGraphics(){
-		this.eppProfile = this.setInfo('EPP por perfiles', 'bar', this.profiles, 'profiles_id');
-		this.eppProfile.data = [ { data: this.eppProfile.data, label: 'EPP por perfil' } ];
-		this.eppService = this.setInfo('EPP por servicios', 'doughnut', this.services, 'services_id');
-		this.eppType = this.setInfo('EPP por tipo', 'pie', this.epps, 'epp_id');
-		this.eppUnit = this.setInfo('EPP por unidad', 'bar', this.units, 'units_id');
-		this.eppUnit.data = [ { data: this.eppUnit.data, label: 'EPP por unidad' } ];				
+		this.trainingProfile = this.setInfo('Capacitaciones por Perfiles', 'bar', this.profiles, 'profiles_id');
+		this.trainingProfile.data = [ { data: this.trainingProfile.data, label: 'Capacitación por perfil' } ];
+		this.trainingService = this.setInfo('Capacitaciones por servicios', 'doughnut', this.services, 'services_id');
+		this.trainingTheme = this.setInfo('Capacitaciones por tema', 'pie', this.themes, 'theme_id');
+		this.trainingUnit = this.setInfo('Capacitaciones por unidad', 'bar', this.units, 'units_id');
+		this.trainingUnit.data = [ { data: this.trainingUnit.data, label: 'Capacitaciones por unidad' } ];				
 	}
 
 	setInfo( title: string, type: string, array, key ){
@@ -87,10 +77,10 @@ export class EppInformesComponent implements OnInit {
 	setLabels( array, labels, data, key ){
 		array.forEach( element => {
 			let cont = 0;
-			let epp = this.eppTracking;
+			let training = this.training;
 			
-			for (let i = 0; i < epp.length; i++){
-				if( element.id == epp[i][key] ) cont++;
+			for (let i = 0; i < training.length; i++){
+				if( element.id == training[i][key] ) cont++;
 			}
 
 			if( cont > 0 ){
@@ -106,10 +96,10 @@ export class EppInformesComponent implements OnInit {
 	//==========================================================================
 	eppTrackingList(){
 		return new Promise(( resolve, reject ) => {
-			this._eppService.eppTrackingList( this.token ).subscribe(
+			this._trainingService.trainingList( this.token ).subscribe(
 				res => {
 					if( res.status == 'success' ){
-						this.eppTracking = res.epptracking;
+						this.training = res.training;
 						resolve('ok');
 					}
 				},

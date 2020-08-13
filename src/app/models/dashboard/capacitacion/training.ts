@@ -7,5 +7,6 @@ export class Training{
 		public profiles_id: number,
 		public units_id: number,
 		public services_id: number,
+		public theme_id: number,
     ){}
 }

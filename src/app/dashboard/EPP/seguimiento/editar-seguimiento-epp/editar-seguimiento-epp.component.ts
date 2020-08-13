@@ -68,7 +68,6 @@ export class EditarSeguimientoEppComponent implements OnInit {
 			this.getAllPromises(id);
 
 		});
-
 	}
 
 	getAllPromises(id){

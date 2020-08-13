@@ -92,7 +92,7 @@ export class InformesComponent implements OnInit {
 					count++;
 				}
 			}
-			if(count){
+			if(count && count > 0){
 				data.push(count);
 				if( element.value ) labels.push(element.value);
 				else if ( element.name ) labels.push(element.name);
@@ -163,7 +163,6 @@ export class InformesComponent implements OnInit {
 					}
 				}
 			});
-			console.log(total)
 			data.push(cont);
 		}
 
@@ -276,6 +275,10 @@ export class InformesComponent implements OnInit {
 			this._collaboratorService.getCollaborators(this.token).subscribe(
 				res => {
 					if(res.status == 'success'){
+						res.collaborators.forEach( element => {
+							if( element.perfil ) element.perfil = element.perfil.id;
+							if( element.area ) element.area = element.area.id;
+						});
 						resolve( res.collaborators );
 					}
 				},

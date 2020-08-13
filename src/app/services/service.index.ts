@@ -1,5 +1,6 @@
 // Admin Services
 export { RoleService } from './admin/role.service';
+export { RoleOperationService } from './admin/roleoperation.service';
 
 // Dashboard Services
 	// Sala Situacional Services 

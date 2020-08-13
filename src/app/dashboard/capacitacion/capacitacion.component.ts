@@ -13,8 +13,20 @@ export class CapacitacionComponent implements OnInit {
 		{ titulo: 'Informes', url: 'informes', class: 'imageContainer color-violet', imageUrl: 'assets/images/EPP/informes.png' }
 	]
 
-	constructor() { }
+	constructor() {
+		this.validatePermissions();
+	}
 
 	ngOnInit(): void {
+	}
+
+	validatePermissions(){
+		let permissions = JSON.parse(localStorage.getItem('userOperations'));
+		let array = [];
+		permissions.forEach( element => {
+			if( element.id_operations == 5 ) array.push(this.training[0]);
+			if( element.id_operations == 6 ) array.push(this.training[1]);
+		});
+		this.training = array;
 	}
 }

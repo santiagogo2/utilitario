@@ -8,8 +8,9 @@ import { global } from '../../shared/global.service';
 // Models
 import { Training } from 'src/app/models/model.index';
 
-
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class TrainingService {
     public url: string;
 

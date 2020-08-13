@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 // Services
 import { UserService } from '../../../services/service.index';
+import { element } from 'protractor';
 
 
 @Injectable({
@@ -16,13 +17,18 @@ export class CapacitacionGuard implements CanActivate {
 	){}
 
 	canActivate(){
-		let identity = this._userService.getIdentity();
-
-		if(identity.role == 'ADMIN_ROLE' || identity.role == 'ADMIN_CAPACITACION_ROLE' || identity.role == 'USER_CAPACITACION_ROLE'){
-			return true;
-		} else {
+		let permissions = this._userService.getPermissions();
+		if( !permissions ) {
 			this._router.navigate(['/inicio']);
 			return false;
 		}
+
+		for ( let i = 0; i < permissions.length; i++ ){
+			if( permissions[i].id_operations == 1 ){
+				return true;
+			}
+		}
+		this._router.navigate(['/inicio']);
+		return false;
 	}  
 }
